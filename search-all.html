@@ -550,6 +550,7 @@
   .kpanel-viewall:hover { text-decoration: underline; }
   .kpanel-rule { margin: var(--ep-size-32) 0; }
   @media (max-width: 600px) { .kpanel-photos { grid-template-columns: repeat(2, 1fr); } .kpanel-photos > :nth-child(n+3) { display: none; } .kpanel { gap: var(--ep-size-16); } .kpanel-cols { grid-template-columns: 1fr; gap: var(--ep-size-8); } .kpanel-role { color: var(--ep-grey-900, #000); } }
+.page-gap { display: inline-flex; align-items: center; padding: 0 var(--ep-size-8); }
 </style>
 </head>
 <body>
@@ -724,10 +725,11 @@
   const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const hl = t => esc(t).replace(new RegExp(KEYWORD, 'gi'), m => `<mark>${m}</mark>`);   // keyword highlighted in titles and snippets
   let page = 1;
-  const pages = Math.ceil(results.length / PAGE);
+  const TOTAL = 1248;   // realistic count for a search on the President's name; pages beyond the 30 real items cycle through them
+  const pages = Math.ceil(TOTAL / PAGE);
   function render() {
-    count.textContent = `${results.length} results`;
-    list.innerHTML = results.slice((page - 1) * PAGE, page * PAGE).map(r => {
+    count.textContent = `${TOTAL.toLocaleString('en-US')} results`;
+    list.innerHTML = Array.from({ length: PAGE }, (_, i) => results[((page - 1) * PAGE + i) % results.length]).map(r => {
       const ext = /^https?:/.test(r.h) ? ' target="_blank" rel="noopener"' : '';
       const src = r.src ? `<a class="res-source" href="${r.src}">${r.k}</a><a class="click-patch" href="${r.src}" aria-hidden="true" tabindex="-1"></a>` : r.h === '#' || r.h.startsWith('search-') ? `<a class="res-source" href="${r.h}">${r.k}</a>` : `<a class="res-source" href="${r.h}"${ext}>${r.k}</a>`;
       return `<li><a class="res-title" href="${r.h}"${ext}>${hl(r.t)}</a><p class="res-snippet">${hl(r.s)}</p><p class="res-date">${r.d}</p>${src}</li>`;
@@ -736,7 +738,8 @@
     const go = n => { page = n; render(); document.getElementById('resCount').scrollIntoView({ block: 'start' }); };
     const nav = (label, arrow, to) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'nav-btn'; b.innerHTML = arrow === 'prev' ? '<span aria-hidden="true">←</span> Previous' : 'Next <span aria-hidden="true">→</span>'; b.setAttribute('aria-label', label); b.addEventListener('click', () => go(to)); return b; };
     if (page > 1) pager.appendChild(nav('Previous page', 'prev', page - 1));
-    for (let n = 1; n <= pages; n++) { const b = document.createElement('button'); b.type = 'button'; b.className = 'page-btn' + (n === page ? ' is-selected' : ''); b.textContent = n; if (n === page) b.setAttribute('aria-current', 'page'); b.addEventListener('click', () => go(n)); pager.appendChild(b); }
+    const shown = [...new Set([1, page - 1, page, page + 1, pages])].filter(n => n >= 1 && n <= pages).sort((a, b) => a - b);
+    shown.forEach((n, i) => { if (i && n - shown[i - 1] > 1) { const e = document.createElement('span'); e.className = 'page-gap'; e.textContent = '…'; e.setAttribute('aria-hidden', 'true'); pager.appendChild(e); } const b = document.createElement('button'); b.type = 'button'; b.className = 'page-btn' + (n === page ? ' is-selected' : ''); b.textContent = n; if (n === page) b.setAttribute('aria-current', 'page'); b.addEventListener('click', () => go(n)); pager.appendChild(b); });
     if (page < pages) pager.appendChild(nav('Next page', 'next', page + 1));
   }
   render();
