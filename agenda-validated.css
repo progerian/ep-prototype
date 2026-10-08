@@ -225,3 +225,6 @@ h1 {
 .ag-state { margin-left: var(--ep-size-16); white-space: nowrap; font-weight: 700; }
 .ag-state a { font-weight: 700; }
 .ag-sched { font-weight: 700; }   /* a link like Watch: people open it and wait for the start */
+
+/* "Filter by" sits closer to the first group (the radios): 16px instead of 32px */
+.side-top + .ag-filter-group { margin-top: 0; }
