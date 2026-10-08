@@ -28,6 +28,7 @@
   /* --- Search band --- */
   .search-band { background: var(--ep-blue-500); padding: var(--ep-size-16) 0; }
   .search-bar { display: flex; align-items: stretch; min-height: var(--ep-size-44); border: var(--ep-size-2) solid var(--ep-white); border-radius: var(--ep-radius-xs); background: var(--ep-white); overflow: hidden; }
+  .search-row { display: flex; align-items: center; } .search-row .search-bar { flex: 1; min-width: 0; } .search-row .click-patch { flex-shrink: 0; }
   .search-bar:focus-within { outline: 2px solid var(--ep-accent-blue-500); outline-offset: 2px; }
   .search-bar input[type="search"] { flex: 1; min-width: 0; border: none; outline: none; background: none; font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); padding: 0 var(--ep-padding-l); color: var(--ep-grey-900); }
   .search-btn { display: inline-flex; align-items: center; gap: var(--ep-size-8); background: var(--ep-blue-500); color: var(--ep-white); border: none; flex-shrink: 0; padding: 0 var(--ep-padding-xl); font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); font-weight: 600; cursor: pointer; }
@@ -119,12 +120,15 @@
 
 <div class="search-band">
   <div class="wrap">
+    <div class="search-row">
     <form class="search-bar" role="search">
       <input type="search" aria-label="Search europarl.eu">
       <button type="submit" class="search-btn" aria-label="Search"><span class="btn-label">Search</span>
         <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true" style="fill:var(--ep-white);"><path d="M13.99,2c-4.42,0-8,3.58-8,8,0,1.85.63,3.55,1.69,4.9l-4.85,4.85,1.41,1.41,4.85-4.85c1.35,1.05,3.05,1.69,4.9,1.69,4.42,0,8-3.58,8-8S18.41,2,13.99,2ZM13.99,16c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6Z"/></svg>
       </button>
     </form>
+    <a class="click-patch" href="search-all.html" aria-hidden="true" tabindex="-1"></a>
+    </div>
   </div>
 </div>
 
@@ -239,5 +243,6 @@
   </div>
 </footer>
 
+<script>document.querySelectorAll('form[role="search"]').forEach(function(f){f.addEventListener("submit",function(e){e.preventDefault();location.href="search-all.html";});});document.querySelectorAll(".search-icon-btn").forEach(function(b){b.addEventListener("click",function(){location.href="search-all.html";});});</script>
 </body>
 </html>
