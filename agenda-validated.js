@@ -240,6 +240,9 @@
     (DATA['2026-10-09'] = DATA['2026-10-09'] || []).push(item);
   })();
   const state = { from: TODAY, to: TODAY, view: 'all', types: new Set(), sub: { Committees: new Set(), Delegations: new Set() }, page: 1 };
+  // deep links: ?day=2026-10-08 selects a day, ?type=President’s agenda pre-selects an event type (used by the search results)
+  if (/^\d{4}-\d{2}-\d{2}$/.test(params.get('day') || '')) { state.from = state.to = params.get('day'); }
+  if (params.get('type')) state.types.add(params.get('type'));
   if (params.get('range') === 'week41') { state.from = '2026-10-05'; state.to = '2026-10-11'; }
   else if (params.get('range')) { state.from = '2026-04-06'; state.to = '2026-04-15'; }
 
@@ -407,12 +410,7 @@
     // no PDF to download when there is nothing on the selected day / range
     const dlRow = $('agDownload') && $('agDownload').parentElement;
     if (dlRow) dlRow.hidden = scopeKeys().every(k => itemsFor(k).length === 0);
-    if (isRange()) {
-      const f = fromKey(state.from), t = fromKey(state.to);
-      els.count.textContent = `${n} agenda ${n === 1 ? 'item' : 'items'} for ${f.getDate()} to ${t.getDate()} ${MONTHS[t.getMonth()]} ${t.getFullYear()}`;
-    } else {
-      els.count.textContent = `${n} agenda ${n === 1 ? 'item' : 'items'}`;
-    }
+    els.count.textContent = `${n} agenda ${n === 1 ? 'item' : 'items'}`;   // the range is already in the H2
   }
 
   // Pagination: the EP component (visual-tests/pagination.html) — 1 … current±1 … last, Previous/Next
