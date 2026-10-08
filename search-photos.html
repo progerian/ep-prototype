@@ -511,6 +511,10 @@
     .search-btn .btn-label { display: none; }
     .search-btn { padding: 0 var(--ep-size-16); }
   }
+
+  /* demo hint: a small salmon dot after the caption of the clickable photoset (the whole card is the link) */
+  .click-patch { display: inline-block; width: 24px; height: 24px; margin-left: var(--ep-size-16); vertical-align: middle; border-radius: 50%; background: color-mix(in srgb, var(--ep-red-200) 45%, transparent); transition: background-color 120ms ease; }
+  .result-card:hover .click-patch { background: var(--ep-red-500); }
 </style>
 </head>
 <body>
@@ -691,7 +695,7 @@
     const a = document.createElement('a');
     a.className = 'result-card';
     a.href = p.t === 'Press conference on MFF negotiations' ? 'photoset-mff.html' : '#';
-    a.innerHTML = `<span class="thumb"><img class="thumb-img" src="${p.img}" alt="" loading="lazy"><span class="thumb-badge"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h14v2H4v12H2z"/><path fill-rule="evenodd" d="M22 8H8v14h14zM20 10v10H10V10z"/><polygon points="11 19 14 14.5 16 17.5 17.5 15.5 19 19"/><circle cx="17.5" cy="12.5" r="1.2"/></svg><span class="thumb-count">${p.n}</span><span class="sr-only"> photos</span></span></span><span class="result-caption">${p.t}</span>`;
+    a.innerHTML = `<span class="thumb"><img class="thumb-img" src="${p.img}" alt="" loading="lazy"><span class="thumb-badge"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2h14v2H4v12H2z"/><path fill-rule="evenodd" d="M22 8H8v14h14zM20 10v10H10V10z"/><polygon points="11 19 14 14.5 16 17.5 17.5 15.5 19 19"/><circle cx="17.5" cy="12.5" r="1.2"/></svg><span class="thumb-count">${p.n}</span><span class="sr-only"> photos</span></span></span><span class="result-caption">${p.t}${a.getAttribute('href') !== '#' ? '<span class="click-patch" aria-hidden="true"></span>' : ''}</span>`;
     grid.appendChild(a);
   });
 

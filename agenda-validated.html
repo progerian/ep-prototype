@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="design-system/tokens/typography.css">
 <link rel="stylesheet" href="design-system/tokens/layout.css">
 <link rel="stylesheet" href="agenda-components.css?v=3">
-<link rel="stylesheet" href="agenda-validated.css?v=122">
+<link rel="stylesheet" href="agenda-validated.css?v=130">
 <style>
   .layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--ep-grid-gap); align-items: start; }
   .side { grid-column: span 4; margin-top: calc(var(--ep-size-48) + var(--ep-heading-3xl-line) + var(--ep-size-48)); } /* H1 block + the 48px above the month label, so "Filter by" sits level with "May 2026" */
@@ -77,7 +77,7 @@
           <div class="dp-native-control"><input type="date" id="agFrom" class="dp-native-input"><span class="dp-native-icon" aria-hidden="true"><svg class="icon icon-20" viewBox="0 0 24 24"><path d="M16,5.01v-1h-2v1h-4v-1h-2v1h-3.99v15h15.99V5.01h-4ZM8,7.01v1h2v-1h4v1h2v-1h2v2H6.02v-2h1.99ZM6.02,18.01v-7h11.99v7H6.02Z"/></svg></span></div></div>
         <div class="ag-field"><label class="ag-field-label" for="agTo">To</label>
           <div class="dp-native-control"><input type="date" id="agTo" class="dp-native-input"><span class="dp-native-icon" aria-hidden="true"><svg class="icon icon-20" viewBox="0 0 24 24"><path d="M16,5.01v-1h-2v1h-4v-1h-2v1h-3.99v15h15.99V5.01h-4ZM8,7.01v1h2v-1h4v1h2v-1h2v2H6.02v-2h1.99ZM6.02,18.01v-7h11.99v7H6.02Z"/></svg></span></div></div>
-        <button class="ag-btn" id="agShow" type="button">Show results</button>
+        <button class="ag-btn" id="agShow" type="button">Show results</button><button class="click-patch" type="button" data-for="agShow" aria-hidden="true" tabindex="-1"></button>
       </div>
     </aside>
 
@@ -90,6 +90,7 @@
         <button class="ag-week-arrow" id="agNextWeek" type="button" aria-label="Next week"><svg class="icon icon-32" viewBox="0 0 24 24"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></button>
       </div>
       <div class="ag-today-row"><button class="ag-center" id="agCenter" type="button" aria-label="Center on today"><span>Today</span><svg class="icon icon-20 ag-center-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.77 11.32A7.8 7.8 0 1 1 15.66 5.11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt"/><path d="M18.58 6.66L12.93 7.06L15.75 1.76Z" fill="currentColor" stroke="none"/></svg></button></div>
+      <h2 class="ag-range" id="agRange" hidden></h2>
       <a href="#" class="ag-back" id="agBack" hidden><svg class="icon icon-20" viewBox="0 0 24 24"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01"/></svg> Back to single day</a>
       <div class="ag-meta"><p class="ag-count" id="agCount"></p></div>
       <hr class="divider" id="agRule">
@@ -140,6 +141,6 @@
       </div>
     </div>
   </footer>
-<script src="agenda-validated.js?v=122"></script>
+<script src="agenda-validated.js?v=130"></script>
 </body>
 </html>

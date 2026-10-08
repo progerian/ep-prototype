@@ -136,7 +136,7 @@
           ['14:30 – 15:00','Debate','Pilot project on European Schools Alliances and its contribution to citizenship education, democratic competences and European values','2026/2713(RSP)'],
           ['16:00 – 17:30','Debate','Effective measures to protect and empower children in the digital world','2026/2915(RSP)'],
           ['18:30 – 19:15','Debate','The 2026 undemocratic elections to the Russian State Duma and its implications on civil society','2026/2907(RSP)']].map(([t,k,ti,p]) => plen(t, ti, k, p)),
-      { time: '12:00 – 13:00', title: 'Votes', watch: true, type: 'Plenary session', loc: 'Strasbourg', more: 'Show details', media: [['Press release:', 'Plenary session 5-8 October 2026: results of the votes'], ['Photos:', 'EP Plenary session - October I 2026 - Voting session'], ['Videos:', 'Voting session']], topics: [
+      { time: '12:00 – 13:00', title: 'Votes', watch: true, watchHref: 'video-mff-replay.html', type: 'Plenary session', loc: 'Strasbourg', more: 'Show details', media: [['Press release:', 'Plenary session 5-8 October 2026: results of the votes'], ['Photos:', 'EP Plenary session - October I 2026 - Voting session'], ['Videos:', 'Voting session']], topics: [
           topic('JURI | Request for the waiver of the immunity of Matteo Ricci', 'Report: Pascale Piera ( A10-0255/2026 )', '2026/2077(IMM)'),
           topic('SEDE, ITRE | Programme for agile and rapid defence innovation (AGILE)', 'Report: Ivars Ijabs, Tonino Picula ( A10-0188/2026 )', '2026/0078(COD)'),
           topic('EMPL | Protection of workers from the risks related to exposure to carcinogens or mutagens at work', 'Report: Liesbet Sommen ( A10-0100/2026 )', '2025/0232(COD)'),
@@ -225,7 +225,11 @@
   };
 
   const params = new URLSearchParams(location.search);
-  const NOW = params.get('now') ? new Date(params.get('now')) : new Date();
+  // Demo: the clock is frozen on Friday 9 October 2026, 09:30 — "today" is the 9th and the MFF press conference (09:00 – 10:00) is live whenever the page is opened.
+  // ?now=2026-10-08T10:00 simulates another moment, ?now=real uses the real clock.
+  const DEMO_NOW = '2026-10-09T09:30:00';
+  const nowParam = params.get('now');
+  const NOW = nowParam === 'real' ? new Date() : new Date(nowParam || DEMO_NOW);
   const TODAY = toKey(NOW);   // the real date; ?now=2026-05-19T10:00 simulates another day
 
   // Demo: the MFF press conference is on Friday 9 October (so that day has an event), pinned first of its day
@@ -319,9 +323,10 @@
     const line = (l, v) => v ? `<p class="ag-line">${l}: ${v}</p>` : '';
     const wh = it.watchHref ? toPage(it.watchHref) : '#';
     const st = streamState(it, k);
-    const state = !st ? '' : st === 'live' ? `<span class="ag-state"><a href="${wh}" class="ag-live" aria-label="Watch ${it.title} live"><i aria-hidden="true"></i>Watch live</a></span>`
-      : st === 'scheduled' ? `<span class="ag-state"><a href="${wh}" class="ag-sched" aria-label="Open the streaming page of ${it.title}: it has not started yet">Scheduled streaming</a></span>`
-      : `<span class="ag-state"><a href="${wh}" class="ag-watch" aria-label="Watch ${it.title}">Watch</a></span>`;
+    const stDot = it.watchHref ? `<a class="click-patch" href="${wh}" aria-hidden="true" tabindex="-1"></a>` : '';   // demo hint, same destination
+    const state = !st ? '' : st === 'live' ? `<span class="ag-state"><a href="${wh}" class="ag-live" aria-label="Watch ${it.title} live"><i aria-hidden="true"></i>Watch live</a>${stDot}</span>`
+      : st === 'scheduled' ? `<span class="ag-state"><a href="${wh}" class="ag-sched" aria-label="Open the streaming page of ${it.title}: it has not started yet">Scheduled streaming</a>${stDot}</span>`
+      : `<span class="ag-state"><a href="${wh}" class="ag-watch" aria-label="Watch ${it.title}">Watch</a>${stDot}</span>`;
     let more = '';
     const inlineText = !!(it.more && it.text && !it.topics);
     if (it.more) {
@@ -329,7 +334,7 @@
       const text = it.text && it.topics ? `<p class="ag-topic">${it.text}</p>` : '';   // text of an item without topics is shown inline (3 lines), see below
       // with a collapse, Related links go at the very bottom of it, styled like Media coverage
       const related = it.link ? `<div class="ag-media"><a href="#">${it.link[1]}</a></div>` : '';   // just the link, no "Related links" label
-      const media = it.media ? `<div class="ag-media"><b>Media coverage</b>${it.media.map(m => Array.isArray(m) ? `<p class="ag-media-row">${m[0]} ${m.slice(1).map(l => `<a href="${MEDIA_LINKS[l] || '#'}">${l}</a>`).join(', ')}</p>` : `<a href="#">${m}</a>`).join('')}</div>` : '';
+      const media = it.media ? `<div class="ag-media"><b>Media coverage</b>${it.media.map(m => Array.isArray(m) ? `<p class="ag-media-row">${m[0]} ${m.slice(1).map(l => `<a href="${MEDIA_LINKS[l] || '#'}">${l}</a>${MEDIA_LINKS[l] ? `<a class="click-patch" href="${MEDIA_LINKS[l]}" aria-hidden="true" tabindex="-1"></a>` : ''}`).join(', ')}</p>` : `<a href="#">${m}</a>`).join('')}</div>` : '';
       const panel = topics + text + media + related;
       // the revealed content (topics, media coverage, related links) comes first; the Read more toggle stays at the very end
       more = `<div class="ag-more-panel" id="agm${idx}" ${it.open ? '' : 'hidden'}>${panel}</div>
@@ -528,6 +533,10 @@
   function sync() {
     els.from.value = state.from; els.to.value = state.to;
     els.back.hidden = !isRange();
+    const rg = $('agRange');
+    if (rg) { rg.hidden = !isRange(); if (isRange()) { const a = fromKey(state.from), b = fromKey(state.to);
+      const sameYear = a.getFullYear() === b.getFullYear();
+      rg.textContent = `${a.getDate()} ${MONTHS[a.getMonth()]}${sameYear ? '' : ' ' + a.getFullYear()} – ${b.getDate()} ${MONTHS[b.getMonth()]} ${b.getFullYear()}`; } }
     document.body.classList.toggle('is-range', isRange());
     state.page = 1;
     renderTypes(); updateClear(); renderWeek(); renderList(); renderFoot();
@@ -546,6 +555,7 @@
     state.page = 1; renderTypes(); renderList(); updateClear(); markEmptyDays();
   });
   document.querySelectorAll('input[name="agView"]').forEach(r => r.addEventListener('change', () => { state.view = r.value; sync(); }));
+  document.querySelectorAll('.click-patch[data-for="agShow"]').forEach(b => b.addEventListener('click', () => els.show.click()));
   els.show.addEventListener('click', () => {
     let f = els.from.value || state.from, t = els.to.value || f;
     if (f === t) { const m = monday(f); f = toKey(m); m.setDate(m.getDate() + 6); t = toKey(m); }   // prototype shortcut: one date (or none picked) = that whole week

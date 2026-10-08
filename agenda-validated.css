@@ -168,7 +168,7 @@ h1 {
 .ag-filter-group--inline h3 { flex: 0 0 100%; }
 
 /* Range view has no month/timeline: the count line sits 48px under the H1, like the month label does */
-.is-range .ag-back { margin: var(--ep-size-48) 0 var(--ep-size-48); }
+.is-range .ag-back { margin: var(--ep-size-16) 0 var(--ep-size-32); }
 .is-range .ag-meta { margin: 0 0 var(--ep-size-8); }   /* back link under the H1, count 8px above the divider */
 
 /* Range view: DS divider under the result count (16px above, the day heading's own 24px below) */
@@ -228,3 +228,15 @@ h1 {
 
 /* "Filter by" sits closer to the first group (the radios): 16px instead of 32px */
 .side-top + .ag-filter-group { margin-top: 0; }
+
+/* demo hint: a small salmon dot next to Show results — it does the same thing (shows the date range) */
+.click-patch { display: inline-block; width: 24px; height: 24px; margin-left: var(--ep-size-16); vertical-align: middle; border: 0; padding: 0; border-radius: 50%; background: color-mix(in srgb, var(--ep-red-200) 45%, transparent); cursor: pointer; transition: background-color 120ms ease; }
+.click-patch:hover { background: var(--ep-red-500); }
+
+/* date range view: the range as an H2 above the Back to single day link */
+.ag-range { margin: var(--ep-size-48) 0 0; font-size: var(--ep-heading-xl-size); line-height: var(--ep-heading-xl-line); font-weight: 600; }
+.ag-range[hidden] { display: none; }
+
+/* demo dots next to Watch and next to the photoset link (anchors: same destination as the link they follow) */
+a.click-patch { text-decoration: none; }
+.ag-media .ag-media-row a.click-patch { display: inline-block; margin-left: var(--ep-size-16); text-decoration: none; }

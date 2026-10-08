@@ -92,6 +92,9 @@
     .search-btn .btn-label { display: none; }
     .search-btn { padding: 0 var(--ep-size-16); }
   }
+  /* demo hint: a small salmon dot right after a link (inline, so it follows the end of the text) */
+  .click-patch { display: inline-block; width: 24px; height: 24px; margin-left: var(--ep-size-16); vertical-align: middle; border-radius: 50%; background: color-mix(in srgb, var(--ep-red-200) 45%, transparent); text-decoration: none; cursor: pointer; transition: background-color 120ms ease; }   /* a plain salmon dot, still a link */
+  a.click-patch:hover { background: var(--ep-red-500); }   /* clickable: it reacts, same destination as the link before it */
 </style>
 </head>
 <body>
@@ -159,7 +162,7 @@
           <li><a href="#">News, press releases</a></li>
           <li><a href="#">Topics</a></li>
           <li><a href="#">Publications</a></li>
-          <li><a class="view-all" href="news-topics.html">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li>
+          <li><a class="view-all" href="news-topics.html">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a><a class="click-patch" href="news-topics.html" aria-hidden="true" tabindex="-1"></a></li>
         </ul></section>
       <section class="section"><h2>Parliament powers</h2>
         <ul>
@@ -182,7 +185,7 @@
       <div class="sections">
         <section class="section"><h2>Plenary</h2>
           <ul>
-            <li><a href="agenda-validated.html">Agenda</a></li>
+            <li><a href="agenda-validated.html">Agenda</a><a class="click-patch" href="agenda-validated.html" aria-hidden="true" tabindex="-1"></a></li>
             <li><a href="#">Debates, videos</a></li>
             <li><a href="#">Votes</a></li>
             <li><a class="view-all" href="#">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li>
