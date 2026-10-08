@@ -89,7 +89,7 @@
     font-family: var(--ep-font-family);
     font-size: var(--ep-heading-3xl-size);
     line-height: var(--ep-heading-3xl-line);
-    margin: var(--ep-size-48) 0 var(--ep-size-48); /* 48px above and below */
+    margin: var(--ep-size-48) 0 var(--ep-size-24); /* 48px above, 24px before the search bar */
   }
 
   /* --- Search bar — input + button merged into one control (see visual-tests/date-picker.html .dp-control) --- */
@@ -163,7 +163,7 @@
   .tab.is-selected:hover { background: var(--ep-blue-100); color: var(--ep-grey-900); }
 
   /* --- Filters — own row 32px below tabs, panel spans full 12-col width --- */
-  .filters-row { margin-top: var(--ep-size-32); }
+  .filters-row { margin: var(--ep-size-32) 0; } /* 32px around the Filters button (mobile) */
   .filters-toggle {
     appearance: none;
     background: none;
