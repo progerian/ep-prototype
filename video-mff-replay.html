@@ -183,7 +183,8 @@
   .video-layout > .video-rest { grid-column: 1 / span 8; grid-row: 3; margin-top: var(--ep-size-32); font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); }
   .video-layout > .ref { grid-column: 1 / span 8; grid-row: 4; margin: var(--ep-size-32) 0 0; font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); overflow-wrap: anywhere; }
   @media (max-width: 900px) {
-    .video-layout { display: block; }
+    .video-layout { display: flex; flex-direction: column; align-items: stretch; }   /* single column: video, transcript, then the side info */
+    .video-layout > .player { order: 1; } .video-layout > .tr { order: 2; } .video-layout > .video-side { order: 3; } .video-layout > .video-rest { order: 4; } .video-layout > .ref { order: 5; }
     .video-layout > .video-side { margin-top: var(--ep-size-32); }
     .video-layout > .tr { margin-top: var(--ep-size-32); }
     .video-layout > .video-rest { margin-top: var(--ep-size-48); }
