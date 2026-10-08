@@ -314,7 +314,7 @@
   }
 
   /* --- Results bar / Sort by (EP component — see visual-tests/sort-by.html) --- */
-  .results-bar-wrap { margin-top: var(--ep-size-32); } /* 48px before the rest */
+  .results-bar-wrap { margin-top: 0; } /* 48px before the rest */
   .results-bar {
     position: relative;
     display: flex;
@@ -500,7 +500,7 @@
     .filters-panel, .filters-panel[hidden] { display: block; grid-column: span 4; margin: 0; }
     .search-layout .results { grid-column: span 8; }
     .filters-grid .field, .filters-grid .field--date, .filters-grid .field--show-only { grid-column: span 12; }
-    .results-bar-wrap { margin-top: var(--ep-size-32); }
+    .results-bar-wrap { margin-top: 0; }
     .result-card { grid-column: span 4; }
   }
   .filter-title { font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); font-weight: 700; margin: 0 0 var(--ep-size-16); }
@@ -526,7 +526,7 @@
   mark { background: color-mix(in srgb, var(--ep-yellow-500) 60%, transparent); color: inherit; padding: 0 2px; }
 
   /* --- Knowledge panel (MEP card): name, group, country, birth, e-mail, latest activities, photo on the right --- */
-  .kpanel { display: flex; gap: var(--ep-size-24); align-items: flex-start; }
+  .kpanel { margin-bottom: var(--ep-size-32); display: flex; gap: var(--ep-size-24); align-items: flex-start; }
   .kpanel-name { margin: 0 0 var(--ep-size-8); font-size: 18px; line-height: normal; font-weight: 700; }
   .kpanel-name a { color: var(--ep-blue-500); }
   .kpanel p { margin: 0 0 var(--ep-size-8); font-size: 18px; line-height: normal; }
@@ -641,22 +641,6 @@
     </div>
 
     <section class="results">
-      <aside class="kpanel" aria-label="Roberta METSOLA">
-        <img class="kpanel-photo" src="https://www.europarl.europa.eu/mepphoto/118859.jpg" alt="Roberta METSOLA" width="144" height="180">
-        <div class="kpanel-text">
-          <h2 class="kpanel-name"><a href="https://www.europarl.europa.eu/meps/en/118859/ROBERTA_METSOLA/home" target="_blank" rel="noopener">Roberta METSOLA</a></h2>
-          <div class="kpanel-cols">
-            <div class="kpanel-col"><p class="kpanel-role">President of European Parliament</p>
-          <p class="kpanel-plain">EPP</p>
-          <p class="kpanel-plain">Malta</p>
-            </div>
-            <div class="kpanel-col kpanel-links">
-              <p><a class="kpanel-latest" href="https://www.europarl.europa.eu/meps/en/118859/ROBERTA_METSOLA/home" target="_blank" rel="noopener">Latest parliamentary activities</a></p>
-              <p class="kpanel-mail"><svg class="icon icon-20" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M21 5H3v14h18zM19 7v.5l-7 5-7-5V7zM5 17V10l7 5 7-5v7z"/></svg><a href="mailto:roberta.metsola@europarl.europa.eu">roberta.metsola@europarl.europa.eu</a></p>
-            </div>
-          </div>
-        </div>
-      </aside>
       <div class="results-bar-wrap">
         <div class="results-bar sort-dropdown" id="sortDropdown">
           <span class="results-count" id="resCount"></span>
@@ -673,6 +657,22 @@
         </div>
       </div>
 
+      <aside class="kpanel" aria-label="Roberta METSOLA">
+        <img class="kpanel-photo" src="https://www.europarl.europa.eu/mepphoto/118859.jpg" alt="Roberta METSOLA" width="144" height="180">
+        <div class="kpanel-text">
+          <h2 class="kpanel-name"><a href="https://www.europarl.europa.eu/meps/en/118859/ROBERTA_METSOLA/home" target="_blank" rel="noopener">Roberta METSOLA</a></h2>
+          <div class="kpanel-cols">
+            <div class="kpanel-col"><p class="kpanel-role">President of European Parliament</p>
+          <p class="kpanel-plain">EPP</p>
+          <p class="kpanel-plain">Malta</p>
+            </div>
+            <div class="kpanel-col kpanel-links">
+              <p><a class="kpanel-latest" href="https://www.europarl.europa.eu/meps/en/118859/ROBERTA_METSOLA/home" target="_blank" rel="noopener">Latest parliamentary activities</a></p>
+              <p class="kpanel-mail"><svg class="icon icon-20" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M21 5H3v14h18zM19 7v.5l-7 5-7-5V7zM5 17V10l7 5 7-5v7z"/></svg><a href="mailto:roberta.metsola@europarl.europa.eu">roberta.metsola@europarl.europa.eu</a></p>
+            </div>
+          </div>
+        </div>
+      </aside>
       <ol class="results-list" id="results-list"></ol>
 
       <nav class="pagination" id="pager" aria-label="Pagination"></nav>
