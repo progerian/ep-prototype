@@ -527,15 +527,15 @@
 
   /* --- Knowledge panel (MEP card): name, group, country, birth, e-mail, latest activities, photo on the right --- */
   .kpanel { display: flex; gap: var(--ep-size-24); align-items: flex-start; }
-  .kpanel-name { margin: 0 0 var(--ep-size-16); font-size: 24px; line-height: normal; font-weight: 700; text-box: trim-both cap alphabetic; }
+  .kpanel-name { margin: 0 0 var(--ep-size-8); font-size: 18px; line-height: normal; font-weight: 700; text-box: trim-both cap alphabetic; }
   .kpanel-name a { color: var(--ep-blue-500); }
   .kpanel p { margin: 0 0 var(--ep-size-8); font-size: 18px; line-height: normal; }
   .kpanel p:last-child { margin-bottom: 0; }
   .kpanel-text { flex: 1; }
-  .kpanel-cols { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ep-size-24); }
+  .kpanel-cols { display: grid; grid-template-columns: 1fr; gap: var(--ep-size-8); }
   .kpanel-col p:last-child { margin-bottom: 0; }
   .kpanel-plain { color: var(--ep-grey-900, #000); }
-  .kpanel-role { color: var(--ep-grey-900, #000); margin-bottom: var(--ep-size-16); font-size: 1rem; }
+  .kpanel-role { color: var(--ep-grey-900, #000); }
   .kpanel a { text-decoration: none; } .kpanel a:hover { text-decoration: underline; }
   .kpanel-mail { display: flex; align-items: center; gap: var(--ep-size-8); } .kpanel-mail .icon { color: var(--ep-blue-500); }
   .kpanel-photo { flex-shrink: 0; width: 71px; height: 89px; object-fit: cover; display: block; }
@@ -549,7 +549,7 @@
   .kpanel-viewall { display: inline-flex; align-items: center; gap: var(--ep-size-8); font-weight: 600; margin-top: var(--ep-size-16); text-decoration: none; font-size: 18px; }
   .kpanel-viewall:hover { text-decoration: underline; }
   .kpanel-rule { margin: var(--ep-size-32) 0; }
-  @media (max-width: 600px) { .kpanel-photos { grid-template-columns: repeat(2, 1fr); } .kpanel-photos > :nth-child(n+3) { display: none; } .kpanel { gap: var(--ep-size-16); } .kpanel-cols { grid-template-columns: 1fr; gap: var(--ep-size-8); } .kpanel-role { color: var(--ep-grey-900, #000); margin-bottom: var(--ep-size-16); font-size: 1rem; } }
+  @media (max-width: 600px) { .kpanel-photos { grid-template-columns: repeat(2, 1fr); } .kpanel-photos > :nth-child(n+3) { display: none; } .kpanel { gap: var(--ep-size-16); } .kpanel-cols { grid-template-columns: 1fr; gap: var(--ep-size-8); } .kpanel-role { color: var(--ep-grey-900, #000); } }
 </style>
 </head>
 <body>
@@ -645,6 +645,7 @@
         <img class="kpanel-photo" src="https://www.europarl.europa.eu/mepphoto/118859.jpg" alt="Roberta METSOLA" width="144" height="180">
         <div class="kpanel-text">
           <h2 class="kpanel-name"><a href="https://www.europarl.europa.eu/meps/en/118859/ROBERTA_METSOLA/home" target="_blank" rel="noopener">Roberta METSOLA</a></h2>
+          <p class="kpanel-role">President of European Parliament</p>
           <div class="kpanel-cols">
             <div class="kpanel-col">
           <p class="kpanel-plain">EPP</p>
@@ -653,6 +654,8 @@
             <div class="kpanel-col kpanel-links">
               <p><a class="kpanel-latest" href="https://www.europarl.europa.eu/meps/en/118859/ROBERTA_METSOLA/home" target="_blank" rel="noopener">Latest parliamentary activities</a></p>
               <p><a href="https://www.europarl.europa.eu/news/en/press-room" target="_blank" rel="noopener">Latest press releases</a></p>
+              <p><a href="search-photos.html">Latest photos</a></p>
+              <p><a href="search-videos.html">Latest videos</a></p>
             </div>
           </div>
         </div>
