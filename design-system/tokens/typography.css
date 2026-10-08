@@ -1,0 +1,68 @@
+/*
+  EP Design System — Typography Tokens
+  Source: design system reference tables (2026-09-04). Valeurs officielles.
+  Font: Europea (variable) — files in design-system/fonts/
+*/
+
+@font-face {
+  font-family: "Europea";
+  src: url("../fonts/europeaweb.woff2") format("woff2-variations"),
+       url("../fonts/europeaweb.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --ep-font-family: "Europea", sans-serif;
+
+  /* Headings */
+  --ep-heading-3xl-size: 2.25rem;   /* 36px — H1 */
+  --ep-heading-3xl-line: 2.625rem;  /* 42px */
+
+  --ep-heading-2xl-size: 1.75rem;   /* 28px — H2 */
+  --ep-heading-2xl-line: 2.375rem;  /* 38px */
+
+  --ep-heading-xl-size: 1.5rem;     /* 24px — H3 */
+  --ep-heading-xl-line: 1.75rem;    /* 28px */
+
+  --ep-heading-l-size: 1.25rem;     /* 20px — H4 */
+  --ep-heading-l-line: 1.75rem;     /* 28px */
+
+  --ep-heading-m-size: 1.125rem;    /* 18px — H5 */
+  --ep-heading-m-line: 1.5rem;      /* 24px */
+
+  --ep-heading-s-size: 1rem;        /* 16px — H6 */
+  --ep-heading-s-line: 1.5rem;      /* 24px */
+
+  /* Body text */
+  --ep-body-2xl-size: 1.75rem;      /* 28px — Lead paragraph */
+  --ep-body-2xl-line: 2.188rem;     /* 35px */
+
+  --ep-body-xl-size: 1.25rem;       /* 20px — Secondary paragraph */
+  --ep-body-xl-line: 1.75rem;       /* 28px */
+
+  --ep-body-l-size: 1.125rem;       /* 18px — Body paragraph */
+  --ep-body-l-line: 1.75rem;        /* 28px */
+
+  --ep-body-m-size: 1rem;           /* 16px — Supporting paragraph */
+  --ep-body-m-line: 1.5rem;         /* 24px */
+
+  --ep-body-s-size: 0.875rem;       /* 14px — Meta / caption */
+  --ep-body-s-line: 1.25rem;        /* 20px */
+}
+
+/* Headings */
+.ep-heading-3xl { font-family: var(--ep-font-family); font-size: var(--ep-heading-3xl-size); line-height: var(--ep-heading-3xl-line); font-weight: 600; }
+.ep-heading-2xl { font-family: var(--ep-font-family); font-size: var(--ep-heading-2xl-size); line-height: var(--ep-heading-2xl-line); font-weight: 600; }
+.ep-heading-xl  { font-family: var(--ep-font-family); font-size: var(--ep-heading-xl-size);  line-height: var(--ep-heading-xl-line);  font-weight: 600; }
+.ep-heading-l   { font-family: var(--ep-font-family); font-size: var(--ep-heading-l-size);   line-height: var(--ep-heading-l-line);   font-weight: 600; }
+.ep-heading-m   { font-family: var(--ep-font-family); font-size: var(--ep-heading-m-size);   line-height: var(--ep-heading-m-line);   font-weight: 600; }
+.ep-heading-s   { font-family: var(--ep-font-family); font-size: var(--ep-heading-s-size);   line-height: var(--ep-heading-s-line);   font-weight: 600; }
+
+/* Body text */
+.ep-body-2xl { font-family: var(--ep-font-family); font-size: var(--ep-body-2xl-size); line-height: var(--ep-body-2xl-line); font-weight: 400; } /* Lead paragraph — hero sections, banners, 1–3 lines */
+.ep-body-xl  { font-family: var(--ep-font-family); font-size: var(--ep-body-xl-size);  line-height: var(--ep-body-xl-line);  font-weight: 400; } /* Secondary paragraph — intro text, highlighted blocks */
+.ep-body-l   { font-family: var(--ep-font-family); font-size: var(--ep-body-l-size);   line-height: var(--ep-body-l-line);   font-weight: 400; } /* Body paragraph — primary content-heavy text */
+.ep-body-m   { font-family: var(--ep-font-family); font-size: var(--ep-body-m-size);   line-height: var(--ep-body-m-line);   font-weight: 400; } /* Supporting paragraph — sidebars, card descriptions */
+.ep-body-s   { font-family: var(--ep-font-family); font-size: var(--ep-body-s-size);   line-height: var(--ep-body-s-line);   font-weight: 400; } /* Meta / caption — captions, disclaimers, timestamps */

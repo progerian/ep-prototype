@@ -1,0 +1,65 @@
+/*
+  EP Design System — Spacing Tokens
+  Source: design system reference tables (2026-09-04). Valeurs officielles.
+  Global tokens (ep-size-*) map to Padding, Radius, Gap and Margin alias tokens.
+*/
+
+:root {
+  /* Global tokens */
+  --ep-size-0: 0rem;
+  --ep-size-1: 0.0625rem;
+  --ep-size-2: 0.125rem;
+  --ep-size-4: 0.25rem;
+  --ep-size-8: 0.5rem;
+  --ep-size-10: 0.625rem;
+  --ep-size-12: 0.75rem;
+  --ep-size-14: 0.875rem;
+  --ep-size-16: 1rem;
+  --ep-size-18: 1.125rem;
+  --ep-size-20: 1.25rem;
+  --ep-size-24: 1.5rem;
+  --ep-size-28: 1.75rem;
+  --ep-size-32: 2rem;
+  --ep-size-36: 2.25rem;
+  --ep-size-40: 2.5rem;
+  --ep-size-44: 2.75rem;
+  --ep-size-48: 3rem;
+  --ep-size-56: 3.5rem;
+  --ep-size-64: 4rem;
+  --ep-size-80: 5rem;
+  --ep-size-96: 6rem;
+  --ep-size-160: 10rem;
+
+  /* Gap (alias) */
+  --ep-gap-2xs: var(--ep-size-4);   /* 4px */
+  --ep-gap-xs: var(--ep-size-8);    /* 8px */
+  --ep-gap-s: var(--ep-size-16);    /* 16px */
+  --ep-gap-m: var(--ep-size-24);    /* 24px */
+  --ep-gap-l: var(--ep-size-32);    /* 32px */
+  --ep-gap-xl: var(--ep-size-48);   /* 48px */
+
+  /* Margin (alias) */
+  --ep-margin-3xs: var(--ep-size-4);   /* 4px */
+  --ep-margin-2xs: var(--ep-size-8);   /* 8px */
+  --ep-margin-xs: var(--ep-size-16);   /* 16px */
+  --ep-margin-s: var(--ep-size-24);    /* 24px */
+  --ep-margin-m: var(--ep-size-32);    /* 32px */
+  --ep-margin-l: var(--ep-size-48);    /* 48px */
+  --ep-margin-xl: var(--ep-size-64);   /* 64px */
+  --ep-margin-2xl: var(--ep-size-96);  /* 96px */
+
+  /* Padding (alias) */
+  --ep-padding-3xs: var(--ep-size-4);   /* 4px */
+  --ep-padding-2xs: var(--ep-size-8);   /* 8px */
+  --ep-padding-xs: var(--ep-size-10);   /* 10px */
+  --ep-padding-m: var(--ep-size-14);    /* 14px */
+  --ep-padding-l: var(--ep-size-16);    /* 16px */
+  --ep-padding-xl: var(--ep-size-24);   /* 24px */
+  --ep-padding-2xl: var(--ep-size-32);  /* 32px */
+  --ep-padding-3xl: var(--ep-size-48);  /* 48px */
+
+  /* Radius (alias) */
+  --ep-radius-2xs: var(--ep-size-4);  /* 4px */
+  --ep-radius-xs: var(--ep-size-8);   /* 8px */
+  --ep-radius-s: var(--ep-size-12);   /* 12px */
+}

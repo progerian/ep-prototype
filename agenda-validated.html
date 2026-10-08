@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EP Agenda — Validated version — Desktop</title>
+<script>
+  // Responsive hand-over: below 700px the desktop agenda switches to the mobile agenda (on load and when the window is resized); the mobile page switches back when the window grows again.
+  (function () {
+    var go = function () {
+      try { sessionStorage.setItem('agAutoMobile', '1'); } catch (e) {}
+      location.replace('agenda-validated-mobile.html' + location.search + location.hash);
+    };
+    if (window.innerWidth < 700) go();
+    window.matchMedia('(max-width: 699px)').addEventListener('change', function (e) { if (e.matches) go(); });
+  })();
+</script>
+<link rel="stylesheet" href="design-system/tokens/colors.css">
+<link rel="stylesheet" href="design-system/tokens/spacing.css">
+<link rel="stylesheet" href="design-system/tokens/typography.css">
+<link rel="stylesheet" href="design-system/tokens/layout.css">
+<link rel="stylesheet" href="agenda-components.css?v=3">
+<link rel="stylesheet" href="agenda-validated.css?v=120">
+<style>
+  .layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--ep-grid-gap); align-items: start; }
+  .side { grid-column: span 4; margin-top: calc(var(--ep-size-48) + var(--ep-heading-3xl-line) + var(--ep-size-48)); } /* H1 block + the 48px above the month label, so "Filter by" sits level with "May 2026" */
+  .main { grid-column: span 8; }
+  .side-top { display: flex; justify-content: flex-start; gap: var(--ep-size-24); align-items: baseline; margin-bottom: var(--ep-size-16); }
+  .ag-back { font-size: var(--ep-body-l-size); display: inline-flex; align-items: center; gap: var(--ep-size-8); margin-bottom: var(--ep-size-8); }
+</style>
+</head>
+<body>
+<header class="site-header">
+    <div class="wrap">
+      <div class="site-header-inner">
+        <a class="logo" href="homepage.html">
+          <img class="logo-header" src="design-system/logo%20header.svg" alt="European Parliament" width="199" height="46">
+        </a>
+        <div class="site-header-actions">
+          <form class="search-bar search-bar--header" role="search">
+            <input type="search" aria-label="Search europarl.eu">
+            <button type="submit" class="search-btn">Search
+              <svg class="icon icon-24" viewBox="0 0 24 24" style="fill:var(--ep-white);"><path d="M13.99,2c-4.42,0-8,3.58-8,8,0,1.85.63,3.55,1.69,4.9l-4.85,4.85,1.41,1.41,4.85-4.85c1.35,1.05,3.05,1.69,4.9,1.69,4.42,0,8-3.58,8-8S18.41,2,13.99,2ZM13.99,16c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6Z"/></svg>
+            </button>
+          </form>
+          <button class="menu-btn" type="button" aria-haspopup="true" aria-expanded="false">Menu
+            <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+<div class="wrap">
+  <div class="breadcrumb">
+      <a href="homepage.html">European Parliament</a>
+      <span class="crumb-sep"><svg class="icon icon-24" viewBox="0 0 24 24"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></span>
+      <span class="crumb-ellipsis">&hellip;</span>
+      <span class="crumb-sep"><svg class="icon icon-24" viewBox="0 0 24 24"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></span>
+      <a href="news-topics.html">News</a>
+      <span class="crumb-sep"><svg class="icon icon-24" viewBox="0 0 24 24"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></span>
+      <span>Agenda</span>
+    </div>
+
+  <div class="layout">
+    <aside class="side ag-filters" id="agFilters">
+      <div class="side-top"><h2>Filter by</h2><a href="#" id="agClear" hidden>Clear filters ✕</a></div>
+      <div class="ag-filter-group ag-filter-group--inline">
+        <h3>Agenda view</h3>
+        <label class="ag-opt"><input type="radio" name="agView" value="all" checked> All events</label>
+        <label class="ag-opt"><input type="radio" name="agView" value="highlights"> Highlights</label>
+      </div>
+      <div class="ag-filter-group">
+        <h3>Event types</h3>
+        <div id="agTypes"></div>
+      </div>
+      <div class="ag-filter-group">
+        <h3>Date</h3>
+        <div class="ag-field"><label class="ag-field-label" for="agFrom">From</label>
+          <div class="dp-native-control"><input type="date" id="agFrom" class="dp-native-input"><span class="dp-native-icon" aria-hidden="true"><svg class="icon icon-20" viewBox="0 0 24 24"><path d="M16,5.01v-1h-2v1h-4v-1h-2v1h-3.99v15h15.99V5.01h-4ZM8,7.01v1h2v-1h4v1h2v-1h2v2H6.02v-2h1.99ZM6.02,18.01v-7h11.99v7H6.02Z"/></svg></span></div></div>
+        <div class="ag-field"><label class="ag-field-label" for="agTo">To</label>
+          <div class="dp-native-control"><input type="date" id="agTo" class="dp-native-input"><span class="dp-native-icon" aria-hidden="true"><svg class="icon icon-20" viewBox="0 0 24 24"><path d="M16,5.01v-1h-2v1h-4v-1h-2v1h-3.99v15h15.99V5.01h-4ZM8,7.01v1h2v-1h4v1h2v-1h2v2H6.02v-2h1.99ZM6.02,18.01v-7h11.99v7H6.02Z"/></svg></span></div></div>
+        <button class="ag-btn" id="agShow" type="button">Show results</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <h1>Agenda</h1>
+      <p class="ag-month" id="agMonth"></p>
+      <div class="ag-week" id="agWeekNav">
+        <button class="ag-week-arrow" id="agPrevWeek" type="button" aria-label="Previous week"><svg class="icon icon-32" viewBox="0 0 24 24"><polygon points="13.58 6.33 7.92 11.99 13.58 17.65 14.99 16.24 10.75 11.99 14.99 7.75 13.58 6.33"/></svg></button>
+        <div class="ag-week-days" id="agWeekDays"></div>
+        <button class="ag-week-arrow" id="agNextWeek" type="button" aria-label="Next week"><svg class="icon icon-32" viewBox="0 0 24 24"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></button>
+      </div>
+      <div class="ag-today-row"><button class="ag-center" id="agCenter" type="button" aria-label="Center on today"><span>Today</span><svg class="icon icon-20 ag-center-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.77 11.32A7.8 7.8 0 1 1 15.66 5.11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="butt"/><path d="M18.58 6.66L12.93 7.06L15.75 1.76Z" fill="currentColor" stroke="none"/></svg></button></div>
+      <a href="#" class="ag-back" id="agBack" hidden><svg class="icon icon-20" viewBox="0 0 24 24"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01"/></svg> Back to single day</a>
+      <div class="ag-meta"><p class="ag-count" id="agCount"></p></div>
+      <hr class="divider" id="agRule">
+      <div id="agList"></div>
+      <nav class="pagination" id="agPager" aria-label="Pagination" hidden></nav>
+      <nav class="day-nav" id="agFoot" aria-label="Day navigation"></nav>
+      <div class="download-line">
+        <svg class="icon icon-24" viewBox="0 0 24 24"><path d="M14.41,4.01H5v16h14v-11.41l-4.59-4.59ZM14,6.42l2.59,2.59h-2.59v-2.59ZM7,18.01V6.01h5s0,5,0,5h5v7H7Z"/></svg>
+        <a href="#" id="agDownload"></a>
+        <span class="file-size">PDF &ndash; 1.2 MB</span>
+      </div>
+    </main>
+  </div>
+</div>
+<footer class="site-footer">
+    <div class="wrap footer-top">
+      <div class="footer-nav">
+        <div class="footer-nav-row">
+          <a href="#">Law</a>
+          <a href="#">Transparency, Ethics</a>
+          <a href="#">News, Topics</a>
+          <a href="#">Parliament Powers</a>
+          <a href="#">Contact, Visit</a>
+          <a href="#">Plenary</a>
+        </div>
+        <div class="footer-nav-row">
+          <a href="#">Committees, Delegations</a>
+          <a href="#">MEPs</a>
+          <a href="#">About Parliament</a>
+        </div>
+      </div>
+      <div class="lang-select">
+        <svg class="icon icon-24" viewBox="0 0 24 24"><path d="M11.99,2C6.47,2,1.99,6.48,1.99,12s4.48,10,10,10,10-4.48,10-10S17.52,2,11.99,2ZM18.92,8.01h-2.48c-.34-1.19-.83-2.34-1.47-3.43,1.67.67,3.06,1.89,3.96,3.43ZM19.99,12c0,.69-.1,1.36-.26,2h-2.89c.18-1.33.18-2.67,0-4h2.89c.17.64.26,1.31.26,2ZM11.99,20s-.05,0-.08,0c-1.01-1.21-1.75-2.57-2.23-3.99h4.65c-.48,1.43-1.22,2.78-2.23,3.99-.04,0-.07,0-.11,0ZM9.18,14c-.21-1.32-.21-2.67,0-4h5.65c.21,1.32.21,2.67,0,4h-5.65ZM11.99,4s.07,0,.1,0c1.01,1.22,1.75,2.57,2.23,4h-4.65c.48-1.43,1.22-2.78,2.23-4,.03,0,.06,0,.09,0ZM9.05,4.57c-.65,1.09-1.14,2.25-1.48,3.44h-2.5c.9-1.55,2.3-2.77,3.98-3.44ZM4.26,10.01h2.91c-.18,1.33-.18,2.67,0,4h-2.91c-.17-.64-.26-1.31-.26-2s.1-1.36.26-2ZM5.08,16h2.5c.34,1.19.83,2.35,1.48,3.43-1.68-.67-3.08-1.89-3.98-3.43ZM14.96,19.42c.65-1.09,1.13-2.24,1.47-3.42h2.48c-.89,1.54-2.28,2.75-3.95,3.42Z"/></svg>
+        English
+        <svg class="icon icon-24" viewBox="0 0 24 24"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <div class="footer-logo">
+        <img class="footer-logo-mark" src="design-system/EP_logo_mute_white.svg" alt="">
+        <span class="logo-text"><span>European</span><span>Parliament</span></span>
+      </div>
+      <div class="footer-links">
+        <a href="#">Accessibility</a>
+        <a href="#">Legal notice</a>
+        <a href="#">Sitemap</a>
+        <a href="#">Privacy policy</a>
+      </div>
+    </div>
+  </footer>
+<script src="agenda-validated.js?v=120"></script>
+</body>
+</html>

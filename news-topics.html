@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP News, topics — EP prototype</title>
+<link rel="stylesheet" href="design-system/tokens/colors.css">
+<link rel="stylesheet" href="design-system/tokens/spacing.css">
+<link rel="stylesheet" href="design-system/tokens/typography.css">
+<link rel="stylesheet" href="design-system/tokens/layout.css">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: var(--ep-font-family); background: var(--ep-white); color: var(--ep-grey-900); margin: 0; }
+  a { color: var(--ep-blue-500); }
+  .wrap { max-width: 1176px; margin: 0 auto; padding: 0 var(--ep-size-24); }
+
+  .icon { display: inline-block; flex-shrink: 0; fill: currentColor; }
+  .icon-24 { width: 24px; height: 24px; }
+
+  /* --- Header: logo left, language + Menu right --- */
+  .site-header-inner { display: flex; align-items: center; justify-content: space-between; padding-top: var(--ep-size-16); padding-bottom: var(--ep-size-16); gap: var(--ep-size-16); }
+  .logo { display: flex; align-items: center; text-decoration: none; }
+  .logo-header { width: 199px; height: 46px; display: block; }
+  .site-header-actions { display: flex; align-items: center; gap: var(--ep-size-16); }
+  .menu-btn { display: inline-flex; align-items: center; gap: var(--ep-size-8); background: var(--ep-white); border: var(--ep-size-2) solid var(--ep-blue-500); border-radius: var(--ep-radius-xs); padding: var(--ep-padding-2xs) var(--ep-padding-l); font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); font-weight: 600; color: var(--ep-blue-500); cursor: pointer; }
+  .menu-btn:hover { color: var(--ep-blue-800); border-color: var(--ep-blue-800); }
+
+  /* --- Search band --- */
+  .search-band { background: var(--ep-blue-500); padding: var(--ep-size-16) 0; }
+  .search-bar { display: flex; align-items: stretch; min-height: var(--ep-size-44); border: var(--ep-size-2) solid var(--ep-white); border-radius: var(--ep-radius-xs); background: var(--ep-white); overflow: hidden; }
+  .search-bar:focus-within { outline: 2px solid var(--ep-accent-blue-500); outline-offset: 2px; }
+  .search-bar input[type="search"] { flex: 1; min-width: 0; border: none; outline: none; background: none; font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); padding: 0 var(--ep-padding-l); color: var(--ep-grey-900); }
+  .search-btn { display: inline-flex; align-items: center; gap: var(--ep-size-8); background: var(--ep-blue-500); color: var(--ep-white); border: none; flex-shrink: 0; padding: 0 var(--ep-padding-xl); font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); font-weight: 600; cursor: pointer; }
+  .search-btn:hover { background: var(--ep-blue-800); }
+
+  /* --- Highlight banner (Plenary Session / Democracy in action) --- */
+  .banner { display: block; border: 1px solid var(--ep-grey-400); border-left: var(--ep-size-8) solid var(--ep-blue-500); border-radius: var(--ep-radius-xs); padding: var(--ep-size-32) var(--ep-size-24); margin: var(--ep-size-48) 0; text-decoration: none; color: var(--ep-grey-900); background: var(--ep-white); }
+  a.banner:hover h2 { text-decoration: underline; }
+  .banner h2 { margin: 0; font-size: var(--ep-heading-3xl-size); line-height: var(--ep-heading-3xl-line); font-weight: 600; }
+  .banner p { margin: var(--ep-size-16) 0 0; font-size: var(--ep-heading-xl-size); line-height: var(--ep-heading-xl-line); }
+
+  /* --- Section grid: 3 columns --- */
+  .sections { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: var(--ep-grid-gap); row-gap: var(--ep-size-48); }
+  .section h2 { margin: 0 0 var(--ep-size-24); font-size: var(--ep-heading-xl-size); line-height: var(--ep-heading-xl-line); font-weight: 600; }
+  .section ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--ep-size-16); }
+  .section li { font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); }
+  .section li a { text-decoration: none; }
+  .section li a:hover { text-decoration: underline; }
+  .section .view-all { display: inline-flex; align-items: center; gap: var(--ep-size-8); font-weight: 600; }
+
+  .band { background: var(--ep-white); padding: var(--ep-size-48) 0; }
+  .band .banner { margin: var(--ep-size-48) 0; }
+  .band .sections + .banner { margin-top: var(--ep-size-48); }
+  .top-sections { padding: var(--ep-size-48) 0; }
+
+  /* --- Footer --- */
+  .site-footer { background: var(--ep-blue-500); color: var(--ep-white); }
+  .footer-top { display: flex; align-items: flex-start; justify-content: space-between; padding-top: var(--ep-size-32); padding-bottom: var(--ep-size-32); gap: var(--ep-size-24); position: relative; }
+  .footer-top::after { content: ''; position: absolute; left: var(--ep-size-24); right: var(--ep-size-24); bottom: 0; border-bottom: 1px solid rgba(255,255,255,0.25); } /* hairline = content width */
+  .footer-nav { display: flex; flex-direction: column; gap: var(--ep-size-12); }
+  .footer-nav-row { display: flex; gap: var(--ep-size-32); flex-wrap: wrap; }
+  .footer-nav-row a { color: var(--ep-white); text-decoration: none; font-weight: 600; font-size: var(--ep-body-l-size); }
+  .footer-nav-row a:hover { text-decoration: underline; }
+  .lang-select { display: inline-flex; align-items: center; gap: var(--ep-size-8); border: 2px solid var(--ep-white); border-radius: var(--ep-radius-xs); padding: var(--ep-padding-3xs) var(--ep-padding-l); font-size: var(--ep-body-m-size); font-weight: 600; color: var(--ep-white); white-space: nowrap; }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: var(--ep-size-24); padding-bottom: var(--ep-size-24); gap: var(--ep-size-24); flex-wrap: wrap; }
+  .footer-logo { display: flex; align-items: flex-end; gap: var(--ep-size-12); }
+  .footer-logo-mark { height: 24px; width: auto; display: block; }
+  .logo-text { display: flex; flex-direction: column; font-weight: 600; font-size: 18px; line-height: 24px; color: var(--ep-white); }
+  .footer-links { display: flex; gap: var(--ep-size-24); flex-wrap: wrap; }
+  .footer-links a { color: var(--ep-white); text-decoration: none; font-size: var(--ep-body-s-size); }
+  .footer-links a:hover { text-decoration: underline; }
+
+  @media (max-width: 800px) {
+    .sections { grid-template-columns: 1fr; }
+    .site-header-inner { flex-wrap: wrap; }
+    .logo-header { width: 160px; height: auto; }
+    .footer-top { flex-direction: column; }
+  }
+
+  /* --- Second-level page --- */
+  .site-header-inner { border-bottom: var(--ep-size-2) solid var(--ep-grey-200); }
+  .search-bar--header { width: 365px; margin: 0; border-color: var(--ep-grey-500); }
+  .search-bar--header .search-btn { padding: 0 var(--ep-padding-l); }
+  .page-title { font-size: var(--ep-heading-3xl-size); line-height: var(--ep-heading-3xl-line); font-weight: 600; margin: var(--ep-size-48) 0 var(--ep-size-48); }
+  main.second { padding: var(--ep-size-16) 0 var(--ep-size-64); }
+  .breadcrumb { display: flex; align-items: center; gap: var(--ep-size-4); font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); }
+  .breadcrumb a { text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .crumb-back { display: inline-flex; color: var(--ep-grey-900); margin-right: var(--ep-size-4); }
+  .section h2 a { color: inherit; text-decoration: none; }
+  .section h2 a:hover { text-decoration: underline; }
+  .sections--lvl2 .section h2 { font-size: var(--ep-heading-2xl-size); line-height: var(--ep-heading-2xl-line); }
+  .logo-mark-only, .search-icon-btn { display: none; }
+  /* mobile header (mockup): compact mark, search icon button, Menu, hairline underneath */
+  @media (max-width: 600px) {
+    .site-header-inner { flex-wrap: nowrap; }
+    .logo-header, .search-bar--header { display: none; }
+    .logo-mark-only { display: block; width: 80px; height: 44px; }
+    .search-icon-btn { display: inline-flex; padding: var(--ep-padding-2xs) var(--ep-size-12); }
+    .menu-btn .ico-extra { display: none; }
+    .site-header-actions { width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="site-header-inner">
+      <a class="logo" href="homepage.html"><img class="logo-header" src="design-system/logo%20header.svg" alt="European Parliament" width="199" height="46"><img class="logo-mark-only" src="design-system/Ep_logo_mute.svg" alt="European Parliament" width="80" height="44"></a>
+      <div class="site-header-actions">
+        <form class="search-bar search-bar--header" role="search">
+          <input type="search" aria-label="Search europarl.eu">
+          <button type="submit" class="search-btn">Search
+            <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true" style="fill:var(--ep-white);"><path d="M13.99,2c-4.42,0-8,3.58-8,8,0,1.85.63,3.55,1.69,4.9l-4.85,4.85,1.41,1.41,4.85-4.85c1.35,1.05,3.05,1.69,4.9,1.69,4.42,0,8-3.58,8-8S18.41,2,13.99,2ZM13.99,16c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6Z"/></svg>
+          </button>
+        </form>
+        <button class="menu-btn search-icon-btn" type="button" aria-label="Search"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.99,2c-4.42,0-8,3.58-8,8,0,1.85.63,3.55,1.69,4.9l-4.85,4.85,1.41,1.41,4.85-4.85c1.35,1.05,3.05,1.69,4.9,1.69,4.42,0,8-3.58,8-8S18.41,2,13.99,2ZM13.99,16c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6Z"/></svg></button>
+        <button class="menu-btn" type="button" aria-haspopup="true" aria-expanded="false">Menu
+          <svg class="icon icon-24 ico-extra" viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="second">
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a class="crumb-back" href="homepage.html" aria-label="Back to European Parliament"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="13.58 6.33 7.92 11.99 13.58 17.65 14.99 16.24 10.75 11.99 14.99 7.75 13.58 6.33"/></svg></a>
+      <a href="homepage.html">European Parliament</a>
+      <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg>
+      <span>News, topics</span>
+    </nav>
+    <h1 class="page-title">News, topics</h1>
+    <div class="sections sections--lvl2">
+      <section class="section"><h2>News, press releases</h2><ul><li><a href="agenda-validated.html?range=week41">Week ahead</a></li><li><a href="#">Press releases</a></li><li><a href="#">Plenary news, briefings</a></li><li><a class="view-all" href="#">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li></ul></section>
+      <section class="section"><h2><a href="agenda-validated.html">Agenda, calendar</a></h2><ul><li><a href="agenda-validated.html">Agendas: plenary, committees, delegations, president</a></li><li><a href="#">Webstreaming agenda</a></li><li><a href="#">2025 calendar of parliamentary activities</a></li><li><a class="view-all" href="agenda-validated.html">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li></ul></section>
+      <section class="section"><h2>Topics</h2><ul><li><a href="#">Ukraine</a></li><li><a href="#">Economy and budget</a></li><li><a href="#">Migration</a></li><li><a class="view-all" href="#">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li></ul></section>
+      <section class="section"><h2>Publications</h2><ul><li><a href="#">Research</a></li><li><a href="#">Overviews of EU institutions, policies, fact sheets</a></li><li><a href="#">Public register of documents</a></li><li><a class="view-all" href="#">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li></ul></section>
+      <section class="section"><h2>Press kit</h2><ul><li><a href="#">Covering plenary, committees</a></li><li><a href="#">Press contacts</a></li><li><a href="#">Media accreditation</a></li><li><a class="view-all" href="#">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li></ul></section>
+      <section class="section"><h2>Videos, photos, audio</h2><ul><li><a href="search-videos.html">Videos</a></li><li><a href="search-photos.html">Photos</a></li><li><a href="#">Audio</a></li><li><a class="view-all" href="#">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li></ul></section>
+      <section class="section"><h2>Media accreditation</h2><ul><li><a href="#">European Parliament media accreditation</a></li><li><a href="#">Joint EU-institutional media accreditation</a></li><li><a href="#">Audiovisual services</a></li><li><a class="view-all" href="#">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li></ul></section>
+      <section class="section"><h2>Myths, fake news, misinformation</h2><ul><li><a href="#">Disinformation: 10 steps to protect yourself and others</a></li><li><a href="#">Foreign interference: how Parliament is fighting the threat to EU democracy</a></li><li><a href="#">Disinformation campaigns and their impact on democracy</a></li><li><a class="view-all" href="#">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li></ul></section>
+      <section class="section"><h2>Vote results</h2><ul><li><a href="#">Plenary vote results</a></li><li><a href="#">Committee vote results</a></li></ul></section>
+      <section class="section"><h2>Contact, visit</h2><ul><li><a href="#">Spokesperson's press contacts</a></li><li><a href="#">Press contacts by policy area, language</a></li><li><a href="#">Press contacts in member states, countries</a></li><li><a class="view-all" href="#">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li></ul></section>
+      <section class="section"><h2>Jobs, traineeships at European Parliament</h2><ul><li><a href="#">Job vacancies, opportunities</a></li><li><a href="#">Traineeship vacancies, opportunities</a></li><li><a href="#">Work environment</a></li><li><a class="view-all" href="#">View all <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="20 11.01 7.83 11.01 11.08 7.76 9.66 6.35 4 12.01 9.66 17.67 11.07 16.25 7.83 13.01 20 13.01 20 11.01" transform="matrix(-1 0 0 1 24 0)"/></svg></a></li></ul></section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-top">
+    <div class="footer-nav">
+      <div class="footer-nav-row">
+        <a href="#">Law</a><a href="#">Transparency, ethics</a><a href="#">MEPs</a><a href="news-topics.html">News, topics</a><a href="#">Parliament powers</a><a href="#">Contact, visit</a><a href="#">Plenary</a>
+      </div>
+      <div class="footer-nav-row">
+        <a href="#">Committees, delegations</a><a href="#">About Parliament</a>
+      </div>
+    </div>
+    <div class="lang-select">
+      <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99,2C6.47,2,1.99,6.48,1.99,12s4.48,10,10,10,10-4.48,10-10S17.52,2,11.99,2ZM18.92,8.01h-2.48c-.34-1.19-.83-2.34-1.47-3.43,1.67.67,3.06,1.89,3.96,3.43ZM19.99,12c0,.69-.1,1.36-.26,2h-2.89c.18-1.33.18-2.67,0-4h2.89c.17.64.26,1.31.26,2ZM11.99,20s-.05,0-.08,0c-1.01-1.21-1.75-2.57-2.23-3.99h4.65c-.48,1.43-1.22,2.78-2.23,3.99-.04,0-.07,0-.11,0ZM9.18,14c-.21-1.32-.21-2.67,0-4h5.65c.21,1.32.21,2.67,0,4h-5.65ZM11.99,4s.07,0,.1,0c1.01,1.22,1.75,2.57,2.23,4h-4.65c.48-1.43,1.22-2.78,2.23-4,.03,0,.06,0,.09,0ZM9.05,4.57c-.65,1.09-1.14,2.25-1.48,3.44h-2.5c.9-1.55,2.3-2.77,3.98-3.44ZM4.26,10.01h2.91c-.18,1.33-.18,2.67,0,4h-2.91c-.17-.64-.26-1.31-.26-2s.1-1.36.26-2ZM5.08,16h2.5c.34,1.19.83,2.35,1.48,3.43-1.68-.67-3.08-1.89-3.98-3.43ZM14.96,19.42c.65-1.09,1.13-2.24,1.47-3.42h2.48c-.89,1.54-2.28,2.75-3.95,3.42Z"/></svg>
+      EN – English
+      <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <div class="footer-logo">
+      <img class="footer-logo-mark" src="design-system/EP_logo_mute_white.svg" alt="">
+      <span class="logo-text"><span>European</span><span>Parliament</span></span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Legal notice</a><a href="#">Privacy policy</a><a href="#">Accessibility</a><a href="#">Easy-to-read</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

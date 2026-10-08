@@ -1,0 +1,7 @@
+EP prototype (une seule version, desktop + mobile)
+
+- index.html  : la homepage. Le site s'adapte tout seul : version desktop sur ordinateur, version mobile sur téléphone.
+- mobile.html : le même site dans un cadre de 380 px, pour voir la version mobile sur ordinateur.
+
+Ouvrir index.html dans un navigateur (pas besoin de serveur).
+Les miniatures des photos et vidéos viennent du serveur du Parlement : une connexion est nécessaire pour les voir.

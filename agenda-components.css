@@ -1,0 +1,1296 @@
+/* Extracted verbatim from agenda-daily-committees-8.html — the shared component CSS (header, breadcrumb, h1, day-accordion + day-badge + dividers, event-item, day-nav, download-line, footer…). */
+  * { box-sizing: border-box; }
+  body {
+    font-family: var(--ep-font-family);
+    background: var(--ep-white);
+    color: var(--ep-grey-900);
+    margin: 0;
+  }
+  a { color: var(--ep-blue-500); }
+
+  .wrap {
+    max-width: 1176px;
+    margin: 0 auto;
+    padding: 0 var(--ep-size-24);
+  }
+
+  /* --- Header --- */
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--ep-size-16);
+    padding-bottom: var(--ep-size-16);
+    border-bottom: var(--ep-size-2) solid var(--ep-grey-200); /* 2px — same content-width box as .results-bar, not the padded .wrap box */
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--ep-grey-900);
+  }
+  .logo-header {
+    width: 199px;
+    height: 46px;
+    display: block;
+  }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: var(--ep-grey-600); /* #6E6E6E */
+  }
+  .site-header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-size-16);
+  }
+  .search-bar.search-bar--header {
+    width: 420px;
+    margin-bottom: 0;
+  }
+  .site-header-actions .menu-btn {
+    min-height: var(--ep-size-44); /* match search-bar height */
+    box-sizing: border-box;
+  }
+  .menu-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    background: var(--ep-white);
+    border: var(--ep-size-2) solid var(--ep-blue-500);
+    border-radius: var(--ep-radius-xs);
+    padding: var(--ep-padding-2xs) var(--ep-padding-l);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size); /* 18px */
+    font-weight: 600;
+    color: var(--ep-blue-500);
+    cursor: pointer;
+  }
+
+  /* --- Icons (ep-iconography — solid fill, viewBox 0 0 24 24) --- */
+  .icon {
+    display: inline-block;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
+  .icon-16 { width: 16px; height: 16px; }
+  .icon-20 { width: 20px; height: 20px; }
+  .icon-24 { width: 24px; height: 24px; }
+  .icon-28 { width: 28px; height: 28px; }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    padding-top: var(--ep-size-16);
+    font-size: var(--ep-body-m-size); /* 1rem / 16px */
+    color: var(--ep-grey-900);
+  }
+  .breadcrumb a { color: var(--ep-blue-500); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .crumb-sep { display: inline-flex; color: var(--ep-grey-900); }
+  .breadcrumb .crumb-ellipsis { color: var(--ep-grey-600); }
+
+  h1 {
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-heading-3xl-size);
+    line-height: var(--ep-heading-3xl-line);
+    font-weight: 600;
+    margin: var(--ep-size-48) 0 var(--ep-size-48); /* 48px above and below */
+  }
+
+  /* --- Search bar — input + button merged into one control (see visual-tests/date-picker.html .dp-control) --- */
+  .search-bar {
+    display: flex;
+    align-items: stretch;
+    min-height: var(--ep-size-44); /* 44px */
+    border: var(--ep-size-2) solid var(--ep-grey-500); /* 2px */
+    border-radius: var(--ep-radius-xs);
+    background: var(--ep-white);
+    overflow: hidden;
+    margin-bottom: var(--ep-size-16);
+  }
+  .search-bar:focus-within {
+    outline: 2px solid var(--ep-accent-blue-500);
+    outline-offset: 2px;
+  }
+  .search-bar input[type="search"] {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    padding: 0 var(--ep-padding-l);
+    color: var(--ep-grey-900);
+  }
+  .search-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    background: var(--ep-blue-500);
+    color: var(--ep-white);
+    border: none;
+    flex-shrink: 0;
+    padding: 0 var(--ep-padding-xl);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .search-btn:hover { background: var(--ep-blue-800); }
+
+  /* --- Tabs (EP tabs component — see visual-tests/tabs.html) --- */
+  .tabs {
+    display: inline-flex;
+    align-items: center;
+    border-bottom: 2px solid var(--ep-grey-200);
+    margin-bottom: var(--ep-size-32);
+  }
+  .tab {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    line-height: var(--ep-body-l-line);
+    color: var(--ep-blue-500);
+    padding: var(--ep-padding-2xs) var(--ep-padding-l); /* 8px 16px */
+    border-radius: var(--ep-radius-2xs) var(--ep-radius-2xs) 0 0;
+    margin-bottom: -2px;
+    transition: background-color 120ms ease, color 120ms ease;
+  }
+  .tab:hover { background: var(--ep-blue-100); color: var(--ep-grey-900); }
+  .tab.is-selected {
+    color: var(--ep-grey-900);
+    font-weight: 600;
+    border-bottom: 4px solid var(--ep-blue-500);
+  }
+  .tab.is-selected:hover { background: var(--ep-blue-100); color: var(--ep-grey-900); }
+  .tab-panel { margin-top: var(--ep-size-32); }
+  .tab-panel[hidden] { display: none; }
+  .tab-panel-placeholder {
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    line-height: var(--ep-body-l-line);
+    color: var(--ep-grey-600);
+    margin: 0;
+  }
+  /* Committees/Delegations collapse entirely when inactive (hidden attribute, not
+     reserved visibility) — each is now its own standalone row in the panel, so there's
+     no sibling in the same row whose layout would jump when they appear/disappear. */
+  /* --- Week day nav (based on .tabs) --- */
+  /* Timeline grows to fill the row; the Calendar button sits fixed-width at the end. */
+  .week-nav {
+    display: flex;
+    gap: var(--ep-grid-gap); /* 16px */
+    align-items: center;
+  }
+  /* visibility (not display) toggled — the row's height stays reserved so nothing
+     below it jumps when the link appears/disappears */
+  .back-to-current {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    margin-top: var(--ep-size-8); /* 8px below the timeline's divider */
+    margin-bottom: var(--ep-size-16); /* 16px above the filters/column-header row */
+    padding: 0;
+    font-family: var(--ep-font-family);
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: var(--ep-blue-500);
+    visibility: hidden;
+    opacity: 0;
+    /* Fading out: opacity animates first, visibility switches to hidden only once
+       that's done (so it doesn't just vanish mid-fade). Fading in overrides this
+       below with no delay. */
+    transition: opacity 200ms ease, visibility 0s linear 200ms;
+  }
+  .back-to-current:hover { color: var(--ep-blue-800); }
+  .back-to-current.is-visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 200ms ease;
+  }
+  .week-nav-days-col { flex: 1; min-width: 0; }
+  /* The pill's own 16px top padding already creates the label-to-text gap, so the
+     label itself needs no extra margin — avoids doubling up to 32px. */
+  .week-nav-days-col .dp-native-label { margin-bottom: 0; }
+  .week-nav-days {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-size-16);
+    min-height: var(--ep-size-44);
+    border-bottom: 2px solid var(--ep-grey-500); /* same grey as the select outline, for visibility */
+  }
+  /* --- Calendar button + date-range picker dropdown --- */
+  .calendar-wrap { position: relative; flex-shrink: 0; }
+  .calendar-toggle {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    height: var(--ep-size-44);
+    padding: 0 var(--ep-padding-l);
+    border: var(--ep-size-2) solid var(--ep-blue-500);
+    border-radius: var(--ep-radius-xs);
+    background: var(--ep-white);
+    color: var(--ep-blue-500);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .calendar-toggle:hover { background: var(--ep-blue-100); }
+  .calendar-toggle .icon { color: var(--ep-blue-500); }
+  .calendar-toggle-chevron { transition: transform 120ms ease; }
+  .calendar-toggle[aria-expanded="true"] .calendar-toggle-chevron { transform: rotate(180deg); }
+
+  .calendar-panel {
+    position: absolute;
+    top: calc(100% + var(--ep-margin-2xs)); /* 8px, matches the DS date-picker's own popup offset */
+    right: 0;
+    z-index: 30;
+    display: flex;
+    background: var(--ep-white);
+    border: var(--ep-size-1) solid var(--ep-grey-500);
+    border-radius: var(--ep-radius-xs);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+    overflow: hidden;
+  }
+  .calendar-panel[hidden] { display: none; }
+
+  /* --- Calendar body — matches the DS Date picker spec (see visual-tests/date-picker.html):
+       dp-nav/dp-select/dp-weekdays/dp-days/dp-day tokens, spacing and colours. The
+       range-display header and the shortcuts rail below are this page's own addition
+       on top of that spec (the spec itself is single-date, with no range or shortcuts). --- */
+  /* 360px rather than the DS reference's 320px — with two selects (month AND year)
+     side by side instead of a single field, 320 left "2026" clipped behind the
+     chevron icon; the DS spec itself doesn't fix a container width. */
+  .calendar-body { width: 360px; padding: var(--ep-padding-xl) var(--ep-padding-2xs); } /* 24px top/bottom, 8px sides */
+  .calendar-range-display { display: flex; gap: var(--ep-gap-s); margin: 0 var(--ep-padding-2xs) var(--ep-size-48); }
+  .cal-range-field { flex: 1; min-width: 0; }
+  .cal-range-field label {
+    display: block;
+    margin-bottom: var(--ep-size-4);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    color: var(--ep-grey-900);
+  }
+  .cal-range-input-wrap {
+    display: flex;
+    align-items: center;
+    min-height: var(--ep-size-44);
+    border: var(--ep-size-2) solid var(--ep-grey-500);
+    border-radius: var(--ep-radius-xs);
+    padding: 0 var(--ep-padding-l);
+    background: var(--ep-white);
+  }
+  .cal-range-input-wrap:hover { border-color: var(--ep-blue-800); }
+  /* .is-active marks which of the two fields the next calendar click will fill —
+     mirrors the real focus ring the reference shows moving from Start to End. */
+  .cal-range-input-wrap.is-active {
+    border-color: var(--ep-accent-blue-500);
+    outline: 2px solid var(--ep-accent-blue-500);
+    outline-offset: 2px;
+  }
+  .cal-range-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    color: var(--ep-grey-900);
+  }
+  .cal-range-icon { display: flex; align-items: center; justify-content: center; color: var(--ep-blue-500); flex-shrink: 0; }
+
+  /* Rounded frame around the nav row + weekday header + day grid — this page's own
+     addition, not in the DS spec (which leaves that block border-less). */
+  .cal-grid-frame {
+    border: var(--ep-size-2) solid var(--ep-grey-500);
+    border-radius: var(--ep-radius-xs);
+    padding: var(--ep-padding-l) 0;
+  }
+  .cal-nav { display: flex; align-items: center; padding: 0 var(--ep-padding-2xs); }
+  .cal-nav-btn {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ep-blue-500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  .cal-nav-btn:hover { color: var(--ep-blue-800); }
+  #calPrevMonth { margin-left: var(--ep-margin-s); margin-right: var(--ep-margin-2xs); } /* 24px / 8px */
+  #calNextMonth { margin-left: var(--ep-margin-2xs); margin-right: var(--ep-margin-s); } /* 8px / 24px */
+  .cal-select {
+    appearance: none;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    color: var(--ep-grey-900);
+    background: var(--ep-white) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><polygon fill='%231F1F1F' points='17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42'/></svg>") no-repeat right 4px center;
+    background-size: 24px;
+    border: var(--ep-size-2) solid var(--ep-grey-500);
+    border-radius: var(--ep-radius-xs);
+    min-height: var(--ep-size-44);
+    padding: 0 36px 0 var(--ep-padding-l);
+    flex: 1;
+    min-width: 0;
+  }
+  #calMonthSelect { margin-right: var(--ep-margin-xs); } /* 16px to year select */
+
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: var(--ep-gap-s); /* 16px */
+    margin-top: var(--ep-margin-s); /* 24px */
+    padding: 0 var(--ep-padding-2xs);
+    text-align: center;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    color: var(--ep-grey-600);
+  }
+  .cal-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: var(--ep-gap-s);
+    margin-top: var(--ep-gap-s);
+    padding: 0 var(--ep-padding-2xs);
+  }
+  .cal-day-cell { position: relative; display: flex; align-items: center; justify-content: center; height: var(--ep-size-32); }
+  /* Continuous band behind every in-range day — this page's own addition for the
+     range picker; adjacent cells touch edge-to-edge within a week row so it reads
+     as one unbroken bar, rounded off only at the two ends of the selection. */
+  .cal-day-cell.in-range::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--ep-blue-100);
+    z-index: 0;
+  }
+  .cal-day-cell.range-start::before { border-radius: 50% 0 0 50%; }
+  .cal-day-cell.range-end::before { border-radius: 0 50% 50% 0; }
+  .cal-day-cell.range-start.range-end::before { border-radius: 50%; }
+  .cal-day {
+    position: relative;
+    z-index: 1;
+    width: var(--ep-size-32);
+    height: var(--ep-size-32);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    appearance: none;
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    color: var(--ep-blue-500);
+  }
+  .cal-day:hover { background: var(--ep-blue-100); }
+  .cal-day:focus-visible { border-color: var(--ep-accent-blue-500); outline: none; }
+  .cal-day.is-today { font-weight: 600; }
+  .cal-day.is-disabled { color: var(--ep-grey-400); cursor: not-allowed; pointer-events: none; }
+  .cal-day.is-empty { visibility: hidden; pointer-events: none; }
+  .cal-day.range-start, .cal-day.range-end {
+    background: var(--ep-accent-blue-500);
+    color: var(--ep-white);
+  }
+  .cal-day.range-start:hover, .cal-day.range-end:hover { background: var(--ep-blue-800); }
+
+  .calendar-separator { border: none; border-top: 1px solid var(--ep-grey-400); margin: var(--ep-margin-s) var(--ep-padding-2xs); } /* 24px */
+  .calendar-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--ep-padding-2xs);
+  }
+  .calendar-apply {
+    appearance: none;
+    cursor: pointer;
+    border: none;
+    background: var(--ep-blue-500);
+    color: var(--ep-white);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    font-weight: 600;
+    border-radius: var(--ep-radius-xs);
+    padding: var(--ep-padding-xs) var(--ep-padding-xl);
+  }
+  .calendar-apply:hover { background: var(--ep-blue-800); }
+
+  .calendar-shortcuts {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    flex-shrink: 0;
+    padding: var(--ep-size-16) 0;
+    border-left: var(--ep-size-1) solid var(--ep-grey-500);
+  }
+  .calendar-shortcuts-title {
+    margin: 0;
+    padding: var(--ep-size-8) var(--ep-size-16) var(--ep-size-12);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-s-size);
+    font-weight: 600;
+    color: var(--ep-grey-600);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .calendar-shortcut {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: var(--ep-size-12) var(--ep-size-16);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    color: var(--ep-grey-900);
+  }
+  .calendar-shortcut:hover { background: var(--ep-blue-100); color: var(--ep-blue-500); }
+
+  /* --- Date range, now a field inside the Filters panel — both From/To shown
+       directly, no toggle --- */
+  .filters-date-range-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--ep-grid-gap); /* 16px */
+  }
+  .filters-date-range-row .date-range-field { grid-column: span 1; min-width: 0; }
+  .week-nav-arrow {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ep-blue-500);
+    padding: 0;
+    flex-shrink: 0;
+  }
+  /* Arrows only scroll this strip — they never change the selected day/page.
+     Only clicking a pill (or the bottom Previous/Next day links) navigates. */
+  .week-days-scroll {
+    display: flex;
+    align-items: center;
+    gap: 2px; /* a hairline break between pills so a run of selected days reads as
+                 one segment per day, not a single unbroken bar */
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+    min-width: 0;
+    /* overflow-x:auto forces overflow-y to compute as auto too (CSS overflow spec),
+       so anything a .week-day pill positions past this box's own bottom edge (like
+       .week-day-today-label) would get clipped. Padding-bottom reserves real room
+       for it inside the box; the matching negative margin-bottom cancels that extra
+       height back out of .week-nav-days' own row sizing, so the arrows and the grey
+       divider don't shift down. */
+    padding-bottom: 32px;
+    margin-bottom: -32px;
+  }
+  /* Fixed, non-shrinking pill width — the ~21 loaded days overflow-scroll behind the
+     arrows instead of all being squeezed to fit, so only 7 show at a time on the
+     full-width (12-col) timeline. */
+  .week-day { flex: 0 0 auto; }
+  .week-days-scroll::-webkit-scrollbar { display: none; }
+  .week-day {
+    position: relative; /* anchors .week-day-today-label below the whole strip */
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0; /* the browser's default <button> padding used to be overridden by the
+                   padding that's now on .week-day-underline instead — without this
+                   reset it re-appears, widening the outer pill past its underline */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: var(--ep-font-family);
+  }
+  /* Everything that used to live directly on .week-day (padding/underline/radius)
+     now lives on this inner wrapper, so a sibling can sit BELOW the underline —
+     inside the same clickable pill, still scrolling with it — for today's label. */
+  .week-day-underline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--ep-size-4);
+    padding: var(--ep-size-16) var(--ep-size-56) var(--ep-size-20); /* wide horizontal padding spreads 7 days across the full-width timeline and — with zero gap between pills — becomes the underline itself, so it reads as one continuous bar with no white break between days; top/bottom padding (offset by the 4px selected-underline border) centers the chevrons on the day-name/day-number content and docks the pill's underline on the grey line */
+    margin-bottom: -2px;
+    border-bottom: 4px solid transparent;
+    border-radius: var(--ep-radius-2xs) var(--ep-radius-2xs) 0 0;
+    transition: background-color 120ms ease, color 120ms ease;
+  }
+  /* --- Hover previews the same 4px underline as the selected state, instead of a
+       background fill --- */
+  .week-day:not(.is-disabled):not(.is-selected):hover .week-day-underline { border-bottom-color: var(--ep-blue-200); }
+  .week-day:not(.is-disabled):not(.is-selected):hover .week-day-name,
+  .week-day:not(.is-disabled):not(.is-selected):hover .week-day-num { color: var(--ep-grey-900); }
+  .week-day-name {
+    font-size: var(--ep-body-l-size); /* 18px */
+    line-height: var(--ep-body-l-line);
+    color: var(--ep-blue-500);
+  }
+  .week-day-num {
+    font-size: var(--ep-heading-xl-size); /* 24px */
+    line-height: var(--ep-heading-xl-line);
+    font-weight: 400;
+    color: var(--ep-blue-500);
+  }
+  .week-day.is-selected .week-day-underline { border-bottom-color: var(--ep-blue-500); }
+  .week-day.is-selected .week-day-name,
+  .week-day.is-selected .week-day-num { color: var(--ep-grey-900); font-weight: 700; }
+  /* Selected days with no events (weekends, or a weekday with nothing scheduled)
+     stay part of the selected range but read as inactive — grey text, still under
+     the same blue underline as the rest of the selected range. */
+  .week-day.is-selected.is-empty .week-day-name,
+  .week-day.is-selected.is-empty .week-day-num { color: var(--ep-grey-400); font-weight: 400; }
+  .week-day.is-disabled { cursor: default; }
+  .week-day.is-disabled .week-day-name,
+  .week-day.is-disabled .week-day-num { color: var(--ep-grey-400); }
+  /* Today's pill carries its own "Today" marker, positioned out of flow so it
+     doesn't inflate that one pill's row height (which broke the shared grey
+     baseline all pills' underlines sit on) — it renders below the whole strip,
+     lined up under the pill, and still scrolls with it since it's absolutely
+     positioned against the pill itself (position:relative), not the page. */
+  .week-day-today-label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: var(--ep-size-8); /* same 8px gap as the divider-to-button rhythm */
+    font-size: 1rem; /* 16px */
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-900);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  /* Committees/Delegations keep their grid column reserved (visibility, not hidden)
+     so the row's width and height never change when they toggle — nothing below jumps. */
+  .event-type-row {
+    display: grid;
+    grid-template-columns: repeat(var(--ep-grid-columns), 1fr);
+    gap: var(--ep-grid-gap); /* 16px */
+  }
+  .event-type-row .field { margin-bottom: 0; }
+  .event-type-row .field--event-type { grid-column: span 6; }
+  .event-type-row .field--committees,
+  .event-type-row .field--delegations {
+    grid-column: span 3;
+    visibility: hidden;
+  }
+  .event-type-row .field--committees.is-active,
+  .event-type-row .field--delegations.is-active {
+    visibility: visible;
+  }
+
+  /* --- Filters — button + panel holding the event-type-row --- */
+  .filters-row {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-size-24);
+    margin-top: 0;
+  }
+  .filters-toggle {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    font-family: var(--ep-font-family);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ep-blue-500);
+    padding: 0;
+    margin: 0;
+  }
+  .filters-toggle:hover { color: var(--ep-blue-800); }
+  .filters-toggle .icon { color: var(--ep-blue-500); }
+  .filters-toggle:hover .icon { color: var(--ep-blue-800); }
+  .filters-panel[hidden] { display: none; }
+  .filters-panel {
+    margin-top: var(--ep-size-32);
+    margin-bottom: var(--ep-gap-xl); /* 48px */
+  }
+  .filters-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--ep-grid-columns), 1fr); /* 12 col */
+    gap: var(--ep-gap-l) var(--ep-grid-gap); /* 32px row / 16px col */
+    align-items: start;
+  }
+  .filters-grid .field { grid-column: span 4; margin-bottom: 0; }
+  @media (max-width: 900px) { .filters-grid .field { grid-column: span 6; } }
+  @media (max-width: 600px) { .filters-grid .field { grid-column: span 12; } }
+
+
+  .filters-reset {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    font-weight: 400;
+    color: var(--ep-blue-500);
+    padding: 0;
+    text-decoration: none;
+  }
+  .filters-reset:hover { color: var(--ep-blue-800); text-decoration: underline; }
+
+  .link-button {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    font-weight: 400;
+    color: var(--ep-blue-500);
+    padding: 0;
+  }
+  .link-button:hover { color: var(--ep-blue-800); }
+
+  /* --- Filter sections: header + checkbox grid, default all shown --- */
+  .filter-section { margin-bottom: var(--ep-size-32); }
+  .filter-section h3 {
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size); /* 18px */
+    line-height: var(--ep-body-l-line);
+    font-weight: 600;
+    color: var(--ep-grey-900);
+    margin: 0 0 var(--ep-size-16);
+  }
+  .filter-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--ep-size-16) var(--ep-grid-gap);
+  }
+  @media (max-width: 900px) { .filter-checkboxes { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .filter-checkboxes { grid-template-columns: 1fr; } }
+  .filter-checkbox-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ep-size-12);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size); /* 16px */
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-900);
+    cursor: pointer;
+  }
+
+  .field label {
+    display: block;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size); /* 18px */
+    line-height: var(--ep-body-l-line);
+    font-weight: 400;
+    color: var(--ep-grey-900);
+    margin-bottom: var(--ep-size-16); /* 1rem */
+  }
+  .field-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--ep-padding-2xs); /* 8px */
+  }
+
+  .field--radio-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--ep-margin-2xs); /* 8px */
+  }
+  .field--radio-group > label { margin-bottom: 0; }
+  .radio-options {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-size-24);
+  }
+  .radio-row {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    font-size: var(--ep-body-m-size);
+  }
+  .radio-row input { accent-color: var(--ep-blue-500); width: 16px; height: 16px; }
+  .radio-row label { margin-bottom: 0; font-size: var(--ep-body-m-size); }
+  .field-label-row label { margin-bottom: 0; }
+  .select {
+    appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: var(--ep-size-44); /* 44px */
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    color: var(--ep-grey-900);
+    border: var(--ep-size-2) solid var(--ep-grey-500); /* 2px */
+    border-radius: var(--ep-radius-xs); /* 8px */
+    padding: 0 var(--ep-padding-l); /* 16px */
+    background: var(--ep-white);
+    cursor: pointer;
+  }
+  .select:focus-visible {
+    outline: 2px solid var(--ep-accent-blue-500);
+    outline-offset: 2px;
+  }
+
+  /* --- Multiselect (event type) --- */
+  .multiselect { position: relative; }
+  .multiselect-menu {
+    position: absolute;
+    top: calc(100% + var(--ep-gap-xs));
+    left: 0;
+    right: 0;
+    background: var(--ep-white);
+    border: 1px solid var(--ep-grey-200);
+    border-radius: var(--ep-radius-xs);
+    padding: var(--ep-size-16) 0;
+    display: none;
+    z-index: 10;
+  }
+  .multiselect.is-open .multiselect-menu { display: block; }
+  .multiselect-option, .multiselect-select-all {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ep-size-12);
+    padding: var(--ep-size-12) var(--ep-padding-l);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-900);
+    cursor: pointer;
+  }
+  .multiselect-select-all {
+    padding-bottom: var(--ep-size-16);
+    margin-bottom: var(--ep-size-8);
+  }
+  .multiselect-option:hover, .multiselect-select-all:hover { background: var(--ep-blue-100); }
+
+  /* Custom checkbox: blue square with white checkmark when checked */
+  .checkbox { position: relative; width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
+  .checkbox input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .checkbox-box {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--ep-size-2) solid var(--ep-grey-500);
+    border-radius: var(--ep-radius-2xs);
+    background: var(--ep-white);
+    pointer-events: none;
+  }
+  .checkbox-box svg { width: 14px; height: 14px; fill: var(--ep-white); display: none; }
+  .checkbox input:checked + .checkbox-box {
+    background: var(--ep-blue-500);
+    border-color: var(--ep-blue-500);
+  }
+  .checkbox input:checked + .checkbox-box svg { display: block; }
+  .checkbox input:focus-visible + .checkbox-box {
+    outline: 2px solid var(--ep-accent-blue-500);
+    outline-offset: 2px;
+  }
+  .select-label-wrap { display: flex; align-items: center; gap: var(--ep-size-8); min-width: 0; }
+  .select-count-badge[hidden] { display: none; }
+  .select-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 var(--ep-size-4);
+    background: var(--ep-blue-200);
+    color: var(--ep-grey-900);
+    border-radius: var(--ep-radius-2xs);
+    font-weight: 600;
+    font-size: var(--ep-body-s-size);
+    flex-shrink: 0;
+  }
+  .select-label-wrap span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* --- Date picker field (see visual-tests/date-picker.html) --- */
+  .dp-label {
+    display: block;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    line-height: var(--ep-body-l-line);
+    font-weight: 400;
+    color: var(--ep-grey-900);
+    margin-bottom: var(--ep-size-16); /* 1rem */
+  }
+  .dp-required { color: var(--ep-red-600); margin-left: 2px; }
+  .dp-helper {
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    line-height: var(--ep-body-l-line);
+    color: var(--ep-grey-600);
+    margin: 0 0 var(--ep-margin-xs); /* 16px */
+  }
+  .date-range-row {
+    display: grid;
+    grid-template-columns: repeat(var(--ep-grid-columns), 1fr);
+    gap: var(--ep-grid-gap); /* 16px */
+  }
+  .date-range-field { grid-column: span 4; min-width: 0; }
+  .dp-control {
+    display: flex;
+    align-items: stretch;
+    min-height: var(--ep-size-44); /* 44px */
+    border: var(--ep-size-2) solid var(--ep-grey-500); /* 2px */
+    border-radius: var(--ep-radius-xs); /* 8px */
+    background: var(--ep-white);
+    overflow: hidden;
+  }
+  .dp-control:hover { border-color: var(--ep-blue-800); }
+  .dp-control:focus-within {
+    outline: 2px solid var(--ep-accent-blue-500);
+    outline-offset: 2px;
+  }
+  .dp-field {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    color: var(--ep-grey-900);
+    padding: 0 var(--ep-padding-l); /* 16px */
+  }
+  .dp-calendar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--ep-size-44);
+    flex-shrink: 0;
+    border: none;
+    cursor: pointer;
+    background: var(--ep-blue-500);
+    color: var(--ep-white);
+  }
+  .dp-calendar-btn:hover { background: var(--ep-blue-800); }
+
+  /* --- Native date picker (week-nav variant — see visual-tests/agenda-daily-committees-mobile.html) --- */
+  .dp-native-label {
+    display: block;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size); /* 18px */
+    line-height: var(--ep-body-l-line);
+    font-weight: 400;
+    color: var(--ep-grey-900);
+    margin-bottom: var(--ep-size-16); /* 1rem */
+  }
+  .dp-native-control {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    min-height: var(--ep-size-44); /* 44px */
+    border: var(--ep-size-2) solid var(--ep-grey-500); /* 2px */
+    border-radius: var(--ep-radius-xs); /* 8px */
+    background: var(--ep-white);
+    overflow: hidden;
+  }
+  .dp-native-control:hover { border-color: var(--ep-blue-800); }
+  .dp-native-control:focus-within {
+    outline: 2px solid var(--ep-accent-blue-500);
+    outline-offset: 2px;
+  }
+  .dp-native-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: none;
+    appearance: none;
+    -webkit-appearance: none;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    color: var(--ep-grey-900);
+    padding: 0 var(--ep-padding-l); /* 16px */
+  }
+  .dp-native-input::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    margin: 0;
+  }
+  .dp-native-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--ep-size-44);
+    flex-shrink: 0;
+    background: var(--ep-blue-500);
+    color: var(--ep-white);
+    pointer-events: none;
+  }
+
+  .events-count {
+    margin-top: var(--ep-size-48);
+    margin-bottom: var(--ep-size-16);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-900);
+  }
+
+  /* --- Test: column labels above the results list, aligned with .event-item's own
+       12-col layout. "Type" doubles as the discreet filter trigger. --- */
+  .events-list-header {
+    display: grid;
+    grid-template-columns: repeat(var(--ep-grid-columns), 1fr);
+    gap: var(--ep-grid-gap); /* 16px */
+    margin-bottom: var(--ep-size-4);
+  }
+  .elh-col {
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-size-16); /* 1rem */
+    font-weight: 600;
+    color: var(--ep-grey-900); /* #1F1F1F */
+  }
+  .elh-time-col { grid-column: span 2; } /* same slot as .event-time below */
+  .elh-main-col { grid-column: span 6; } /* same slot as .event-main below */
+  .elh-type-col { grid-column: span 2; } /* same slot as .event-type below */
+  .elh-stream-col { grid-column: span 2; } /* same slot as .event-stream below */
+  .elh-type-select .select {
+    min-height: auto;
+    width: auto;
+    border: none;
+    padding: 0;
+    background: none;
+    justify-content: flex-start;
+    gap: var(--ep-size-8);
+    font-size: var(--ep-size-16); /* 1rem */
+    font-weight: 600;
+    color: var(--ep-blue-500);
+  }
+  .elh-type-select .select:hover { color: var(--ep-blue-800); }
+  .elh-type-select .select svg { width: 28px; height: 28px; fill: currentColor !important; } /* same size as the timeline's .icon-28 arrows */
+  .elh-type-select .select-count-badge {
+    min-width: 18px;
+    height: 18px;
+    font-size: 11px;
+  }
+  .elh-type-select .multiselect-menu { width: max-content; min-width: 100%; right: 0; }
+
+  /* --- Event item — 12-col grid (see visual-tests/event-item.html) --- */
+  /* The divider starts under the title column (col 3), not under the time column,
+     so it reads as belonging to the event content rather than spanning the full row. */
+  .event-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--ep-grid-columns), 1fr);
+    gap: var(--ep-grid-gap); /* 16px */
+    padding: var(--ep-padding-xl) 0; /* 24px top/bottom */
+    --event-divider-start: calc(2 * ((100% - 11 * var(--ep-grid-gap)) / 12) + 2 * var(--ep-grid-gap));
+  }
+  .event-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: var(--event-divider-start);
+    right: 0;
+    border-top: 1px solid var(--ep-grey-200);
+  }
+  .events-list { margin-top: 0; }
+  /* The very first item's top divider spans the full 12-col grid (it's the boundary
+     of the whole list, not a separator between two content rows). */
+  .events-list .event-item:first-child::before { left: 0; }
+  .events-list .event-item:last-child::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: var(--event-divider-start);
+    right: 0;
+    border-bottom: 1px solid var(--ep-grey-200);
+  }
+
+  /* --- Day accordion (monthly/weekly overview) --- */
+  .month-divider { margin-top: var(--ep-size-48); margin-bottom: var(--ep-size-24); }
+  .month-divider h2 {
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-heading-2xl-size);
+    line-height: var(--ep-heading-2xl-line);
+    font-weight: 600;
+    color: var(--ep-grey-900);
+    margin: 0;
+  }
+
+  .day-accordion-item { border-top: 1px solid var(--ep-grey-200); }
+  .day-accordion-item:last-child { border-bottom: 1px solid var(--ep-grey-200); }
+  /* Test: a second divider right under the day heading, same weight/color and same
+     10-column span (cols 3–12) as the hairline between events below (e.g. TRAN /
+     SEDE+TRAN) — reads as one consistent divider system top to bottom. */
+  .day-accordion-divider {
+    display: grid;
+    grid-template-columns: repeat(var(--ep-grid-columns), 1fr);
+    gap: var(--ep-grid-gap);
+    margin-bottom: var(--ep-size-24);
+  }
+  .day-accordion-divider span { grid-column: 3 / span 10; border-top: 1px solid var(--ep-grey-200); }
+  .day-accordion-header {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--ep-size-24) 0;
+    font-family: var(--ep-font-family);
+    text-align: left;
+  }
+  /* Test: a day-number badge so each day breaks up the feed more than plain text
+     alone — the number is language-neutral, so it carries the "stand out" job
+     while the weekday/month/year text (translated per locale) sits beside it. */
+  .day-accordion-heading { display: flex; align-items: center; gap: var(--ep-size-16); min-width: 0; }
+  .day-badge {
+    flex-shrink: 0;
+    width: var(--ep-size-56); /* sized up to give the 36px number room to breathe */
+    height: var(--ep-size-56);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: 3px solid var(--ep-blue-500); /* test: outline instead of a border — no 3px token in the spacing scale (jumps 2→4), so literal px here */
+    border-radius: var(--ep-radius-xs);
+    font-family: var(--ep-font-family);
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1;
+    padding-top: var(--ep-size-4); /* the digit's own font metrics sit slightly high in the box — nudge down to visually center it */
+    color: var(--ep-grey-900);
+  }
+  .day-accordion-title {
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-heading-xl-size); /* 24px — H3 */
+    line-height: var(--ep-heading-xl-line);
+    font-weight: 600;
+    color: var(--ep-grey-900);
+    margin: 0;
+  }
+  .day-accordion-count {
+    font-weight: 400;
+    color: var(--ep-grey-600);
+  }
+  .day-accordion-header .icon {
+    color: var(--ep-blue-500);
+    transition: transform 120ms ease;
+  }
+  .day-accordion-header[aria-expanded="true"] .icon { transform: rotate(180deg); }
+  /* Days with nothing scheduled: no chevron to click (is-static drops the
+     pointer cursor), everything reads in ep-grey-600 (#6E6E6E) instead of the
+     normal grey-900/blue-500, and a plain note replaces the event list. */
+  .day-accordion-header.is-static { cursor: default; }
+  .day-accordion-item.is-empty .day-badge { outline-color: var(--ep-grey-600); color: var(--ep-grey-600); }
+  .day-accordion-item.is-empty .day-accordion-title { color: var(--ep-grey-600); }
+  /* Title (28px line-height) + 4px gap + note (24px line-height) = 56px — exactly
+     the day-badge's own height, so the stacked text never runs taller than the frame. */
+  .day-accordion-empty-text { display: flex; flex-direction: column; gap: var(--ep-size-4); min-width: 0; }
+  .day-accordion-empty-note {
+    margin: 0;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-600);
+  }
+  .day-accordion-body { padding: 0 0 var(--ep-size-24); }
+  .day-accordion-body[hidden] { display: none; }
+  .day-accordion-body .events-list { margin-top: 0; }
+  .day-accordion-body .events-list .event-item:first-child { padding-top: 0; }
+  .day-accordion-body .events-list .event-item:first-child::before { display: none; }
+  .day-accordion-body .events-list .event-item:last-child::after { display: none; }
+
+  .event-time {
+    grid-column: span 2;
+    font-size: var(--ep-body-l-size); /* 18px */
+    line-height: var(--ep-body-l-line);
+    font-weight: 600;
+    color: var(--ep-grey-900);
+  }
+  .event-main { grid-column: span 6; }
+  .event-title {
+    display: block;
+    font-size: var(--ep-body-l-size); /* 18px */
+    line-height: var(--ep-body-l-line);
+    font-weight: 600;
+    color: var(--ep-grey-900);
+    margin-bottom: var(--ep-size-4);
+  }
+  .event-location {
+    font-size: var(--ep-body-m-size); /* 16px — description */
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-900);
+  }
+  .event-expand {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-4);
+    margin-top: var(--ep-size-12);
+    padding: 0;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size); /* 16px */
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-900);
+  }
+  .event-expand .icon { color: var(--ep-blue-500); transition: transform 120ms ease; }
+  .event-expand[aria-expanded="true"] .icon { transform: rotate(90deg); }
+  .event-detail {
+    grid-column: 3 / span 6; /* aligns under .event-main */
+    font-size: var(--ep-body-m-size);
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-900);
+    padding-top: var(--ep-size-8);
+  }
+  .event-detail[hidden] { display: none; }
+  .event-detail p { margin: 0 0 var(--ep-size-16); }
+  .event-detail p:last-child { margin-bottom: 0; }
+  .plenary-topic { margin-bottom: var(--ep-size-16); }
+  .plenary-topic:last-child { margin-bottom: 0; }
+  .event-detail p.plenary-topic-title, .event-detail p.plenary-topic-report { margin: 0 0 var(--ep-size-8); color: var(--ep-grey-900); }
+  .plenary-topic-file a { color: var(--ep-blue-500); text-decoration: none; }
+  .plenary-topic-file a:hover { text-decoration: underline; }
+
+  .event-type {
+    grid-column: span 2;
+    text-align: left;
+    white-space: nowrap;
+    font-size: var(--ep-body-l-size); /* 18px */
+    line-height: var(--ep-body-l-line);
+    color: var(--ep-grey-900);
+  }
+  .event-stream { grid-column: span 2; text-align: left; }
+  .event-stream a, .event-stream span {
+    font-size: var(--ep-body-l-size); /* 18px */
+    line-height: var(--ep-body-l-line);
+  }
+  .event-stream a { color: var(--ep-blue-500); text-decoration: none; }
+  .event-stream a:hover { text-decoration: underline; }
+  .event-stream .live { display: inline-flex; align-items: center; gap: var(--ep-size-8); color: var(--ep-red-500); font-weight: 600; }
+  .event-stream .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ep-red-500); }
+  .event-stream .upcoming { color: var(--ep-blue-500); }
+
+  /* --- Day navigation + download line --- */
+  .day-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-size-32);
+    padding-top: var(--ep-size-48);
+  }
+  .day-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    font-size: var(--ep-body-l-size); /* 18px */
+    font-weight: 600;
+    color: var(--ep-blue-500);
+    text-decoration: none;
+  }
+  .day-nav a:hover { color: var(--ep-blue-800); text-decoration: underline; }
+  .day-nav a .icon { color: var(--ep-blue-500); }
+  .day-nav a:hover .icon { color: var(--ep-blue-800); }
+  .download-line {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    padding-top: var(--ep-size-48);
+    padding-bottom: var(--ep-size-64);
+  }
+  .download-line .icon { color: var(--ep-blue-500); flex-shrink: 0; }
+  .download-line a {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--ep-body-l-size); /* 18px */
+    color: var(--ep-blue-500);
+    text-decoration: none;
+  }
+  .download-line a:hover { color: var(--ep-blue-800); text-decoration: underline; }
+  .download-line .file-size {
+    color: var(--ep-grey-900);
+    background: var(--ep-grey-100);
+    font-size: var(--ep-body-s-size); /* 14px */
+    padding: var(--ep-padding-3xs) var(--ep-padding-2xs);
+    border-radius: var(--ep-radius-2xs);
+  }
+
+  /* --- Footer --- */
+  .site-footer { background: var(--ep-blue-500); color: var(--ep-white); margin-top: var(--ep-size-32); }
+  .footer-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: var(--ep-size-32) 0;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+  .footer-nav { display: flex; flex-direction: column; gap: var(--ep-size-12); }
+  .footer-nav-row { display: flex; gap: var(--ep-size-32); flex-wrap: wrap; }
+  .footer-nav-row a { color: var(--ep-white); text-decoration: none; font-size: var(--ep-body-m-size); }
+  .footer-nav-row a:hover { text-decoration: underline; }
+  .lang-select {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    border: 1px solid var(--ep-white);
+    border-radius: var(--ep-radius-xs);
+    padding: var(--ep-padding-3xs) var(--ep-padding-l);
+    font-size: var(--ep-body-m-size);
+    color: var(--ep-white);
+  }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--ep-size-24) 0;
+  }
+  .footer-logo { display: flex; align-items: flex-end; gap: var(--ep-size-12); }
+  .footer-logo .logo-text { color: var(--ep-white); font-size: 18px; line-height: 24px; }
+  .footer-logo-mark { height: 24px; width: auto; display: block; }
+  .footer-links { display: flex; gap: var(--ep-size-24); flex-wrap: wrap; }
+  .footer-links a { color: var(--ep-white); text-decoration: none; font-size: var(--ep-body-s-size); }
+  .footer-links a:hover { text-decoration: underline; }

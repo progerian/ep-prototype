@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mobile view (380px) — EP prototype</title>
+<link rel="stylesheet" href="design-system/tokens/colors.css">
+<style>
+  /* Shows any prototype page in a real 380px viewport (so its mobile media queries apply). Usage: mobile-frame.html?p=photoset-mff.html (no param = streaming page) */
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--ep-grey-100); display: flex; justify-content: center; }
+  iframe { width: 380px; max-width: 100%; height: 100vh; border: 0; border-left: 1px solid var(--ep-grey-200); border-right: 1px solid var(--ep-grey-200); background: var(--ep-white); }
+</style>
+</head>
+<body>
+<iframe id="f" title="Mobile page"></iframe>
+<script>
+  // only same-folder prototype pages (no external URLs)
+  const p = new URLSearchParams(location.search).get('p') || 'video-mff.html';   // starts on the streaming page
+  const target = /^[\w.-]+\.html(\?[\w=&.%:-]*)?$/.test(p) ? p : 'homepage.html';
+  // on a real phone the page itself is already the mobile view: no frame needed
+  if (window.innerWidth < 500) location.replace(target); else document.getElementById('f').src = target;
+</script>
+</body>
+</html>

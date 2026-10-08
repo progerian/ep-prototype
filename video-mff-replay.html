@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP Video — Press conference on MFF negotiations (replay)</title>
+<link rel="stylesheet" href="design-system/tokens/colors.css">
+<link rel="stylesheet" href="design-system/tokens/spacing.css">
+<link rel="stylesheet" href="design-system/tokens/typography.css">
+<link rel="stylesheet" href="design-system/tokens/layout.css">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: var(--ep-font-family); background: var(--ep-white); color: var(--ep-grey-900); margin: 0; }
+  a { color: var(--ep-blue-500); }
+  .wrap { max-width: 1176px; margin: 0 auto; padding: 0 var(--ep-size-24); }
+  .icon { display: inline-block; flex-shrink: 0; fill: currentColor; }
+  .icon-20 { width: 20px; height: 20px; } .icon-24 { width: 24px; height: 24px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* --- Header --- */
+  .site-header-inner { display: flex; align-items: center; justify-content: space-between; padding-top: var(--ep-size-16); padding-bottom: var(--ep-size-16); gap: var(--ep-size-16); border-bottom: var(--ep-size-2) solid var(--ep-grey-200); }
+  .logo { display: flex; align-items: center; text-decoration: none; }
+  .logo-header { width: 199px; height: 46px; display: block; }
+  .logo-mark-only { display: none; width: 80px; height: 44px; }
+  .site-header-actions { display: flex; align-items: center; gap: var(--ep-size-16); }
+  .menu-btn { display: inline-flex; align-items: center; gap: var(--ep-size-8); background: var(--ep-white); border: var(--ep-size-2) solid var(--ep-blue-500); border-radius: var(--ep-radius-xs); padding: var(--ep-padding-2xs) var(--ep-padding-l); font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); font-weight: 600; color: var(--ep-blue-500); cursor: pointer; }
+  .menu-btn:hover { color: var(--ep-blue-800); border-color: var(--ep-blue-800); }
+  .search-bar { display: flex; align-items: stretch; width: 365px; min-height: var(--ep-size-44); border: var(--ep-size-2) solid var(--ep-grey-500); border-radius: var(--ep-radius-xs); background: var(--ep-white); overflow: hidden; margin: 0; }
+  .search-bar input[type="search"] { flex: 1; min-width: 0; border: none; outline: none; background: none; font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); padding: 0 var(--ep-padding-l); }
+  .search-btn { display: inline-flex; align-items: center; gap: var(--ep-size-8); background: var(--ep-blue-500); color: var(--ep-white); border: none; padding: 0 var(--ep-padding-l); font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); font-weight: 600; cursor: pointer; }
+  .search-btn:hover { background: var(--ep-blue-800); }
+  .search-icon-btn { display: none; }
+
+  /* --- Breadcrumb: full trail on desktop, a back link on mobile --- */
+  .breadcrumb { display: flex; align-items: center; gap: var(--ep-size-8); padding-top: var(--ep-size-16); font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); }
+  .breadcrumb a { text-decoration: none; white-space: nowrap; } .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { display: inline-flex; color: var(--ep-grey-900); }
+  /* one line only: the last crumb (the long title) is cut with an ellipsis instead of wrapping */
+  .breadcrumb { min-width: 0; }
+  .breadcrumb .full { display: flex; align-items: center; gap: var(--ep-size-8); flex: 1; min-width: 0; }
+  .breadcrumb .full > a, .breadcrumb .full > .sep { flex-shrink: 0; }
+  .breadcrumb .full > span:last-child { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .breadcrumb .back { display: none; align-items: center; gap: var(--ep-size-8); }
+  h1 { font-size: var(--ep-heading-3xl-size); line-height: var(--ep-heading-3xl-line); font-weight: 600; margin: var(--ep-size-48) 0 var(--ep-size-48); }
+
+  /* --- Tabs (EP tabs component) --- */
+  .tabs { display: inline-flex; align-items: center; border-bottom: 2px solid var(--ep-grey-200); }
+  .tab { appearance: none; background: none; border: none; cursor: pointer; font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); color: var(--ep-blue-500); padding: var(--ep-padding-2xs) var(--ep-padding-l); border-radius: var(--ep-radius-2xs) var(--ep-radius-2xs) 0 0; margin-bottom: -2px; }
+  .tab:hover { background: var(--ep-blue-100); color: var(--ep-grey-900); }
+  .tab.is-selected { color: var(--ep-grey-900); font-weight: 600; border-bottom: 4px solid var(--ep-blue-500); }
+  .panel { padding-top: var(--ep-size-48); }
+  .panel[hidden] { display: none; }
+
+  /* --- Photos --- */
+  .results-bar { padding-bottom: var(--ep-size-8); border-bottom: var(--ep-size-2) solid var(--ep-grey-200); margin-bottom: var(--ep-size-48); font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--ep-size-16); margin-bottom: 0; }
+  .photo { display: block; position: relative; aspect-ratio: 3 / 2; background: var(--ep-blue-200); border: 0; padding: 0; cursor: pointer; overflow: hidden; }
+  .photo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .photo:focus-visible, .btn:focus-visible, .select:focus-visible { outline: 2px solid var(--ep-accent-blue-500); outline-offset: 2px; }
+  .photo.is-open { outline: 4px solid var(--ep-blue-500); outline-offset: -4px; }
+
+  /* expanded viewer: inserted under the row of the clicked photo */
+  .viewer { grid-column: 1 / -1; display: grid; grid-template-columns: 2fr 1fr; /* 8 / 4 cols */ border: 1px solid var(--ep-grey-400); }
+  .viewer-stage { background: var(--ep-grey-900); color: var(--ep-white); padding: var(--ep-size-24) var(--ep-size-24) var(--ep-size-48);   /* 48px under the title */ display: flex; flex-direction: column; gap: var(--ep-size-16); align-items: center; }
+  .viewer-close { align-self: flex-end; appearance: none; background: none; border: none; color: var(--ep-white); font-family: var(--ep-font-family); font-size: var(--ep-body-m-size); font-weight: 600; display: inline-flex; align-items: center; gap: var(--ep-size-8); cursor: pointer; padding: 0; }
+  .viewer-img { max-width: 100%; max-height: 520px; object-fit: contain; display: block; }
+  .viewer-caption { align-self: stretch; font-weight: 600; font-size: var(--ep-body-m-size); text-align: center; margin: 0; }
+  .viewer-info { padding: var(--ep-size-48) var(--ep-size-24) var(--ep-size-24); background: var(--ep-white); font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); }
+  .viewer-info h2 { font-size: var(--ep-body-m-size); font-weight: 700; margin: 0 0 var(--ep-size-16); }
+  .viewer-info p { margin: 0 0 var(--ep-size-16); }
+  .btn.viewer-more { display: none; }   /* mobile only */
+
+  .select { position: relative; display: block; width: 100%; margin-bottom: var(--ep-size-16); }
+  .select select { appearance: none; width: 100%; min-height: var(--ep-size-44); font-family: var(--ep-font-family); font-size: var(--ep-body-m-size); color: var(--ep-grey-900); border: var(--ep-size-2) solid var(--ep-grey-500); border-radius: var(--ep-radius-xs); padding: 0 var(--ep-size-48) 0 var(--ep-padding-l); background: var(--ep-white); cursor: pointer; }
+  .select .icon { position: absolute; right: var(--ep-size-12); top: 50%; transform: translateY(-50%); pointer-events: none; }
+  .btn { appearance: none; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: var(--ep-radius-xs); background: var(--ep-blue-500); color: var(--ep-white); font-family: var(--ep-font-family); font-size: var(--ep-body-m-size); font-weight: 600; padding: var(--ep-padding-2xs) var(--ep-padding-l); min-height: var(--ep-size-44); cursor: pointer; margin-bottom: var(--ep-size-24); }
+  .btn:hover { background: var(--ep-blue-800); }
+  .btn--light { background: var(--ep-white); color: var(--ep-blue-500); border: var(--ep-size-2) solid var(--ep-blue-500); width: 100%; }
+  .btn--light:hover { background: var(--ep-blue-100); color: var(--ep-blue-800); }
+
+  /* --- Details --- */
+  .details h2 { font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); font-weight: 700; margin: 0 0 var(--ep-size-16); }
+  .details section { margin-bottom: var(--ep-size-32); }
+  .details p { font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); margin: 0 0 var(--ep-size-16); }
+  .details .meta p b { font-weight: 700; }
+  .file-row { display: flex; align-items: center; gap: var(--ep-size-8); flex-wrap: wrap; font-size: var(--ep-body-l-size); }
+  .file-row a { display: inline-flex; align-items: center; gap: var(--ep-size-8); }
+  .file-size { background: var(--ep-grey-100); border-radius: var(--ep-radius-2xs); padding: 0 var(--ep-size-8); font-size: var(--ep-body-s-size); line-height: var(--ep-body-s-line); }
+  .file-row .select { width: auto; margin: 0; }
+  .file-row .select select { min-height: var(--ep-size-32); font-size: var(--ep-body-s-size); padding: 0 var(--ep-size-32) 0 var(--ep-size-8); border-width: 1px; border-radius: var(--ep-radius-2xs); }
+  .file-row .select .icon { width: 16px; height: 16px; right: var(--ep-size-8); }
+  .ref { font-size: var(--ep-body-l-size); margin: var(--ep-size-48) 0 0; }
+  .details section:last-child { margin-bottom: 0; }
+  main { padding-bottom: var(--ep-size-64); }
+
+  /* --- Footer --- */
+  .site-footer { background: var(--ep-blue-500); color: var(--ep-white); }
+  .footer-top { display: flex; align-items: flex-start; justify-content: space-between; padding-top: var(--ep-size-32); padding-bottom: var(--ep-size-32); gap: var(--ep-size-24); position: relative; }
+  .footer-top::after { content: ''; position: absolute; left: var(--ep-size-24); right: var(--ep-size-24); bottom: 0; border-bottom: 1px solid rgba(255,255,255,0.25); }
+  .footer-nav { display: flex; flex-direction: column; gap: var(--ep-size-12); }
+  .footer-nav-row { display: flex; gap: var(--ep-size-32); flex-wrap: wrap; }
+  .footer-nav-row a { color: var(--ep-white); text-decoration: none; font-weight: 600; font-size: var(--ep-body-l-size); }
+  .lang-select { display: inline-flex; align-items: center; gap: var(--ep-size-8); border: 2px solid var(--ep-white); border-radius: var(--ep-radius-xs); padding: var(--ep-padding-3xs) var(--ep-padding-l); font-size: var(--ep-body-m-size); font-weight: 600; color: var(--ep-white); white-space: nowrap; }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: var(--ep-size-24); padding-bottom: var(--ep-size-24); gap: var(--ep-size-24); flex-wrap: wrap; }
+  .footer-logo { display: flex; align-items: flex-end; gap: var(--ep-size-12); }
+  .footer-logo-mark { height: 24px; width: auto; display: block; }
+  .logo-text { display: flex; flex-direction: column; font-weight: 600; font-size: 18px; line-height: 24px; color: var(--ep-white); }
+  .footer-links { display: flex; gap: var(--ep-size-24); flex-wrap: wrap; }
+  .footer-links a { color: var(--ep-white); text-decoration: none; font-size: var(--ep-body-s-size); }
+
+  /* --- Tablet / mobile --- */
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); } .viewer { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .logo-header { display: none; } .logo-mark-only { display: block; }
+    .search-bar { display: none; }
+    .menu-btn .ico-extra { display: none; }
+    .search-icon-btn { display: inline-flex; padding: var(--ep-padding-2xs) var(--ep-size-12); }
+    .menu-btn { padding: var(--ep-padding-2xs) var(--ep-padding-l); }
+    .breadcrumb .full { display: none; } .breadcrumb .back { display: inline-flex; }
+    h1 { margin: var(--ep-size-32) 0 var(--ep-size-32); }
+    .btn.viewer-more { display: block; }
+    .viewer-caption { margin-bottom: var(--ep-size-16); }   /* + 16 flex gap = 32px between the title and the button */
+    /* mockup: the dark area is full screen (breaks out of the page margin); the photo keeps a 32px side padding */
+    .viewer { margin-left: calc(-1 * var(--ep-size-24)); margin-right: calc(-1 * var(--ep-size-24)); border: 0; }
+    .viewer-stage { padding: var(--ep-size-24) var(--ep-size-32); }
+    .viewer-img { width: 100%; max-height: none; }
+    .viewer-info { display: none; padding: var(--ep-size-24); }
+    .viewer.is-full .viewer-info { display: block; }
+    .viewer.is-full .btn.viewer-more { display: none; }
+    .footer-top { flex-direction: column; } .footer-nav-row { gap: var(--ep-size-16) var(--ep-size-24); }
+  }
+
+  .screen { position: relative; aspect-ratio: 16 / 9; background: var(--ep-blue-500); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .screen { container-type: inline-size; }
+  .screen-stars { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .screen-brand { position: absolute; left: 16.5cqw; top: 9cqw; color: var(--ep-white); font-weight: 600; font-size: 3.4cqw; line-height: 1.2; }
+  .screen-brand img { display: block; width: 34.8cqw; height: auto; margin-bottom: 2cqw; }
+  .play { appearance: none; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 72px; height: 72px; border-radius: 50%; border: 0; background: var(--ep-grey-900); color: var(--ep-white); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+  .play:hover { background: var(--ep-blue-800); }
+  .play:focus-visible { outline: 4px solid var(--ep-accent-blue-500); outline-offset: 4px; }
+  .play svg { width: 40px; height: 40px; fill: currentColor; }
+  .play .i-pause { display: none; }
+  .play[aria-pressed="true"] .i-play { display: none; } .play[aria-pressed="true"] .i-pause { display: block; }
+  .duration { position: absolute; right: var(--ep-size-16); bottom: var(--ep-size-16); background: var(--ep-grey-900); color: var(--ep-white); border-radius: var(--ep-radius-2xs); padding: 0 var(--ep-size-8); font-size: var(--ep-body-m-size); line-height: var(--ep-body-l-line); font-weight: 600; }
+  .caption-bar { background: var(--ep-grey-900); color: var(--ep-white); padding: var(--ep-size-16); font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); font-weight: 600; }
+  .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .transcript-toggle { appearance: none; background: none; border: 0; padding: 0; cursor: pointer; font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); font-weight: 700; color: var(--ep-grey-900); display: inline-flex; align-items: center; gap: var(--ep-size-8); }
+  .transcript-toggle .icon { color: var(--ep-blue-500); transition: transform 120ms ease; }
+  .transcript-toggle[aria-expanded="true"] .icon { transform: rotate(180deg); }
+  .transcript-body { margin-top: var(--ep-size-24); }
+  .t-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--ep-size-24); }
+  .t-row { display: grid; grid-template-columns: 200px 1fr; gap: var(--ep-size-16); align-items: start; }
+  .t-thumb { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: var(--ep-blue-200); }
+  .t-time { font-weight: 700; }
+  .t-row p { margin: var(--ep-size-8) 0 0; font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); }
+  .transcript-body[hidden] { display: none; }
+  .dl-row { display: flex; gap: var(--ep-size-16); align-items: center; flex-wrap: wrap; }
+  .dl-row .select { width: 100%; max-width: 400px; margin: 0; }
+  .dl-row .btn { margin: 0; }
+  .video-rest h2 { font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); font-weight: 700; margin: 0 0 var(--ep-size-16); }
+  .video-rest section { margin-bottom: var(--ep-size-32); }
+  .video-rest p { margin: 0 0 var(--ep-size-16); }
+
+  /* --- Layout: title on top (24 / 32), then player (8 cols) with the info lines on its right (4 cols); transcript, download, description, tags under the player; the reference last --- */
+  .video-title { font-size: var(--ep-heading-xl-size); line-height: 32px; font-weight: 600; margin: var(--ep-size-48) 0 var(--ep-size-32); max-width: calc((100% - 11 * var(--ep-grid-gap)) / 12 * 8 + 7 * var(--ep-grid-gap)); text-box-trim: trim-start; text-box-edge: cap alphabetic; }   /* 24 / 32 */
+  @supports not (text-box-trim: trim-start) { .video-title { margin-top: calc(var(--ep-size-48) - 3px); } }
+  .video-layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--ep-grid-gap); align-items: start; }
+  .video-layout > .player { grid-column: 1 / span 8; grid-row: 1; }
+  /* right column, like the photo panel in a photoset: download first, then the description, then the info lines */
+  .video-layout > .video-side { grid-column: 9 / -1; grid-row: 1 / span 3; font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); }
+  .video-side h2 { font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); font-weight: 700; margin: 0 0 var(--ep-size-8); text-box: trim-start cap alphabetic; }   /* 8px between a title and its input / text (test) */
+  .video-side section { margin-bottom: var(--ep-size-32); }
+  .video-side .side-desc p { margin: 0; }
+  .video-side .dl-row { flex-direction: column; align-items: stretch; gap: var(--ep-size-16); }
+  .video-side .dl-row .select { max-width: none; }
+  .video-side .dl-row .btn { align-self: flex-start; }
+  .video-side .video-info p { margin: 0 0 var(--ep-size-16); text-box: trim-both cap alphabetic; }   /* info lines: exactly 16px apart, line-height leading trimmed */
+  .video-side .video-info b { font-weight: 400; }   /* info labels (Event date:, Copyright:…) in regular weight */
+  .video-side .video-info p:last-child { margin-bottom: 0; }
+  .video-layout > .tr { grid-column: 1 / span 8; grid-row: 2; margin: 0; }
+  .video-layout > .video-rest { grid-column: 1 / span 8; grid-row: 3; margin-top: var(--ep-size-32); font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); }
+  .video-layout > .ref { grid-column: 1 / span 8; grid-row: 4; margin: var(--ep-size-32) 0 0; font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); overflow-wrap: anywhere; }
+  @media (max-width: 900px) {
+    .video-layout { display: block; }
+    .video-layout > .video-side { margin-top: var(--ep-size-32); }
+    .video-layout > .tr { margin-top: var(--ep-size-32); }
+    .video-layout > .video-rest { margin-top: var(--ep-size-48); }
+  }
+  @media (max-width: 600px) {
+    .video-layout > .player { margin-left: calc(-1 * var(--ep-size-24)); margin-right: calc(-1 * var(--ep-size-24)); }
+    .caption-text { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+    .play { width: 56px; height: 56px; } .play svg { width: 32px; height: 32px; }
+    .t-row { grid-template-columns: 96px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="site-header-inner">
+      <a class="logo" href="homepage.html" aria-label="European Parliament — home">
+        <img class="logo-header" src="design-system/logo%20header.svg" alt="European Parliament" width="199" height="46">
+        <img class="logo-mark-only" src="design-system/Ep_logo_mute.svg" alt="European Parliament" width="80" height="44">
+      </a>
+      <div class="site-header-actions">
+        <form class="search-bar" role="search"><input type="search" aria-label="Search europarl.eu"><button type="submit" class="search-btn">Search <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.99,2c-4.42,0-8,3.58-8,8,0,1.85.63,3.55,1.69,4.9l-4.85,4.85,1.41,1.41,4.85-4.85c1.35,1.05,3.05,1.69,4.9,1.69,4.42,0,8-3.58,8-8S18.41,2,13.99,2ZM13.99,16c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6Z"/></svg></button></form>
+        <button class="menu-btn search-icon-btn" type="button" aria-label="Search"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.99,2c-4.42,0-8,3.58-8,8,0,1.85.63,3.55,1.69,4.9l-4.85,4.85,1.41,1.41,4.85-4.85c1.35,1.05,3.05,1.69,4.9,1.69,4.42,0,8-3.58,8-8S18.41,2,13.99,2ZM13.99,16c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6Z"/></svg></button>
+        <button class="menu-btn" type="button" aria-haspopup="true" aria-expanded="false">Menu <svg class="icon icon-24" ico-extra viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <span class="full">
+        <a href="homepage.html">European Parliament</a><span class="sep"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></span>
+        <a href="#">…</a><span class="sep"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></span>
+        <a href="search-videos.html">Videos</a><span class="sep"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></span>
+        <span>Press conference by Siegfried MUREŞAN (EPP, RO) and Carla TAVARES (S&D, PT), co-rapporteurs on the Multiannual Financial Framework (MFF) negotiations</span>
+      </span>
+      <a class="back" href="search-videos.html"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="13.58 6.33 7.92 11.99 13.58 17.65 14.99 16.24 10.75 11.99 14.99 7.75 13.58 6.33"/></svg>Videos</a>
+    </nav>
+
+    <h1 class="video-title">Press conference by Siegfried MUREŞAN (EPP, RO) and Carla TAVARES (S&D, PT), co-rapporteurs on the Multiannual Financial Framework (MFF) negotiations</h1>
+
+    <div class="video-layout">
+      <div class="player">
+        <div class="screen">
+          <img class="poster" src="https://api.multimedia.europarl.europa.eu/documents/20125/98765692/1791295643508_I295558%5Bthumb%5D.jpeg" alt="">
+          <button class="play" id="play" type="button" aria-pressed="false" aria-label="Play video"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><polygon points="8 5 19 12 8 19 8 5"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
+          <span class="duration">22:42</span>
+        </div>
+        <div class="caption-bar"><span class="caption-text">Press conference by Siegfried MUREŞAN (EPP, RO) and Carla TAVARES (S&D, PT), co-rapporteurs on the Multiannual Financial Framework (MFF) negotiations</span></div>
+      </div>
+      <div class="video-side">
+        <section class="side-dl">
+          <h2>Download this video</h2>
+          <div class="dl-row">
+            <label class="select"><span class="sr-only">Format</span><select><option>MP4 – 40 MB – Medium</option><option>MP4 – 12 MB – Small</option><option>MP4 – 120 MB – Large</option></select><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg></label>
+            <button class="btn" type="button">Download</button>
+          </div>
+        </section>
+        <section class="side-tags">
+          <h2>Tags</h2>
+          <p><a href="#">#Strasbourg</a>, <a href="#">#press conference</a>, <a href="#">#Multiannual financial framework 2028–2034</a></p>
+        </section>
+        <section class="side-desc">
+          <h2>Description</h2>
+          <p>Co-rapporteurs Siegfried MUREŞAN (EPP, RO) and Carla TAVARES (S&amp;D, PT) hold a press conference on the Multiannual Financial Framework (MFF) negotiations. This transcription is a result of an automatic process. Please check against delivery.</p>
+        </section>
+        <div class="video-info">
+        <p><b>Event date:</b> 06/10/2026</p>
+        <p><b>Copyright:</b> © European Union 2026</p>
+        </div>
+      </div>
+      <section class="tr">
+          <button class="transcript-toggle" id="tToggle" type="button" aria-expanded="false" aria-controls="tBody">Transcript <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg></button>
+          <div class="transcript-body" id="tBody" hidden>
+            <ol class="t-list">
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/01.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:00:00</a><p>SOUNDBITE (Original) Press Officer, Okay. Let's start again. Hello, everyone. Welcome to this press briefing on the MFF, the EU's long-term budget. Thank you so much for joining us. Tomorrow at the plenary at 9 o'clock, we will have a debate as well on the topic. And today, here, we have with us the two co-operators from the Parliament, Mr. Siegfried Muresan and Ms. Carla Tavares, who will give you brief introductory remarks, and then we go to questions. Interpretation is available in English, French, German, Romanian, and Portuguese. Mr. Muresan, the floor is yours.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/02.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:00:35</a><p>SOUNDBITE (Original) Siegfried MUREŞAN (EPP, RO),co-rapporteur, Thank you very much. Good afternoon, everyone. So, look, we are happy to tell you where we stand as a European Parliament and what we expect from the Council in the next two weeks. The fact is, we as a Europe Parliament have had a clear position on the multi-annual financial framework adopted by the plenary with absolute majority in April, and we are still waiting for a position of the Council. If the Council believes that agreeing very late, before all deadlines are passing on a council's position on the next MFF, and then the parliament will vote it without changes and without any conditions under the pressure of time, then the European Council is wrong.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/03.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:01:16</a><p>SOUNDBITE (Original) Siegfried MUREŞAN (EPP, RO),co-rapporteur, This is a European parliament in which members of parliament exert their mandate freely. It is a parliament that is very diverse. And we have articulated. A clear position of the parliament supported by a large majority of pro-European groups, and members of the European Parliament will only vote in favour of the MFF if the demands of the Parliament are included to a satisfactory degree. We know that the end result will be a compromise, but for a compromise to be successful, Council needs to take Parliament's position on board.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/04.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:01:53</a><p>SOUNDBITE (Original) Siegfried MUREŞAN (EPP, RO),co-rapporteur, So we believe that next week's European Council is the moment when the heads of state and government shall finally commit seriously to the MFF, work thoroughly over the course of the council, and also have an ambitious plan to reach a council's position by the end of the year so that early next year we can hold negotiations between council and parliament. Tomorrow morning, we'll have a debate in plenary, and the debate will confirm. The positions of the majority of the position supported by a very wide majority of members</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/05.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:02:33</a><p>SOUNDBITE (Original) Siegfried MUREŞAN (EPP, RO),co-rapporteur, We are also looking forward to the so-called negotiating box that the Irish presidency will put forward. And we believe there is still time for the Irish Presidency to avoid some mistakes which will bring us back to square one, back to where the Irish presidencies started on the 1st of July. The biggest mistake that the Irish presidency absolutely has to avoid is to make unjustified cuts to these, to the figures in the negotiating box. Unjustified cuts would make Europe weaker, would not solve any of the challenges that we are facing and would severely undermine an inter-institutional good cooperation between parliament and council.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/06.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:03:20</a><p>SOUNDBITE (Original) Siegfried MUREŞAN (EPP, RO),co-rapporteur, We are aware that member states are financially and politically not willing to increase their contributions to the EU budget significantly, but we believe that there is a way out such that member States do not have to contribute much more to the E.U. Budget, but we can still fund our priorities sufficiently and that way out is own resources. The European Parliament has three ideas for own resources which would make the funding of the union more stable, more predictable, more transparent, and more European.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/07.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:03:53</a><p>SOUNDBITE (Original) Siegfried MUREŞAN (EPP, RO),co-rapporteur, These are the digital levy, the crypto profits made with cryptocurrencies and online gaming and gambling. Particularly, the digital levee, depending on the way in which it is applied, can be a significant source of funding to the EU budget. This being said, just as a last sentence, this being said. We advise the council to stop projecting publicly the impression that the EU budget is increasing in an unjustified manner, while at national level, governments are obliged to make cuts to their budgets.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/08.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:04:33</a><p>SOUNDBITE (Original) Siegfried MUREŞAN (EPP, RO),co-rapporteur, Yes, national governments do have to consolidate their public budgets, but even in this context of fiscal consolidation, national budgets are increasing in absolute terms much more than the EU has ever increased. Over the course of the implementation of this MFF, the burden upon member states was reduced. The total share of the MFF over the course of this the total share of the the Mff in comparison to the GNI of member states is declining gradually from year to year.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/09.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:05:06</a><p>SOUNDBITE (Original) Siegfried MUREŞAN (EPP, RO),co-rapporteur, So economies throughout Europe are growing and national governments are not transmitting that growth and that surplus, that additional. Revenues which they have at national level to the EU budget. So the perception which some member states are trying to create that the EU Budget is too big and it is increasing significantly while at national-level fiscal consolidation is undergoing is wrong. The figures contradict them. And over the course of recent years, national budgets have increased much more significantly than the EU's budget has.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/10.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:05:43</a><p>SOUNDBITE (Original) Siegfried MUREŞAN (EPP, RO),co-rapporteur, So we believe it is high time for the heads of state and government to do what we've been doing in the European Parliament as well to attempt to try to agree on a budget which is good for Europe and to move away from only the national viewpoint where every prime minister tries to contribute as little as possible to the union and benefit as much as possible. This doesn't make Europe stronger, this isn't European and we believe that we should together, Parliament and Council agree on the budget which is in line with the priorities that we've set for ourselves.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/11.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:06:16</a><p>SOUNDBITE (Original) Carla TAVARES (S&amp;D, PT), co-rapporteur, Thank you Siegfried, thank you to be here. I will speak in Portuguese now. Is much more than a financial instrument, it is a political instrument that will define what the priorities of the Union are for the next seven-year cycle. The Parliament was absolutely clear in the mandate that gave the two correspondents when we had the opportunity to vote the interim report and therefore we will not accept speeches and positions that say that to have cohesion we cannot have competitiveness, to have the European Social Fund, we cannot have climate.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/12.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:07:14</a><p>SOUNDBITE (Original) Carla TAVARES (S&amp;D, PT), co-rapporteur, The cohesion, the competitiveness, the agriculture, the security, the defence, the important issues are two sides of the same coin. And therefore the Parliament, which continues to say, continues to pull together the Member States and continues to affirm very clearly, is that we have to have more ambition, we can only have more ambitions. It is what the Europeans expect of us, with the vote they gave in the different political parties that are represented in this Parliament, it is what they expect to happen.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/13.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:07:40</a><p>SOUNDBITE (Original) Carla TAVARES (S&amp;D, PT), co-rapporteur, I know that the European Union is in conditions to respond to the challenges that we have ahead, and this is not done with more contribution from Member States, it is naturally done with new resources, and that for the Parliament is absolutely clear and we have said it several times. I also wanted to make a reference, because little is said about this, with the presentation of the proposal, we are a little worried and that it is held with the Global Euro and the Edding 3. Foreign policy be massacred and amputated, even because it is very expected in relation to the European Union.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/14.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:08:20</a><p>SOUNDBITE (Original) Carla TAVARES (S&amp;D, PT), co-rapporteur, We speak extensively of the very President of the European Commission, very well, speaks of the issues and the challenges we have in the area, with the Wedding (sic) 3 in particular, with the extension, with Global Europe. Therefore, also the pilgrimic idea that we are going to amputate the Wedging 3. To make it survive the Wedding 2 and Wedding 1, which is also not for the Parliament, and I think we are very clear in the interim report that we will not accept, naturally, that this will happen.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/15.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:08:47</a><p>SOUNDBITE (Original) Carla TAVARES (S&amp;D, PT), co-rapporteur, Therefore, the next few days are absolutely decisive moments, we even have the Negobox being worked on by the Irish presidency. The Parliament is where it has always been, the two reporters have a mandate that was given to the Parliament. And we didn't see it naturally in a very positive way. And it will be difficult for this Parliament to have a next financial framework proposal that is even lower than the Commission's proposal and what is the level of the current financial framework, because this will not naturally allow us to respond to the ambition.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/16.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:09:25</a><p>SOUNDBITE (Original) Carla TAVARES (S&amp;D, PT), co-rapporteur, And we cannot forget, at the top of our heads, that the need to, from 2028, have to reimbursed the Next Generation New. And naturally, that is also a concern of the Parliament, and we return to the beginning, Therefore, there is ambition and the payment of commitments is not done without resources. This is how to manage our lives, and therefore the need and the need to continue to insist that we need to work around our own resources. The Parliament itself presented three more proposals that can be put together, the proposals that were presented by the Commission.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/17.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:09:59</a><p>SOUNDBITE (Original) Carla TAVARES (S&amp;D, PT), co-rapporteur, We are aware that one of them will certainly be easier. Even due to the speed of implementation in relation to the other proposals. Therefore, what we ask for and what we are aware of is that we cannot deny to the party a science that we do not know. Therefore, we have to work around everything that is proposed, with our own resources, to find the best solutions on the penalty of essentially penalising the Europeans and not being able to respond to the challenges we have ahead. And just look at the moments we live now, with fuel, with energy. And much more, which unfortunately can not wait for us in this seven-year cycle and which we do not even get to see at this distance today. Thank you very much.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/18.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:10:45</a><p>SOUNDBITE (Original) Press Officer, Thank you very much. Now we go to your questions. Please state your name and your media when you ask a question.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/19.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:11:16</a><p>Q&amp;A Question on the impact of Spanish snap elections on EU negotiations, particularly the role of Prime Minister Sánchez in defending the European Parliament's positions.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/20.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:14:05</a><p>Q&amp;A Question about meeting the November deadline for a common position on the ANRPP and potential adjustments to accelerate the negotiation process.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/21.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:16:39</a><p>Q&amp;A Question on upcoming negotiations on the EU budget, including the Irish presidency's proposal , rumored to be less than 10%, and historical context of budget negotiations</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/22.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:18:49</a><p>Q&amp;A Question on EU debt rollover as a potential deal-maker and Parliament's stance and question on the risk to MFF majority due to EPP-far-right alliances on environmental files</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/23.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:22:21</a><p>SOUNDBITE (Original) Press Officer, Thank you. Any last questions in the room or online? I don't see any. In that case, thanks for joining us. Please follow the debate tomorrow on the MFF at the Plenary, starting at 9, and follow our channels. The co-operators will, of course, have reactions to the NEGO box when it comes out. Thank you very much. Thank you very much.</p></div></li>
+            <li class="t-row"><img class="t-thumb" src="design-system/transcript-mff/24.jpg" alt="" loading="lazy"><div><a class="t-time" href="#">00:22:42</a><p>End</p></div></li>
+            </ol>
+          </div>
+      </section>
+      <div class="video-rest">
+      </div>
+      <p class="ref">Reference: I295558</p>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-top">
+    <div class="footer-nav">
+      <div class="footer-nav-row">
+        <a href="#">Law</a><a href="#">Transparency, ethics</a><a href="#">MEPs</a><a href="news-topics.html">News, topics</a><a href="#">Parliament powers</a><a href="#">Contact, visit</a><a href="#">Plenary</a>
+      </div>
+      <div class="footer-nav-row">
+        <a href="#">Committees, delegations</a><a href="#">About Parliament</a>
+      </div>
+    </div>
+    <div class="lang-select">
+      <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99,2C6.47,2,1.99,6.48,1.99,12s4.48,10,10,10,10-4.48,10-10S17.52,2,11.99,2ZM18.92,8.01h-2.48c-.34-1.19-.83-2.34-1.47-3.43,1.67.67,3.06,1.89,3.96,3.43ZM19.99,12c0,.69-.1,1.36-.26,2h-2.89c.18-1.33.18-2.67,0-4h2.89c.17.64.26,1.31.26,2ZM11.99,20s-.05,0-.08,0c-1.01-1.21-1.75-2.57-2.23-3.99h4.65c-.48,1.43-1.22,2.78-2.23,3.99-.04,0-.07,0-.11,0ZM9.18,14c-.21-1.32-.21-2.67,0-4h5.65c.21,1.32.21,2.67,0,4h-5.65ZM11.99,4s.07,0,.1,0c1.01,1.22,1.75,2.57,2.23,4h-4.65c.48-1.43,1.22-2.78,2.23-4,.03,0,.06,0,.09,0ZM9.05,4.57c-.65,1.09-1.14,2.25-1.48,3.44h-2.5c.9-1.55,2.3-2.77,3.98-3.44ZM4.26,10.01h2.91c-.18,1.33-.18,2.67,0,4h-2.91c-.17-.64-.26-1.31-.26-2s.1-1.36.26-2ZM5.08,16h2.5c.34,1.19.83,2.35,1.48,3.43-1.68-.67-3.08-1.89-3.98-3.43ZM14.96,19.42c.65-1.09,1.13-2.24,1.47-3.42h2.48c-.89,1.54-2.28,2.75-3.95,3.42Z"/></svg>
+      EN – English
+      <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <div class="footer-logo">
+      <img class="footer-logo-mark" src="design-system/EP_logo_mute_white.svg" alt="">
+      <span class="logo-text"><span>European</span><span>Parliament</span></span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Legal notice</a><a href="#">Privacy policy</a><a href="#">Accessibility</a><a href="#">Easy-to-read</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const play = document.getElementById('play');
+  play.addEventListener('click', () => {
+    const on = play.getAttribute('aria-pressed') !== 'true';
+    play.setAttribute('aria-pressed', String(on));
+    play.setAttribute('aria-label', on ? 'Pause video' : 'Play video');
+  });
+  const tt = document.getElementById('tToggle'), tb = document.getElementById('tBody');
+  tt.addEventListener('click', () => { const open = tt.getAttribute('aria-expanded') !== 'true'; tt.setAttribute('aria-expanded', String(open)); tb.hidden = !open; });
+</script>
+</body>
+</html>

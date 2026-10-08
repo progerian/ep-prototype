@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EP Photoset — Press conference on MFF negotiations</title>
+<link rel="stylesheet" href="design-system/tokens/colors.css">
+<link rel="stylesheet" href="design-system/tokens/spacing.css">
+<link rel="stylesheet" href="design-system/tokens/typography.css">
+<link rel="stylesheet" href="design-system/tokens/layout.css">
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: var(--ep-font-family); background: var(--ep-white); color: var(--ep-grey-900); margin: 0; }
+  a { color: var(--ep-blue-500); }
+  .wrap { max-width: 1176px; margin: 0 auto; padding: 0 var(--ep-size-24); }
+  .icon { display: inline-block; flex-shrink: 0; fill: currentColor; }
+  .icon-20 { width: 20px; height: 20px; } .icon-24 { width: 24px; height: 24px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* --- Header --- */
+  .site-header-inner { display: flex; align-items: center; justify-content: space-between; padding-top: var(--ep-size-16); padding-bottom: var(--ep-size-16); gap: var(--ep-size-16); border-bottom: var(--ep-size-2) solid var(--ep-grey-200); }
+  .logo { display: flex; align-items: center; text-decoration: none; }
+  .logo-header { width: 199px; height: 46px; display: block; }
+  .logo-mark-only { display: none; width: 80px; height: 44px; }
+  .site-header-actions { display: flex; align-items: center; gap: var(--ep-size-16); }
+  .menu-btn { display: inline-flex; align-items: center; gap: var(--ep-size-8); background: var(--ep-white); border: var(--ep-size-2) solid var(--ep-blue-500); border-radius: var(--ep-radius-xs); padding: var(--ep-padding-2xs) var(--ep-padding-l); font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); font-weight: 600; color: var(--ep-blue-500); cursor: pointer; }
+  .menu-btn:hover { color: var(--ep-blue-800); border-color: var(--ep-blue-800); }
+  .search-bar { display: flex; align-items: stretch; width: 365px; min-height: var(--ep-size-44); border: var(--ep-size-2) solid var(--ep-grey-500); border-radius: var(--ep-radius-xs); background: var(--ep-white); overflow: hidden; margin: 0; }
+  .search-bar input[type="search"] { flex: 1; min-width: 0; border: none; outline: none; background: none; font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); padding: 0 var(--ep-padding-l); }
+  .search-btn { display: inline-flex; align-items: center; gap: var(--ep-size-8); background: var(--ep-blue-500); color: var(--ep-white); border: none; padding: 0 var(--ep-padding-l); font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); font-weight: 600; cursor: pointer; }
+  .search-btn:hover { background: var(--ep-blue-800); }
+  .search-icon-btn { display: none; }
+
+  /* --- Breadcrumb: full trail on desktop, a back link on mobile --- */
+  .breadcrumb { display: flex; align-items: center; gap: var(--ep-size-8); padding-top: var(--ep-size-16); font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); }
+  .breadcrumb a { text-decoration: none; } .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb .sep { display: inline-flex; color: var(--ep-grey-900); }
+  /* one line only: the last crumb (the long title) is cut with an ellipsis instead of wrapping */
+  .breadcrumb { min-width: 0; }
+  .breadcrumb .full { display: flex; align-items: center; gap: var(--ep-size-8); flex: 1; min-width: 0; }
+  .breadcrumb .full > a, .breadcrumb .full > .sep { flex-shrink: 0; }
+  .breadcrumb .full > span:last-child { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .breadcrumb .back { display: none; align-items: center; gap: var(--ep-size-8); }
+  h1 { font-size: var(--ep-heading-3xl-size); line-height: var(--ep-heading-3xl-line); font-weight: 600; margin: var(--ep-size-48) 0 var(--ep-size-48); }
+
+  /* --- Tabs (EP tabs component) --- */
+  .tabs { display: inline-flex; align-items: center; border-bottom: 2px solid var(--ep-grey-200); }
+  .tab { appearance: none; background: none; border: none; cursor: pointer; font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); color: var(--ep-blue-500); padding: var(--ep-padding-2xs) var(--ep-padding-l); border-radius: var(--ep-radius-2xs) var(--ep-radius-2xs) 0 0; margin-bottom: -2px; }
+  .tab:hover { background: var(--ep-blue-100); color: var(--ep-grey-900); }
+  .tab.is-selected { color: var(--ep-grey-900); font-weight: 600; border-bottom: 4px solid var(--ep-blue-500); }
+  .panel { padding-top: var(--ep-size-48); }
+  .panel[hidden] { display: none; }
+
+  /* --- Photos --- */
+  .results-bar { padding-bottom: var(--ep-size-8); border-bottom: var(--ep-size-2) solid var(--ep-grey-200); margin-bottom: var(--ep-size-48); font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--ep-size-16); margin-bottom: 0; }
+  .photo { display: block; position: relative; aspect-ratio: 3 / 2; background: var(--ep-blue-200); border: 0; padding: 0; cursor: pointer; overflow: hidden; }
+  .photo img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .photo:focus-visible, .btn:focus-visible, .select:focus-visible { outline: 2px solid var(--ep-accent-blue-500); outline-offset: 2px; }
+  .photo.is-open { outline: 4px solid var(--ep-blue-500); outline-offset: -4px; }
+
+  /* expanded viewer: inserted under the row of the clicked photo */
+  .viewer { grid-column: 1 / -1; display: grid; grid-template-columns: 2fr 1fr; /* 8 / 4 cols */ border: 1px solid var(--ep-grey-400); }
+  .viewer-stage { background: var(--ep-grey-900); color: var(--ep-white); padding: var(--ep-size-24) var(--ep-size-24) var(--ep-size-48);   /* 48px under the title */ display: flex; flex-direction: column; gap: var(--ep-size-16); align-items: center; }
+  .viewer-close { align-self: flex-end; appearance: none; background: none; border: none; color: var(--ep-white); font-family: var(--ep-font-family); font-size: var(--ep-body-m-size); font-weight: 600; display: inline-flex; align-items: center; gap: var(--ep-size-8); cursor: pointer; padding: 0; }
+  .viewer-img { max-width: 100%; max-height: 520px; object-fit: contain; display: block; }
+  .viewer-caption { align-self: stretch; font-weight: 600; font-size: var(--ep-body-m-size); text-align: center; margin: 0; }
+  .viewer-info { padding: var(--ep-size-24);   /* same top as the Close button: the heading lines up with it */ background: var(--ep-white); font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); }
+  .viewer-info h2 { font-size: var(--ep-body-m-size); font-weight: 700; margin: 0 0 var(--ep-size-16); }
+  .viewer-info p { margin: 0 0 var(--ep-size-16); text-box: trim-both cap alphabetic; }   /* info lines: exactly 16px apart, leading trimmed */
+  .viewer-info p b { font-weight: 400; }   /* info labels in regular weight */
+  .viewer-info p.tags-end { margin-bottom: var(--ep-size-32); }   /* 32px after the tags */
+  .viewer-info p.viewer-ref { margin-top: var(--ep-size-48); margin-bottom: 0; }   /* 48px before the reference */
+
+  .select { position: relative; display: block; width: 100%; margin-bottom: var(--ep-size-16); }
+  .select select { appearance: none; width: 100%; min-height: var(--ep-size-44); font-family: var(--ep-font-family); font-size: var(--ep-body-m-size); color: var(--ep-grey-900); border: var(--ep-size-2) solid var(--ep-grey-500); border-radius: var(--ep-radius-xs); padding: 0 var(--ep-size-48) 0 var(--ep-padding-l); background: var(--ep-white); cursor: pointer; }
+  .select .icon { position: absolute; right: var(--ep-size-12); top: 50%; transform: translateY(-50%); pointer-events: none; }
+  .btn { appearance: none; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: var(--ep-radius-xs); background: var(--ep-blue-500); color: var(--ep-white); font-family: var(--ep-font-family); font-size: var(--ep-body-m-size); font-weight: 600; padding: var(--ep-padding-2xs) var(--ep-padding-l); min-height: var(--ep-size-44); cursor: pointer; margin-bottom: var(--ep-size-24); }
+  .btn:hover { background: var(--ep-blue-800); }
+
+  /* --- Details --- */
+  .details h2 { font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); font-weight: 700; margin: 0 0 var(--ep-size-16); }
+  .details section { margin-bottom: var(--ep-size-32); }
+  .details p { font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); margin: 0 0 var(--ep-size-16); }
+  .details .meta p { margin-bottom: var(--ep-size-16); text-box: trim-both cap alphabetic; }   /* info lines: exactly 16px apart, leading trimmed */
+  .details .meta p b { font-weight: 400; }   /* info labels in regular weight */
+  .file-row { display: flex; align-items: center; gap: var(--ep-size-8); flex-wrap: wrap; font-size: var(--ep-body-l-size); }
+  .file-row a { display: inline-flex; align-items: center; gap: var(--ep-size-8); }
+  .file-size { background: var(--ep-grey-100); border-radius: var(--ep-radius-2xs); padding: 0 var(--ep-size-8); font-size: var(--ep-body-s-size); line-height: var(--ep-body-s-line); }
+  .file-row .select { width: auto; margin: 0; }
+  .file-row .select select { min-height: var(--ep-size-32); font-size: var(--ep-body-s-size); padding: 0 var(--ep-size-32) 0 var(--ep-size-8); border-width: 1px; border-radius: var(--ep-radius-2xs); }
+  .file-row .select .icon { width: 16px; height: 16px; right: var(--ep-size-8); }
+  .ref { font-size: var(--ep-body-l-size); margin: var(--ep-size-48) 0 0; }
+  .details section:last-child { margin-bottom: 0; }
+  main { padding-bottom: var(--ep-size-64); }
+
+  /* --- Footer --- */
+  .site-footer { background: var(--ep-blue-500); color: var(--ep-white); }
+  .footer-top { display: flex; align-items: flex-start; justify-content: space-between; padding-top: var(--ep-size-32); padding-bottom: var(--ep-size-32); gap: var(--ep-size-24); position: relative; }
+  .footer-top::after { content: ''; position: absolute; left: var(--ep-size-24); right: var(--ep-size-24); bottom: 0; border-bottom: 1px solid rgba(255,255,255,0.25); }
+  .footer-nav { display: flex; flex-direction: column; gap: var(--ep-size-12); }
+  .footer-nav-row { display: flex; gap: var(--ep-size-32); flex-wrap: wrap; }
+  .footer-nav-row a { color: var(--ep-white); text-decoration: none; font-weight: 600; font-size: var(--ep-body-l-size); }
+  .lang-select { display: inline-flex; align-items: center; gap: var(--ep-size-8); border: 2px solid var(--ep-white); border-radius: var(--ep-radius-xs); padding: var(--ep-padding-3xs) var(--ep-padding-l); font-size: var(--ep-body-m-size); font-weight: 600; color: var(--ep-white); white-space: nowrap; }
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: var(--ep-size-24); padding-bottom: var(--ep-size-24); gap: var(--ep-size-24); flex-wrap: wrap; }
+  .footer-logo { display: flex; align-items: flex-end; gap: var(--ep-size-12); }
+  .footer-logo-mark { height: 24px; width: auto; display: block; }
+  .logo-text { display: flex; flex-direction: column; font-weight: 600; font-size: 18px; line-height: 24px; color: var(--ep-white); }
+  .footer-links { display: flex; gap: var(--ep-size-24); flex-wrap: wrap; }
+  .footer-links a { color: var(--ep-white); text-decoration: none; font-size: var(--ep-body-s-size); }
+
+  /* --- Tablet / mobile --- */
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(3, 1fr); } .viewer { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .logo-header { display: none; } .logo-mark-only { display: block; }
+    .search-bar { display: none; }
+    .menu-btn .ico-extra { display: none; }
+    .search-icon-btn { display: inline-flex; padding: var(--ep-padding-2xs) var(--ep-size-12); }
+    .menu-btn { padding: var(--ep-padding-2xs) var(--ep-padding-l); }
+    .breadcrumb .full { display: none; } .breadcrumb .back { display: inline-flex; }
+    h1 { margin: var(--ep-size-32) 0 var(--ep-size-32); }
+    /* mockup: the dark area is full screen (breaks out of the page margin); the photo keeps a 32px side padding */
+    .viewer { margin-left: calc(-1 * var(--ep-size-24)); margin-right: calc(-1 * var(--ep-size-24)); border: 0; }
+    .viewer-stage { padding: var(--ep-size-24) var(--ep-size-32) var(--ep-size-32); }   /* 32px under the title */
+    .viewer-img { width: 100%; max-height: none; }
+    .viewer-info { padding: var(--ep-size-24) var(--ep-size-32); }   /* full info shown directly under the photo, no button */
+    .footer-top { flex-direction: column; } .footer-nav-row { gap: var(--ep-size-16) var(--ep-size-24); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="site-header-inner">
+      <a class="logo" href="homepage.html" aria-label="European Parliament — home">
+        <img class="logo-header" src="design-system/logo%20header.svg" alt="European Parliament" width="199" height="46">
+        <img class="logo-mark-only" src="design-system/Ep_logo_mute.svg" alt="European Parliament" width="80" height="44">
+      </a>
+      <div class="site-header-actions">
+        <form class="search-bar" role="search"><input type="search" aria-label="Search europarl.eu"><button type="submit" class="search-btn">Search <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.99,2c-4.42,0-8,3.58-8,8,0,1.85.63,3.55,1.69,4.9l-4.85,4.85,1.41,1.41,4.85-4.85c1.35,1.05,3.05,1.69,4.9,1.69,4.42,0,8-3.58,8-8S18.41,2,13.99,2ZM13.99,16c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6Z"/></svg></button></form>
+        <button class="menu-btn search-icon-btn" type="button" aria-label="Search"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.99,2c-4.42,0-8,3.58-8,8,0,1.85.63,3.55,1.69,4.9l-4.85,4.85,1.41,1.41,4.85-4.85c1.35,1.05,3.05,1.69,4.9,1.69,4.42,0,8-3.58,8-8S18.41,2,13.99,2ZM13.99,16c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6Z"/></svg></button>
+        <button class="menu-btn" type="button" aria-haspopup="true" aria-expanded="false">Menu <svg class="icon icon-24" ico-extra viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <span class="full">
+        <a href="homepage.html">European Parliament</a>
+        <span class="sep"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></span>
+        <a href="#">…</a>
+        <span class="sep"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></span>
+        <a href="search-photos.html">Photos</a>
+        <span class="sep"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="10.42 6.33 16.08 11.99 10.42 17.65 9.01 16.24 13.25 11.99 9.01 7.75 10.42 6.33"/></svg></span>
+        <span>Press conference on MFF negotiations</span>
+      </span>
+      <a class="back" href="search-photos.html"><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="13.58 6.33 7.92 11.99 13.58 17.65 14.99 16.24 10.75 11.99 14.99 7.75 13.58 6.33"/></svg>Photos</a>
+    </nav>
+
+    <h1>Press conference on MFF negotiations</h1>
+
+    <div class="tabs" role="tablist" aria-label="Photoset">
+      <button class="tab is-selected" role="tab" id="tabPhotos" aria-selected="true" aria-controls="panelPhotos" type="button">Photos</button>
+      <button class="tab" role="tab" id="tabDetails" aria-selected="false" aria-controls="panelDetails" type="button">Details</button>
+    </div>
+
+    <div class="panel" id="panelPhotos" role="tabpanel" aria-labelledby="tabPhotos">
+      <div class="results-bar">14 photos</div>
+      <div class="grid" id="grid"></div>
+    </div>
+
+    <div class="panel details" id="panelDetails" role="tabpanel" aria-labelledby="tabDetails" hidden>
+      <section>
+        <h2>Download full photoset</h2>
+        <div class="file-row">
+          <a href="#"><svg class="icon icon-20" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.41,4.01H5v16h14v-11.41l-4.59-4.59ZM14,6.42l2.59,2.59h-2.59v-2.59ZM7,18.01V6.01h5s0,5,0,5h5v7H7Z"/></svg>Press conference on MFF negotiations</a>
+          <span class="file-size">ZIP – 9.5 MB</span>
+          <label class="select"><span class="sr-only">Size</span><select><option>Medium</option><option>Small</option><option>Large</option></select><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg></label>
+        </div>
+      </section>
+      <section>
+        <h2>Tags</h2>
+        <p><a href="#">#Strasbourg</a>, <a href="#">#press conference</a>, <a href="#">#10th parliamentary term</a>, <a href="#">#Multiannual financial framework 2028–2034</a></p>
+      </section>
+      <section class="meta">
+        <p><b>Event date:</b> 06/10/2026</p>
+        <p><b>Photographer:</b> Emilie GOMEZ</p>
+        <p><b>Copyright:</b> © European Union 2026</p>
+        <p><b>Usage terms:</b> Identification of origin mandatory</p>
+      </section>
+      <section>
+        <h2>Related links</h2>
+        <p><a href="#" style="text-decoration:none">EU Multiannual Financial Framework 2028–2034</a></p>
+      </section>
+    </div>
+
+    <!-- shared by both tabs: sits under the photo list and under the details -->
+    <p class="ref">Reference: EP-212298A</p>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-top">
+    <div class="footer-nav">
+      <div class="footer-nav-row">
+        <a href="#">Law</a><a href="#">Transparency, ethics</a><a href="#">MEPs</a><a href="news-topics.html">News, topics</a><a href="#">Parliament powers</a><a href="#">Contact, visit</a><a href="#">Plenary</a>
+      </div>
+      <div class="footer-nav-row">
+        <a href="#">Committees, delegations</a><a href="#">About Parliament</a>
+      </div>
+    </div>
+    <div class="lang-select">
+      <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99,2C6.47,2,1.99,6.48,1.99,12s4.48,10,10,10,10-4.48,10-10S17.52,2,11.99,2ZM18.92,8.01h-2.48c-.34-1.19-.83-2.34-1.47-3.43,1.67.67,3.06,1.89,3.96,3.43ZM19.99,12c0,.69-.1,1.36-.26,2h-2.89c.18-1.33.18-2.67,0-4h2.89c.17.64.26,1.31.26,2ZM11.99,20s-.05,0-.08,0c-1.01-1.21-1.75-2.57-2.23-3.99h4.65c-.48,1.43-1.22,2.78-2.23,3.99-.04,0-.07,0-.11,0ZM9.18,14c-.21-1.32-.21-2.67,0-4h5.65c.21,1.32.21,2.67,0,4h-5.65ZM11.99,4s.07,0,.1,0c1.01,1.22,1.75,2.57,2.23,4h-4.65c.48-1.43,1.22-2.78,2.23-4,.03,0,.06,0,.09,0ZM9.05,4.57c-.65,1.09-1.14,2.25-1.48,3.44h-2.5c.9-1.55,2.3-2.77,3.98-3.44ZM4.26,10.01h2.91c-.18,1.33-.18,2.67,0,4h-2.91c-.17-.64-.26-1.31-.26-2s.1-1.36.26-2ZM5.08,16h2.5c.34,1.19.83,2.35,1.48,3.43-1.68-.67-3.08-1.89-3.98-3.43ZM14.96,19.42c.65-1.09,1.13-2.24,1.47-3.42h2.48c-.89,1.54-2.28,2.75-3.95,3.42Z"/></svg>
+      EN – English
+      <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <div class="footer-logo">
+      <img class="footer-logo-mark" src="design-system/EP_logo_mute_white.svg" alt="">
+      <span class="logo-text"><span>European</span><span>Parliament</span></span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Legal notice</a><a href="#">Privacy policy</a><a href="#">Accessibility</a><a href="#">Easy-to-read</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const TITLE = 'Press conference on MFF negotiations';
+  const photos = [{"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0477/20261006_EP-212298A_EGZ_0477-THUMBNAIL.avif", "w": 640, "h": 427}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0390/20261006_EP-212298A_EGZ_0390-THUMBNAIL.avif", "w": 427, "h": 640}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0373/20261006_EP-212298A_EGZ_0373-THUMBNAIL.avif", "w": 427, "h": 640}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0350/20261006_EP-212298A_EGZ_0350-THUMBNAIL.avif", "w": 640, "h": 427}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0379/20261006_EP-212298A_EGZ_0379-THUMBNAIL.avif", "w": 640, "h": 427}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0270/20261006_EP-212298A_EGZ_0270-THUMBNAIL.avif", "w": 640, "h": 427}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0249/20261006_EP-212298A_EGZ_0249-THUMBNAIL.avif", "w": 640, "h": 427}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0244/20261006_EP-212298A_EGZ_0244-THUMBNAIL.avif", "w": 640, "h": 427}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0124/20261006_EP-212298A_EGZ_0124-THUMBNAIL.avif", "w": 640, "h": 427}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0092/20261006_EP-212298A_EGZ_0092-THUMBNAIL.avif", "w": 427, "h": 640}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_DSC_0480/20261006_EP-212298A_DSC_0480-THUMBNAIL.avif", "w": 640, "h": 427}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0083/20261006_EP-212298A_EGZ_0083-THUMBNAIL.avif", "w": 640, "h": 427}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0015/20261006_EP-212298A_EGZ_0015-THUMBNAIL.avif", "w": 640, "h": 427}, {"src": "https://cos-ep-mp-multimedia-prod.s3.eu-de.cloud-object-storage.appdomain.cloud/20261006_EP-212298A_EGZ_0050/20261006_EP-212298A_EGZ_0050-THUMBNAIL.avif", "w": 427, "h": 640}];
+  // optional per-photo person link (only the one shown in the mockup)
+  const persons = { 1: 'TAVARES, Carla (S&D, PT)' };
+  const grid = document.getElementById('grid');
+  let openIdx = -1, viewer = null;
+
+  const perRow = () => getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+  const infoHTML = i => `
+    <h2>Download this picture</h2>
+    <label class="select"><span class="sr-only">Size</span><select><option>Medium – JPEG – 9.25 MB</option><option>Small – JPEG – 1.2 MB</option><option>Large – JPEG – 24 MB</option></select><svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg></label>
+    <button class="btn" type="button">Download</button>
+    ${persons[i] ? `<p><a href="#">${persons[i]}</a></p>` : ''}
+    <p><a href="#">#press conference, #10th parliamentary term, #Multiannual financial framework 2028–2034</a></p>
+    <p class="tags-end"><a href="#">#Strasbourg</a></p>
+    <p><b>Photographer:</b> Emilie GOMEZ</p>
+    <p><b>Copyright:</b> © European Union 2026</p>
+    <p><b>Usage terms:</b> Identification of origin mandatory</p>
+    <p class="viewer-ref">Reference: EP-212298A</p>`;
+
+  function closeViewer() {
+    if (viewer) viewer.remove(); viewer = null;
+    grid.querySelectorAll('.photo.is-open').forEach(p => p.classList.remove('is-open'));
+    openIdx = -1;
+  }
+  function openViewer(i) {
+    closeViewer();
+    const cards = [...grid.querySelectorAll('.photo')], n = perRow();
+    const end = Math.min(Math.floor(i / n) * n + n, cards.length) - 1;
+    viewer = document.createElement('div');
+    viewer.className = 'viewer';
+    viewer.innerHTML = `
+      <div class="viewer-stage">
+        <button class="viewer-close" type="button">Close <svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><polygon points="19.07 6.34 17.66 4.93 12 10.59 6.34 4.93 4.93 6.34 10.59 12 4.93 17.66 6.34 19.07 12 13.41 17.66 19.07 19.07 17.66 13.41 12 19.07 6.34"/></svg></button>
+        <img class="viewer-img" src="${photos[i].src}" alt="Photo ${i + 1}: ${TITLE}">
+        <p class="viewer-caption">${TITLE}</p>
+      </div>
+      <div class="viewer-info">${infoHTML(i)}</div>`;
+    cards[end].insertAdjacentElement('afterend', viewer);
+    cards[i].classList.add('is-open');
+    openIdx = i;
+    viewer.querySelector('.viewer-close').addEventListener('click', () => { const k = openIdx; closeViewer(); cards[k].focus(); });
+  }
+
+  photos.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'photo'; b.setAttribute('aria-label', `Open photo ${i + 1}`);
+    b.innerHTML = `<img src="${p.src}" alt="" loading="lazy">`;
+    b.addEventListener('click', () => (openIdx === i ? closeViewer() : openViewer(i)));
+    grid.appendChild(b);
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeViewer(); });
+  window.addEventListener('resize', () => { if (openIdx >= 0) openViewer(openIdx); });
+
+  // Photos / Details tabs
+  const tabs = { tabPhotos: 'panelPhotos', tabDetails: 'panelDetails' };
+  Object.keys(tabs).forEach(id => document.getElementById(id).addEventListener('click', () => {
+    Object.entries(tabs).forEach(([t, p]) => {
+      const on = t === id;
+      document.getElementById(t).classList.toggle('is-selected', on);
+      document.getElementById(t).setAttribute('aria-selected', String(on));
+      document.getElementById(p).hidden = !on;
+    });
+    if (id === 'tabDetails') closeViewer();
+  }));
+</script>
+
+</body>
+</html>

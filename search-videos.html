@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EP Search results (Videos) — EP prototype</title>
+<link rel="stylesheet" href="design-system/tokens/colors.css">
+<link rel="stylesheet" href="design-system/tokens/spacing.css">
+<link rel="stylesheet" href="design-system/tokens/typography.css">
+<link rel="stylesheet" href="design-system/tokens/layout.css">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: var(--ep-font-family);
+    background: var(--ep-white);
+    color: var(--ep-grey-900);
+    margin: 0;
+  }
+  a { color: var(--ep-blue-500); }
+
+  .wrap {
+    max-width: 1176px;
+    margin: 0 auto;
+    padding: 0 var(--ep-size-24);
+  }
+
+  /* --- Header --- */
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--ep-size-16);
+    padding-bottom: var(--ep-size-16);
+    border-bottom: var(--ep-size-2) solid var(--ep-grey-200); /* 2px — same content-width box as .results-bar, not the padded .wrap box */
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--ep-grey-900);
+  }
+  .logo-header {
+    width: 199px;
+    height: 46px;
+    display: block;
+  }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: var(--ep-grey-600); /* #6E6E6E */
+  }
+  .menu-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    background: var(--ep-white);
+    border: var(--ep-size-2) solid var(--ep-blue-500);
+    border-radius: var(--ep-radius-xs);
+    padding: var(--ep-padding-2xs) var(--ep-padding-l);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size); /* 18px */
+    font-weight: 600;
+    color: var(--ep-blue-500);
+    cursor: pointer;
+  }
+
+  /* --- Icons (ep-iconography — solid fill, viewBox 0 0 24 24) --- */
+  .icon {
+    display: inline-block;
+    flex-shrink: 0;
+    fill: currentColor;
+  }
+  .icon-16 { width: 16px; height: 16px; }
+  .icon-20 { width: 20px; height: 20px; }
+  .icon-24 { width: 24px; height: 24px; }
+  .icon-28 { width: 28px; height: 28px; }
+
+  .breadcrumb {
+    padding-top: var(--ep-size-16);
+    font-size: var(--ep-body-s-size);
+    color: var(--ep-grey-600);
+  }
+  .breadcrumb a { color: var(--ep-blue-500); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+
+  h1 {
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-heading-3xl-size);
+    line-height: var(--ep-heading-3xl-line);
+    margin: var(--ep-size-48) 0 var(--ep-size-48); /* 48px above and below */
+  }
+
+  /* --- Search bar — input + button merged into one control (see visual-tests/date-picker.html .dp-control) --- */
+  .search-bar {
+    display: flex;
+    align-items: stretch;
+    min-height: var(--ep-size-44); /* 44px */
+    border: var(--ep-size-2) solid var(--ep-grey-500); /* 2px */
+    border-radius: var(--ep-radius-xs);
+    background: var(--ep-white);
+    overflow: hidden;
+    margin-bottom: var(--ep-size-16);
+  }
+  .search-bar:focus-within {
+    outline: 2px solid var(--ep-accent-blue-500);
+    outline-offset: 2px;
+  }
+  .search-bar input[type="search"] {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    padding: 0 var(--ep-padding-l);
+    color: var(--ep-grey-900);
+  }
+  .search-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    background: var(--ep-blue-500);
+    color: var(--ep-white);
+    border: none;
+    flex-shrink: 0;
+    padding: 0 var(--ep-padding-xl);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .search-btn:hover { background: var(--ep-blue-800); }
+
+  /* --- Tabs (EP tabs component — see visual-tests/tabs.html) --- */
+  .tabs {
+    display: inline-flex;
+    align-items: center;
+    border-bottom: 2px solid var(--ep-grey-200);
+  }
+  .tab {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    line-height: var(--ep-body-l-line);
+    color: var(--ep-blue-500);
+    padding: var(--ep-padding-2xs) var(--ep-padding-l); /* 8px 16px */
+    border-radius: var(--ep-radius-2xs) var(--ep-radius-2xs) 0 0;
+    margin-bottom: -2px;
+    transition: background-color 120ms ease, color 120ms ease;
+  }
+  .tab:hover { background: var(--ep-blue-100); color: var(--ep-grey-900); }
+  .tab.is-selected {
+    color: var(--ep-grey-900);
+    font-weight: 600;
+    border-bottom: 4px solid var(--ep-blue-500);
+  }
+  .tab.is-selected:hover { background: var(--ep-blue-100); color: var(--ep-grey-900); }
+
+  /* --- Filters — own row 32px below tabs, panel spans full 12-col width --- */
+  .filters-row { margin-top: var(--ep-size-32); }
+  .filters-toggle {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    font-family: var(--ep-font-family);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ep-blue-500);
+    padding: 0;
+    margin: 0;
+  }
+  .filters-toggle:hover { color: var(--ep-blue-800); }
+  .filters-toggle .icon { color: var(--ep-blue-500); }
+  .filters-toggle:hover .icon { color: var(--ep-blue-800); }
+  .filters-panel[hidden] { display: none; }
+  .filters-panel {
+    margin-top: var(--ep-size-32); /* 32px below the Filters button */
+    margin-bottom: var(--ep-gap-l); /* 32px */
+  }
+  .filters-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--ep-grid-columns), 1fr); /* 12 col */
+    gap: var(--ep-gap-m) var(--ep-grid-gap); /* 24px row / 16px col */
+    align-items: start;
+  }
+  .filters-grid .field { grid-column: span 4; margin-bottom: 0; } /* Tags/People/Location — row 2 */
+  .filters-grid .field--show-only { grid-column: span 4; } /* last slot, row 2, behind the date pickers */
+  .filters-grid .field--date { grid-column: span 4; } /* From/To — row 2 */
+  @media (max-width: 600px) {
+    .filters-grid .field { grid-column: span 6; }
+  }
+  @media (max-width: 420px) {
+    .filters-grid .field { grid-column: span 12; }
+  }
+
+  .filters-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--ep-gap-m); /* 24px */
+    margin-top: var(--ep-margin-s); /* 24px */
+  }
+  .filters-reset {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    font-weight: 400;
+    color: var(--ep-blue-500);
+    padding: 0;
+    text-decoration: underline;
+  }
+  .filters-reset:hover { color: var(--ep-blue-800); }
+
+  .field label {
+    display: block;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);   /* ep-body-l — 18px/28px */
+    line-height: var(--ep-body-l-line);
+    font-weight: 400;
+    color: var(--ep-grey-900);
+    margin-bottom: var(--ep-padding-2xs); /* 8px */
+  }
+  .select {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: var(--ep-size-44); /* 44px */
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    color: var(--ep-grey-900);
+    border: var(--ep-size-2) solid var(--ep-grey-500); /* 2px */
+    border-radius: var(--ep-radius-xs); /* 8px */
+    padding: 0 var(--ep-padding-l); /* 16px */
+    background: var(--ep-white);
+    cursor: pointer;
+  }
+  .select:focus-visible {
+    outline: 2px solid var(--ep-accent-blue-500);
+    outline-offset: 2px;
+  }
+
+  /* --- Date picker field (see visual-tests/date-picker.html) --- */
+  .dp-control {
+    display: flex;
+    align-items: stretch;
+    min-height: var(--ep-size-44); /* 44px */
+    border: var(--ep-size-2) solid var(--ep-grey-500); /* 2px */
+    border-radius: var(--ep-radius-xs); /* 8px */
+    background: var(--ep-white);
+    overflow: hidden;
+  }
+  .dp-control:hover { border-color: var(--ep-blue-800); }
+  .dp-control:focus-within {
+    outline: 2px solid var(--ep-accent-blue-500);
+    outline-offset: 2px;
+  }
+  .dp-field {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    color: var(--ep-grey-900);
+    padding: 0 var(--ep-padding-l); /* 16px */
+  }
+  .dp-calendar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--ep-size-44);
+    flex-shrink: 0;
+    border: none;
+    cursor: pointer;
+    background: var(--ep-blue-500);
+    color: var(--ep-white);
+  }
+  .dp-calendar-btn:hover { background: var(--ep-blue-800); }
+
+  .radio-row-group {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-size-24);
+    min-height: var(--ep-size-44); /* aligns with adjacent 44px controls */
+  }
+  .radio-row {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    font-size: var(--ep-body-m-size);
+  }
+  .radio-row input { accent-color: var(--ep-blue-500); width: 16px; height: 16px; }
+
+  .results-count {
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-900);
+  }
+
+  /* --- Results bar / Sort by (EP component — see visual-tests/sort-by.html) --- */
+  .results-bar-wrap { margin-top: var(--ep-size-48); } /* 48px before the rest */
+  .results-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: var(--ep-gap-xs);
+    border-bottom: var(--ep-size-2) solid var(--ep-grey-200); /* 2px */
+    margin-bottom: var(--ep-size-24);
+  }
+  .sort-trigger {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-gap-xs);
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-900);
+    padding: 0;
+  }
+  .sort-trigger .sort-value { color: var(--ep-blue-500); }
+  .sort-trigger .chevron-arrow {
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--ep-blue-500);
+    border-bottom: 2px solid var(--ep-blue-500);
+    transform: rotate(45deg);
+    transition: transform 120ms ease;
+  }
+  .sort-dropdown.is-open .chevron-arrow { transform: rotate(-135deg); }
+  .sort-menu {
+    position: absolute;
+    top: calc(100% + var(--ep-gap-xs));
+    right: 0;
+    min-width: 200px;
+    background: var(--ep-white);
+    border: 1px solid var(--ep-blue-500);
+    border-radius: var(--ep-radius-xs);
+    padding: var(--ep-size-12) 0;
+    display: none;
+    z-index: 10;
+  }
+  .sort-dropdown.is-open .sort-menu { display: block; }
+  .sort-option {
+    appearance: none;
+    background: none;
+    border: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-m-size);
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-grey-900);
+    font-weight: 400;
+    padding: var(--ep-size-12) var(--ep-padding-l);
+  }
+  .sort-option:hover { background: var(--ep-blue-100); }
+  .sort-option.is-selected { color: var(--ep-blue-500); font-weight: 600; }
+
+  /* --- Results grid — full 12-col width, 4 cards × 3 cols each --- */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--ep-grid-columns), 1fr); /* 12 col */
+    gap: var(--ep-grid-gap); /* 16px */
+    margin-bottom: var(--ep-gap-l);
+  }
+  .result-card { grid-column: span 3; display: block; text-decoration: none; }
+  @media (max-width: 900px) {
+    .result-card { grid-column: span 4; } /* 3 per row */
+  }
+  @media (max-width: 600px) {
+    .result-card { grid-column: span 6; } /* 2 per row */
+  }
+  @media (max-width: 420px) {
+    .result-card { grid-column: span 12; } /* 1 per row */
+  }
+  .thumb {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: var(--ep-blue-200);
+    margin-bottom: var(--ep-size-8);
+  }
+  .thumb-icon {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    height: 32px;
+    display: block;
+  }
+  .result-caption {
+    font-size: var(--ep-body-m-size);
+    line-height: var(--ep-body-m-line);
+    color: var(--ep-blue-500);
+    font-weight: 600;
+  }
+  .result-card:hover .result-caption { text-decoration: underline; }
+
+  /* --- Pagination (EP pattern) --- */
+  .pagination {
+    display: flex;
+    align-items: center;
+    gap: var(--ep-gap-m);
+    justify-content: flex-start;
+    padding: var(--ep-size-16) 0 var(--ep-size-64);
+  }
+  .page-btn, .nav-btn {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--ep-font-family);
+    font-size: var(--ep-body-l-size);
+    color: var(--ep-blue-500);
+    padding: var(--ep-padding-3xs) var(--ep-padding-2xs);
+    border-radius: var(--ep-radius-2xs);
+  }
+  .page-btn { text-decoration: underline; }
+  .page-btn.is-selected {
+    color: var(--ep-grey-900);
+    text-decoration: none;
+    background: var(--ep-blue-100);
+    font-weight: 600;
+  }
+  .ellipsis { color: var(--ep-grey-600); padding: 0 var(--ep-padding-3xs); }
+
+  /* --- Footer --- */
+  .site-footer { background: var(--ep-blue-500); color: var(--ep-white); margin-top: var(--ep-size-32); }
+  .footer-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: var(--ep-size-32) 0;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+  }
+  .footer-nav { display: flex; flex-direction: column; gap: var(--ep-size-12); }
+  .footer-nav-row { display: flex; gap: var(--ep-size-32); flex-wrap: wrap; }
+  .footer-nav-row a { color: var(--ep-white); text-decoration: none; font-size: var(--ep-body-m-size); }
+  .footer-nav-row a:hover { text-decoration: underline; }
+  .lang-select {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ep-size-8);
+    border: 1px solid var(--ep-white);
+    border-radius: var(--ep-radius-xs);
+    padding: var(--ep-padding-3xs) var(--ep-padding-l);
+    font-size: var(--ep-body-m-size);
+    color: var(--ep-white);
+  }
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--ep-size-24) 0;
+  }
+  .footer-logo { display: flex; align-items: flex-end; gap: var(--ep-size-12); }
+  .footer-logo .logo-text { color: var(--ep-white); font-size: 18px; line-height: 24px; }
+  .footer-logo-mark { height: 24px; width: auto; display: block; }
+  .footer-links { display: flex; gap: var(--ep-size-24); flex-wrap: wrap; }
+  .footer-links a { color: var(--ep-white); text-decoration: none; font-size: var(--ep-body-s-size); }
+  .footer-links a:hover { text-decoration: underline; }
+
+  /* Real photoset thumbnails + count badge */
+  .thumb { overflow: hidden; }
+  .thumb-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* photoset badge: stacked-photos icon + number of photos */
+  .thumb-badge { position: absolute; left: 0; bottom: 0; display: flex; align-items: center; gap: var(--ep-size-12); background: var(--ep-grey-900); color: var(--ep-white); height: 40px; padding: 0 var(--ep-size-16) 0 var(--ep-size-12); }
+  .thumb-count { font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* --- Desktop: filters are a left sidebar (4 cols), results 8 cols, 3 photosets per row --- */
+  .search-layout { display: block; }
+  @media (min-width: 901px) {
+    .filters-row { display: none; }
+    .search-layout { display: grid; grid-template-columns: repeat(var(--ep-grid-columns), 1fr); gap: var(--ep-grid-gap); align-items: start; margin-top: var(--ep-size-48); }
+    .filters-panel, .filters-panel[hidden] { display: block; grid-column: span 4; margin: 0; }
+    .search-layout .results { grid-column: span 8; }
+    .filters-grid .field, .filters-grid .field--date, .filters-grid .field--show-only { grid-column: span 12; }
+    .results-bar-wrap { margin-top: 0; }
+    .result-card { grid-column: span 4; }
+  }
+  .filter-title { font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); font-weight: 700; margin: 0 0 var(--ep-size-16); }
+  @media (max-width: 900px) { .filter-title { display: none; } }
+
+  /* mobile: the search button keeps only the magnifier */
+  @media (max-width: 600px) {
+    .search-btn .btn-label { display: none; }
+    .search-btn { padding: 0 var(--ep-size-16); }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <div class="site-header-inner">
+        <a class="logo" href="homepage.html">
+          <img class="logo-header" src="design-system/logo%20header.svg" alt="European Parliament" width="199" height="46">
+        </a>
+        <button class="menu-btn">Menu
+          <svg class="icon icon-24" viewBox="0 0 24 24"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="breadcrumb"><a href="homepage.html">European Parliament</a> &gt; Search</div>
+
+    <h1>Search europarl.eu</h1>
+
+    <form class="search-bar" role="search">
+      <input type="search" aria-label="Search europarl.eu">
+      <button type="submit" class="search-btn" aria-label="Search"><span class="btn-label">Search</span>
+        <svg class="icon icon-24" viewBox="0 0 24 24" style="fill:var(--ep-white);"><path d="M13.99,2c-4.42,0-8,3.58-8,8,0,1.85.63,3.55,1.69,4.9l-4.85,4.85,1.41,1.41,4.85-4.85c1.35,1.05,3.05,1.69,4.9,1.69,4.42,0,8-3.58,8-8S18.41,2,13.99,2ZM13.99,16c-3.31,0-6-2.69-6-6s2.69-6,6-6,6,2.69,6,6-2.69,6-6,6Z"/></svg>
+      </button>
+    </form>
+
+    <nav class="tabs" role="tablist" aria-label="Result type">
+      <button class="tab" role="tab" aria-selected="false">All</button>
+      <button class="tab" role="tab" aria-selected="false" data-go="search-photos.html">Photos</button>
+      <button class="tab is-selected" role="tab" aria-selected="true">Videos</button>
+    </nav>
+
+    <div class="filters-row">
+      <button class="filters-toggle" id="filtersToggle" aria-expanded="false" aria-controls="filtersPanel" type="button">
+        <svg class="icon icon-24" viewBox="0 0 24 24"><path d="M20.01,17.01h-2.19c-.41-1.16-1.51-2-2.82-2s-2.4.84-2.82,2H4v2h8.18c.41,1.16,1.51,2,2.82,2s2.4-.84,2.82-2h2.19v-2ZM15,19.01c-.55,0-1-.45-1-1s.45-1,1-1,1,.45,1,1-.45,1-1,1Z"/><path d="M21,11.01h-9.18c-.41-1.16-1.51-2-2.82-2s-2.4.84-2.82,2h-2.18v2h2.18c.41,1.16,1.51,2,2.82,2s2.4-.84,2.82-2h9.18v-2ZM9,13.01c-.55,0-1-.45-1-1s.45-1,1-1,1,.45,1,1-.45,1-1,1Z"/><path d="M20.01,5.01h-2.19c-.41-1.16-1.51-2-2.82-2s-2.4.84-2.82,2H4v2h8.18c.41,1.16,1.51,2,2.82,2s2.4-.84,2.82-2h2.19v-2ZM15,7.01c-.55,0-1-.45-1-1s.45-1,1-1,1,.45,1,1-.45,1-1,1Z"/></svg>
+        Filters
+      </button>
+    </div>
+
+    <div class="search-layout">
+    <!-- Filters = left sidebar (4 cols), results = 8 cols -->
+    <div class="filters-panel" id="filtersPanel" hidden>
+      <h2 class="filter-title">Filter by:</h2>
+      <div class="filters-grid">
+
+        <div class="field">
+          <label for="f-tags">Tags</label>
+          <div class="select" id="f-tags" tabindex="0" role="button" aria-haspopup="listbox">Select an option <svg class="icon icon-24" viewBox="0 0 24 24" style="fill:var(--ep-grey-900);"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg></div>
+        </div>
+
+        <div class="field">
+          <label for="f-people">People</label>
+          <div class="select" id="f-people" tabindex="0" role="button" aria-haspopup="listbox">Select an option <svg class="icon icon-24" viewBox="0 0 24 24" style="fill:var(--ep-grey-900);"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg></div>
+        </div>
+
+        <div class="field">
+          <label for="f-location">Location</label>
+          <div class="select" id="f-location" tabindex="0" role="button" aria-haspopup="listbox">Select an option <svg class="icon icon-24" viewBox="0 0 24 24" style="fill:var(--ep-grey-900);"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg></div>
+        </div>
+
+        <div class="field field--date">
+          <label for="date-from">From</label>
+          <div class="dp-control">
+            <input class="dp-field" id="date-from" type="text" placeholder="dd/mm/yyyy" readonly>
+            <button class="dp-calendar-btn" aria-label="Open calendar" type="button">
+              <svg class="icon icon-24" viewBox="0 0 24 24"><path d="M16,5.01v-1h-2v1h-4v-1h-2v1h-3.99v15h15.99V5.01h-4ZM8,7.01v1h2v-1h4v1h2v-1h2v2H6.02v-2h1.99ZM6.02,18.01v-7h11.99v7H6.02Z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="field field--date">
+          <label for="date-to">To</label>
+          <div class="dp-control">
+            <input class="dp-field" id="date-to" type="text" placeholder="dd/mm/yyyy" readonly>
+            <button class="dp-calendar-btn" aria-label="Open calendar" type="button">
+              <svg class="icon icon-24" viewBox="0 0 24 24"><path d="M16,5.01v-1h-2v1h-4v-1h-2v1h-3.99v15h15.99V5.01h-4ZM8,7.01v1h2v-1h4v1h2v-1h2v2H6.02v-2h1.99ZM6.02,18.01v-7h11.99v7H6.02Z"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="filters-actions">
+        <button class="filters-reset" id="filtersReset" type="button">Clear filters</button>
+      </div>
+    </div>
+
+    <section class="results">
+      <div class="results-bar-wrap">
+        <div class="results-bar sort-dropdown" id="sortDropdown">
+          <span class="results-count">25,431 results</span>
+          <button class="sort-trigger" id="sortTrigger" aria-haspopup="listbox" aria-expanded="false">
+            Sort by: <span class="sort-value" id="sortValue">Newest</span>
+            <span class="chevron-arrow"></span>
+          </button>
+          <div class="sort-menu" role="listbox" id="sortMenu">
+            <button class="sort-option" role="option" aria-selected="false">Relevance</button>
+            <button class="sort-option is-selected" role="option" aria-selected="true">Newest</button>
+            <button class="sort-option" role="option" aria-selected="false">Oldest</button>
+            <button class="sort-option" role="option" aria-selected="false">Most viewed</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-grid" id="results-grid"></div>
+
+      <nav class="pagination" aria-label="Pagination">
+        <button class="page-btn is-selected" aria-current="page">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <span class="ellipsis">…</span>
+        <button class="page-btn">1211</button>
+        <button class="nav-btn">Next →</button>
+      </nav>
+    </section>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap footer-top">
+      <div class="footer-nav">
+        <div class="footer-nav-row">
+          <a href="#">Law</a>
+          <a href="#">Transparency, Ethics</a>
+          <a href="#">News, Topics</a>
+          <a href="#">Parliament Powers</a>
+          <a href="#">Contact, Visit</a>
+          <a href="#">Plenary</a>
+        </div>
+        <div class="footer-nav-row">
+          <a href="#">Committees, Delegations</a>
+          <a href="#">MEPs</a>
+          <a href="#">About Parliament</a>
+        </div>
+      </div>
+      <div class="lang-select">
+        <svg class="icon icon-24" viewBox="0 0 24 24"><path d="M11.99,2C6.47,2,1.99,6.48,1.99,12s4.48,10,10,10,10-4.48,10-10S17.52,2,11.99,2ZM18.92,8.01h-2.48c-.34-1.19-.83-2.34-1.47-3.43,1.67.67,3.06,1.89,3.96,3.43ZM19.99,12c0,.69-.1,1.36-.26,2h-2.89c.18-1.33.18-2.67,0-4h2.89c.17.64.26,1.31.26,2ZM11.99,20s-.05,0-.08,0c-1.01-1.21-1.75-2.57-2.23-3.99h4.65c-.48,1.43-1.22,2.78-2.23,3.99-.04,0-.07,0-.11,0ZM9.18,14c-.21-1.32-.21-2.67,0-4h5.65c.21,1.32.21,2.67,0,4h-5.65ZM11.99,4s.07,0,.1,0c1.01,1.22,1.75,2.57,2.23,4h-4.65c.48-1.43,1.22-2.78,2.23-4,.03,0,.06,0,.09,0ZM9.05,4.57c-.65,1.09-1.14,2.25-1.48,3.44h-2.5c.9-1.55,2.3-2.77,3.98-3.44ZM4.26,10.01h2.91c-.18,1.33-.18,2.67,0,4h-2.91c-.17-.64-.26-1.31-.26-2s.1-1.36.26-2ZM5.08,16h2.5c.34,1.19.83,2.35,1.48,3.43-1.68-.67-3.08-1.89-3.98-3.43ZM14.96,19.42c.65-1.09,1.13-2.24,1.47-3.42h2.48c-.89,1.54-2.28,2.75-3.95,3.42Z"/></svg>
+        English
+        <svg class="icon icon-24" viewBox="0 0 24 24"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <div class="footer-logo">
+        <img class="footer-logo-mark" src="design-system/EP_logo_mute_white.svg" alt="">
+        <span class="logo-text"><span>European</span><span>Parliament</span></span>
+      </div>
+      <div class="footer-links">
+        <a href="#">Accessibility</a>
+        <a href="#">Legal notice</a>
+        <a href="#">Sitemap</a>
+        <a href="#">Privacy policy</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  const videos = [{"d": "03:15", "t": "Empowering Europeans to address the cost-of-living crisis: closing statement by Dan JØRGENSEN, European Commissioner for Energy and Housing", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98802066/1791368521919_I295396%5Bthumb%5D.jpeg", "href": "#"}, {"d": "06:07", "t": "The 2026 undemocratic elections to the Russian State Duma and its implications on civil society: opening statement by Kaja KALLAS, High Representative of the Union for Foreign Affairs and Security Policy and Vice-President of the European Commission", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98776690/1791308071947_I295381%5Bthumb%5D.jpeg", "href": "#"}, {"d": "14:45", "t": "Effective measures to protect and empower children in the digital world: one round of political group speakers and answering statement by Henna VIRKKUNEN, Executive Vice-President of the European Commission", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98768991/1791298862733_I295667%5Bthumb%5D.jpeg", "href": "#"}, {"d": "22:42", "t": "Press conference by Siegfried MUREŞAN (EPP, RO) and Carla TAVARES (S&D, PT), co-rapporteurs on the Multiannual Financial Framework (MFF) negotiations", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98765692/1791295643508_I295558%5Bthumb%5D.jpeg", "href": "video-mff-replay.html"}, {"d": "16:55", "t": "Press point by Roberta METSOLA, EP President, and Luís MONTENEGRO, Portuguese Prime Minister", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98747491/1791276791306_I295514%5Bthumb%5D.jpeg", "href": "#"}, {"d": "04:53", "t": "An ambitious MFF 2028-2034 for a strong and resilient Europe: extracts from the debate", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98795623/1791361713984_I295419%5Bthumb%5D.jpeg", "href": "#"}, {"d": "04:19", "t": "Recommendation on EU-China political relations: extracts from the debate", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98804443/1791371512115_I295387%5Bthumb%5D.jpeg", "href": "#"}, {"d": "05:43", "t": "Roberta METSOLA, EP President meets with Luís MONTENEGRO, Portuguese Prime Minister: arrival, welcome, roundtable and extracts from the extracts from the This is Europe debate", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98752831/1791282241591_I295389%5Bthumb%5D.jpeg", "href": "#"}, {"d": "05:18", "t": "EP Plenary session (5-8/10): editing shots (exterior and interior shots of the EP)", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98733697/1791219971536_I295390%5Bthumb%5D.jpeg", "href": "#"}, {"d": "01:56", "t": "Official visit by Roberta METSOLA, EP President to The Hague (The Netherlands) - Meeting with Rob JETTEN, Dutch Prime Minister: extracts", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98692715/1790957132016_I295044%5Bthumb%5D.jpeg", "href": "#"}, {"d": "02:59", "t": "Official visit by Roberta METSOLA, EP President to The Hague (The Netherlands) - Inauguration of the Europa Experience : extracts", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98693497/1790959081541_I295042%5Bthumb%5D.jpeg", "href": "#"}, {"d": "02:54", "t": "Official visit by Roberta METSOLA, EP President to Eindhoven (Netherlands) - Visit of ASML, Dutch technology company: extracts", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98689706/1790948193356_I295045%5Bthumb%5D.jpeg", "href": "#"}, {"d": "07:07", "t": "Inauguration of SASSOLI building: extracts from the ceremony", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98609609/1790699552346_I294844%5Bthumb%5D.jpeg", "href": "#"}, {"d": "22:13", "t": "Voting session", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98803140/1791369612016_I295310%5Bthumb%5D.jpeg", "href": "#"}, {"d": "01:56", "t": "Opening statement by Roberta METSOLA, EP President on the third anniversary of the 7th October attacks", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98802091/1791368551573_I295746%5Bthumb%5D.jpeg", "href": "#"}, {"d": "56:59", "t": "Empowering Europeans to address the cost-of-living crisis: MEPs debate", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98802013/1791368371510_I295684%5Bthumb%5D.jpeg", "href": "#"}, {"d": "13:16", "t": "Empowering Europeans to address the cost-of-living crisis: one round of political group speakers", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98797771/1791364182317_I295395%5Bthumb%5D.jpeg", "href": "#"}, {"d": "14:51", "t": "Empowering Europeans to address the cost-of-living crisis: opening statements by Thomas BYRNE, Irish Minister of State, and Dan JØRGENSEN, European Commissioner for Energy and Housing", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98797177/1791363612286_I295394%5Bthumb%5D.jpeg", "href": "#"}, {"d": "07:31", "t": "An ambitious MFF 2028-2034 for a strong and resilient Europe: closing statements by Piotr SERAFIN, European Commissioner for Budget, Anti-Fraud and Public Administration, and Thomas BYRNE, Irish Minister of State", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98796118/1791362452464_I295327%5Bthumb%5D.jpeg", "href": "#"}, {"d": "35:20", "t": "An ambitious MFF 2028-2034 for a strong and resilient Europe: MEPs debate (part 2)", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98794817/1791360801598_I295326%5Bthumb%5D.jpeg", "href": "#"}, {"d": "01:41", "t": "Infoclip: General views of The Hague (Netherlands)", "img": "https://api.multimedia.europarl.europa.eu/documents/20125/98691014/1790951191356_I295516%5Bthumb%5D.jpeg", "href": "#"}];
+
+  const grid = document.getElementById('results-grid');
+  const VIDEO_ICON = '<svg class="icon icon-24" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M21 3H3v18h18zM19 5v14H5V5z"/><polygon points="10 8 16 12 10 16"/></svg>';
+  videos.forEach(v => {
+    const a = document.createElement('a');
+    a.className = 'result-card';
+    a.href = v.href;
+    a.innerHTML = `<span class="thumb"><img class="thumb-img" src="${v.img}" alt="" loading="lazy"><span class="thumb-badge">${VIDEO_ICON}<span class="thumb-count">${v.d}</span></span></span><span class="result-caption">${v.t}</span>`;
+    grid.appendChild(a);
+  });
+  // Photos / Videos tabs navigate between the two result pages
+  document.querySelectorAll('.tab[data-go]').forEach(t => t.addEventListener('click', () => { location.href = t.dataset.go; }));
+
+  const filtersToggle = document.getElementById('filtersToggle');
+  const filtersPanel = document.getElementById('filtersPanel');
+  function toggleFiltersPanel() {
+    const isHidden = filtersPanel.hasAttribute('hidden');
+    if (isHidden) { filtersPanel.removeAttribute('hidden'); }
+    else { filtersPanel.setAttribute('hidden', ''); }
+    filtersToggle.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+  }
+  filtersToggle.addEventListener('click', toggleFiltersPanel);
+  document.getElementById('filtersReset').addEventListener('click', () => {
+    document.getElementById('ro-sets').checked = true;
+    document.getElementById('date-from').value = '';
+    document.getElementById('date-to').value = '';
+  });
+
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => {
+        t.classList.remove('is-selected');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('is-selected');
+      tab.setAttribute('aria-selected', 'true');
+    });
+  });
+
+  const sortDropdown = document.getElementById('sortDropdown');
+  const sortTrigger = document.getElementById('sortTrigger');
+  const sortMenu = document.getElementById('sortMenu');
+  const sortValue = document.getElementById('sortValue');
+
+  function closeSortMenu() {
+    sortDropdown.classList.remove('is-open');
+    sortTrigger.setAttribute('aria-expanded', 'false');
+  }
+
+  sortTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = sortDropdown.classList.toggle('is-open');
+    sortTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  sortMenu.querySelectorAll('.sort-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      sortMenu.querySelectorAll('.sort-option').forEach(o => {
+        o.classList.remove('is-selected');
+        o.setAttribute('aria-selected', 'false');
+      });
+      opt.classList.add('is-selected');
+      opt.setAttribute('aria-selected', 'true');
+      sortValue.textContent = opt.textContent.trim();
+      closeSortMenu();
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!sortDropdown.contains(e.target)) closeSortMenu();
+  });
+</script>
+
+</body>
+</html>

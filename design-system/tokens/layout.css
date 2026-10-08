@@ -1,0 +1,31 @@
+/*
+  EP Design System — Layout / Grid Tokens
+  Source: design system reference (2026-09-04).
+  12-column grid, gap always 16px/1rem between columns (⚠️ the doc's own
+  illustrations show 32px by mistake — correct value confirmed as 16px).
+*/
+
+:root {
+  --ep-grid-columns: 12;
+  --ep-grid-gap: 1rem; /* 16px — corrected from doc illustration error (32px) */
+
+  --ep-breakpoint-sm: 480px;
+  --ep-breakpoint-lg: 1176px;
+}
+
+.ep-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--ep-grid-columns), 1fr);
+  gap: var(--ep-grid-gap);
+}
+
+@media (max-width: 479px) {
+  .ep-grid { grid-template-columns: 1fr; }
+  .ep-grid > * { grid-column: 1 / -1 !important; }
+}
+
+.ep-col-3  { grid-column: span 3; }
+.ep-col-4  { grid-column: span 4; }
+.ep-col-6  { grid-column: span 6; }
+.ep-col-8  { grid-column: span 8; }
+.ep-col-12 { grid-column: span 12; }
