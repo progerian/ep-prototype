@@ -549,7 +549,7 @@
   .kpanel-viewall { display: inline-flex; align-items: center; gap: var(--ep-size-8); font-weight: 600; margin-top: var(--ep-size-16); text-decoration: none; font-size: 18px; }
   .kpanel-viewall:hover { text-decoration: underline; }
   .kpanel-rule { margin: var(--ep-size-32) 0; }
-  @media (max-width: 600px) { .kpanel-videos { grid-template-columns: 1fr; } .kpanel { gap: var(--ep-size-16); } .kpanel-cols { grid-template-columns: 1fr; gap: var(--ep-size-8); } .kpanel-role { color: var(--ep-grey-900, #000); margin-bottom: var(--ep-size-16); font-size: 1rem; } }
+  @media (max-width: 600px) { .kpanel-photos { grid-template-columns: repeat(2, 1fr); } .kpanel-photos > :nth-child(n+3) { display: none; } .kpanel { gap: var(--ep-size-16); } .kpanel-cols { grid-template-columns: 1fr; gap: var(--ep-size-8); } .kpanel-role { color: var(--ep-grey-900, #000); margin-bottom: var(--ep-size-16); font-size: 1rem; } }
 </style>
 </head>
 <body>
