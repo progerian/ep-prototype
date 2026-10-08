@@ -514,7 +514,7 @@
 
   /* demo hint: a small salmon dot after the caption of the clickable video (the whole card is the link) */
   .click-patch { display: inline-block; width: 24px; height: 24px; margin-left: var(--ep-size-16); vertical-align: middle; border-radius: 50%; background: color-mix(in srgb, var(--ep-red-200) 45%, transparent); transition: background-color 120ms ease; }
-  .result-card:hover .click-patch { background: var(--ep-red-500); }
+  .result-card:hover .click-patch, a.click-patch:hover { background: var(--ep-red-500); }
 
   /* --- All tab: text results (title, snippet, date, source) --- */
   .results-list { list-style: none; margin: 0 0 var(--ep-size-32); padding: 0; display: flex; flex-direction: column; gap: var(--ep-size-32); }
@@ -729,7 +729,7 @@
     count.textContent = `${results.length} results`;
     list.innerHTML = results.slice((page - 1) * PAGE, page * PAGE).map(r => {
       const ext = /^https?:/.test(r.h) ? ' target="_blank" rel="noopener"' : '';
-      const src = r.src ? `<a class="res-source" href="${r.src}">${r.k}</a>` : r.h === '#' || r.h.startsWith('search-') ? `<a class="res-source" href="${r.h}">${r.k}</a>` : `<a class="res-source" href="${r.h}"${ext}>${r.k}</a>`;
+      const src = r.src ? `<a class="res-source" href="${r.src}">${r.k}</a><a class="click-patch" href="${r.src}" aria-hidden="true" tabindex="-1"></a>` : r.h === '#' || r.h.startsWith('search-') ? `<a class="res-source" href="${r.h}">${r.k}</a>` : `<a class="res-source" href="${r.h}"${ext}>${r.k}</a>`;
       return `<li><a class="res-title" href="${r.h}"${ext}>${hl(r.t)}</a><p class="res-snippet">${hl(r.s)}</p><p class="res-date">${r.d}</p>${src}</li>`;
     }).join('');
     pager.hidden = pages < 2; pager.innerHTML = '';
