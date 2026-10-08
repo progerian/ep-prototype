@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="design-system/tokens/typography.css">
 <link rel="stylesheet" href="design-system/tokens/layout.css">
 <link rel="stylesheet" href="agenda-components.css?v=3">
-<link rel="stylesheet" href="agenda-validated.css?v=120">
+<link rel="stylesheet" href="agenda-validated.css?v=121">
 <style>
   .layout { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--ep-grid-gap); align-items: start; }
   .side { grid-column: span 4; margin-top: calc(var(--ep-size-48) + var(--ep-heading-3xl-line) + var(--ep-size-48)); } /* H1 block + the 48px above the month label, so "Filter by" sits level with "May 2026" */
@@ -63,8 +63,7 @@
   <div class="layout">
     <aside class="side ag-filters" id="agFilters">
       <div class="side-top"><h2>Filter by</h2><a href="#" id="agClear" hidden>Clear filters ✕</a></div>
-      <div class="ag-filter-group ag-filter-group--inline">
-        <h3>Agenda view</h3>
+      <div class="ag-filter-group" role="radiogroup" aria-label="Agenda view">
         <label class="ag-opt"><input type="radio" name="agView" value="all" checked> All events</label>
         <label class="ag-opt"><input type="radio" name="agView" value="highlights"> Highlights</label>
       </div>
@@ -141,6 +140,6 @@
       </div>
     </div>
   </footer>
-<script src="agenda-validated.js?v=120"></script>
+<script src="agenda-validated.js?v=121"></script>
 </body>
 </html>

@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="design-system/tokens/typography.css">
 <link rel="stylesheet" href="design-system/tokens/layout.css">
 <link rel="stylesheet" href="agenda-components.css?v=82">
-<link rel="stylesheet" href="agenda-validated.css?v=120">
+<link rel="stylesheet" href="agenda-validated.css?v=121">
 <style>
   /* full-width page, no grey margins: the mobile layout fills whatever (narrow) window it is shown in */
   html, body { background: var(--ep-white); }
@@ -79,7 +79,7 @@
         <a href="#" id="agClear" hidden>Clear filters ✕</a>
       </div>
       <div class="m-panel-body">
-        <div class="ag-filter-group ag-filter-group--inline"><h3>Agenda view</h3>
+        <div class="ag-filter-group" role="radiogroup" aria-label="Agenda view">
         <label class="ag-opt"><input type="radio" name="agView" value="all" checked> All events</label>
         <label class="ag-opt"><input type="radio" name="agView" value="highlights"> Highlights</label></div>
         <div class="ag-filter-group"><h3>Event types</h3><div id="agTypes"></div></div>
@@ -112,6 +112,6 @@
     <span class="ag-lang">English ⌄</span>
   </footer>
 </div>
-<script src="agenda-validated.js?v=120"></script>
+<script src="agenda-validated.js?v=121"></script>
 </body>
 </html>
