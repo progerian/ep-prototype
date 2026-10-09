@@ -144,6 +144,7 @@
   .play .i-pause { display: none; }
   .play[aria-pressed="true"] .i-play { display: none; } .play[aria-pressed="true"] .i-pause { display: block; }
   .duration { position: absolute; right: var(--ep-size-16); bottom: var(--ep-size-16); background: var(--ep-grey-900); color: var(--ep-white); border-radius: var(--ep-radius-2xs); padding: 0 var(--ep-size-8); font-size: var(--ep-body-m-size); line-height: var(--ep-body-l-line); font-weight: 600; }
+  .dur-m { display: none; }
   .caption-bar { background: var(--ep-grey-900); color: var(--ep-white); padding: var(--ep-size-16); font-size: var(--ep-body-m-size); line-height: var(--ep-body-m-line); font-weight: 600; }
   .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .transcript-toggle { appearance: none; background: none; border: 0; padding: 0; cursor: pointer; font-family: var(--ep-font-family); font-size: var(--ep-body-l-size); line-height: var(--ep-body-l-line); font-weight: 700; color: var(--ep-grey-900); display: inline-flex; align-items: center; gap: var(--ep-size-8); }
@@ -186,11 +187,14 @@
     .video-layout { display: flex; flex-direction: column; align-items: stretch; }   /* single column: video, transcript, then the side info */
     .video-layout > .player { order: 1; } .video-layout > .tr { order: 2; } .video-layout > .video-side { order: 3; } .video-layout > .video-rest { order: 4; } .video-layout > .ref { order: 5; }
     .video-layout > .video-side { margin-top: var(--ep-size-32); }
-    .video-layout > .tr { margin-top: var(--ep-size-16); }
+    .video-layout > .tr { margin-top: var(--ep-size-8); }
+    .video-layout > .tr .transcript-toggle { text-box: trim-both cap alphabetic; }   /* the 8px is measured to the text, not to the line box */
     .video-layout > .video-rest { margin-top: var(--ep-size-48); }
   }
   @media (max-width: 600px) {
     .video-title { max-width: none; }
+    .screen .duration { display: none; }   /* mobile: the timing sits with the text, below the picture */
+    .dur-m { display: block; margin-bottom: var(--ep-size-8); font-weight: 400; color: var(--ep-grey-200); }
     .video-layout > .player { margin-left: calc(-1 * var(--ep-size-24)); margin-right: calc(-1 * var(--ep-size-24)); }
     .caption-text { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
     .play { width: 56px; height: 56px; } .play svg { width: 32px; height: 32px; }
@@ -237,7 +241,7 @@
           <button class="play" id="play" type="button" aria-pressed="false" aria-label="Play video"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><polygon points="8 5 19 12 8 19 8 5"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>
           <span class="duration">22:42</span>
         </div>
-        <div class="caption-bar"><span class="caption-text">Press conference by Siegfried MUREŞAN (EPP, RO) and Carla TAVARES (S&D, PT), co-rapporteurs on the Multiannual Financial Framework (MFF) negotiations</span></div>
+        <div class="caption-bar"><span class="dur-m">22:42</span><span class="caption-text">Press conference by Siegfried MUREŞAN (EPP, RO) and Carla TAVARES (S&D, PT), co-rapporteurs on the Multiannual Financial Framework (MFF) negotiations</span></div>
       </div>
       <div class="video-side">
         <section class="side-dl">
