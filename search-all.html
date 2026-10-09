@@ -40,11 +40,13 @@
     text-decoration: none;
     color: var(--ep-grey-900);
   }
+  .logo-mark-only { display: none; }
   .logo-header {
     width: 199px;
     height: 46px;
     display: block;
   }
+  @media (max-width: 600px) { .logo-header { display: none; } .logo-mark-only { display: block; width: 80px; height: 44px; } }   /* mobile: the muted logo */
   .logo-text {
     display: flex;
     flex-direction: column;
@@ -562,6 +564,7 @@
       <div class="site-header-inner">
         <a class="logo" href="homepage.html">
           <img class="logo-header" src="design-system/logo%20header.svg" alt="European Parliament" width="199" height="46">
+          <img class="logo-mark-only" src="design-system/Ep_logo_mute.svg" alt="European Parliament" width="80" height="44">
         </a>
         <button class="menu-btn">Menu
           <svg class="icon icon-24" viewBox="0 0 24 24"><polygon points="17.66 10.42 12 16.08 6.34 10.42 7.76 9.01 12 13.25 16.24 9.01 17.66 10.42"/></svg>
